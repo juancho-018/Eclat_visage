@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eclat Visage - Tienda</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilos básicos con fuentes del sistema */
+        body {
+            background-color: #fbf9f6;
+            color: #4a4238;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* BARRA DE NAVEGACIÓN BÁSICA CON FLOAT */
+        .header {
+            background-color: #ffffff;
+            padding: 20px;
+            border-bottom: 1px solid #eae2d5;
+            height: 30px; /* Para contener los elementos con float */
+        }
+
+        .logo {
+            float: left;
+            font-size: 20px;
+            font-weight: bold;
+            color: #3d352a;
+        }
+
+        .nav {
+            float: right;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #6e6456;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+
+        .nav a.activo {
+            font-weight: bold;
+            color: #bc9c82;
+        }
+
+        /* ENCABEZADO CENTRADO TRADICIONAL */
+        .tienda-encabezado {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .tienda-encabezado h2 {
+            font-size: 30px;
+            color: #3d352a;
+            margin-bottom: 5px;
+        }
+
+        /* CONTENEDOR DE TARJETAS ALINEADAS CON INLINE-BLOCK */
+        .tienda-contenedor {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center; /* Centra las tarjetas alineadas */
+        }
+
+        .tarjeta-tienda {
+            background-color: #ffffff;
+            border: 1px solid #f2ede7;
+            width: 23%; /* Deja espacio para 4 tarjetas por fila */
+            margin: 1%;
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .img-recuadro-tienda {
+            background-color: #fcfbfa;
+            width: 100%;
+            height: 180px;
+            margin-bottom: 10px;
+        }
+
+        .img-recuadro-tienda img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .tarjeta-tienda h3 {
+            font-size: 15px;
+            color: #3d352a;
+            margin: 10px 0;
+            height: 35px; /* Altura fija para que no se desacomoden */
+        }
+
+        .descripcion-corta {
+            font-size: 12px;
+            color: #7a7065;
+            height: 40px; /* Altura fija para textos largos */
+            overflow: hidden;
+        }
+
+        .precio-tienda {
+            font-weight: bold;
+            color: #3d352a;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .btn-añadir-tienda {
+            background-color: #3d352a;
+            color: #ffffff;
+            border: none;
+            padding: 8px;
+            width: 100%;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .btn-añadir-tienda:hover {
+            background-color: #bc9c82;
+        }
+
+        /* BANNER DE VALORES FINAL */
+        .banner-valores {
+            background-color: #f3ede4;
+            margin: 40px auto;
+            width: 90%;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .columna-valor {
+            display: inline-block;
+            width: 30%;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <div class="header">
+        <div class="logo">ECLAT VISAGE</div>
+        <div class="nav">
+            <a href="index.html">INICIO</a>
+            <a href="tienda.html" class="activo">VER TODO</a>
+            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
+            <a href="test.html">TEST DE PIEL</a>
+            <a href="blog.html">DIARIO</a>
+            <a href="nosotros.html">NOSOTROS</a>
+            <!-- Carrito con su ID para actualizar la cuenta -->
+            <a href="#" id="contador-carrito" style="font-weight: bold; color: #3d352a;">🛒 (0)</a>
+        </div>
+    </div>
+
+    <div class="tienda-encabezado">
+        <h2>Menú de Nutrición Facial</h2>
+        <p>Explora nuestras 18 fórmulas diseñadas para la salud de tu piel.</p>
+    </div>
+
+    <!-- CONTENEDOR CON LAS 18 TARJETAS SENCILLAS -->
+    <div class="tienda-contenedor">
+        
+        <!-- Tarjeta 1 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/serum-hidratante.jpg" alt="Producto"></div>
+            <h3>Sérum Hidratante Profundo</h3>
+            <p class="descripcion-corta">Aporte intensivo de agua celular para eliminar la tirantez de la piel.</p>
+            <p class="precio-tienda">$18.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Sérum Hidratante Profundo')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 2 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/serum-vitc.jpg" alt="Producto"></div>
+            <h3>Elíxir Iluminador Vitamina C</h3>
+            <p class="descripcion-corta">Antioxidante potente que despierta el brillo natural y unifica el tono.</p>
+            <p class="precio-tienda">$24.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Elíxir Iluminador Vitamina C')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 3 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/serum-noche.jpg" alt="Producto"></div>
+            <h3>Sérum Renovador Nocturno</h3>
+            <p class="descripcion-corta">Fórmula suave que suaviza líneas de expresión y texturas ásperas.</p>
+            <p class="precio-tienda">$32.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Sérum Renovador Nocturno')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 4 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/serum.jpg" alt="Producto"></div>
+            <h3>Sérum de Niacinamida 10%</h3>
+            <p class="descripcion-corta">Regulador avanzado de poros dilatados y manchas por imperfecciones.</p>
+            <p class="precio-tienda">$25.500</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Sérum de Niacinamida 10%')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 5 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/CONTORNO_OJOS.jpg" alt="Producto"></div>
+            <h3>Contorno de Ojos</h3>
+            <p class="descripcion-corta">Nutrición fina para atenuar bolsas, ojeras y signos de fatiga visual.</p>
+            <p class="precio-tienda">$22.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Contorno de Ojos')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 6 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/tonico-calmante.jpg" alt="Producto"></div>
+            <h3>Tónico Botánico Calmante</h3>
+            <p class="descripcion-corta">Bruma herbolaria que restablece el pH ideal justo tras la limpieza.</p>
+            <p class="precio-tienda">$14.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Tónico Botánico Calmante')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 7 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/crema-dia.jpg" alt="Producto"></div>
+            <h3>Crema Nutritiva de Día</h3>
+            <p class="descripcion-corta">Emulsión ligera para proteger la barrera cutánea frente al clima.</p>
+            <p class="precio-tienda">$28.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Crema Nutritiva de Día')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 8 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/crema-brillo.jpg" alt="Producto"></div>
+            <h3>Crema de Brillo Vitamina C</h3>
+            <p class="descripcion-corta">Aporte culinario antioxidante para revitalizar pieles cansadas u opacas.</p>
+            <p class="precio-tienda">$26.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Crema de Brillo Vitamina C')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 9 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/balsamo-reparador.jpg" alt="Producto"></div>
+            <h3>Bálsamo Reparador Intenso</h3>
+            <p class="descripcion-corta">Nutrición profunda para pieles extremadamente secas o maduras.</p>
+            <p class="precio-tienda">$30.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Bálsamo Reparador Intenso')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 10 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/duo-esencial.jpg" alt="Producto"></div>
+            <h3>Dúo Nutrición Esencial</h3>
+            <p class="descripcion-corta">Menú balanceado de Serum + Crema para un cuidado básico de lujo.</p>
+            <p class="precio-tienda">$48.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Dúo Nutrición Esencial')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 11 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/menu-completo.jpg" alt="Producto"></div>
+            <h3>Menú Degustación Completo</h3>
+            <p class="descripcion-corta">La experiencia Eclat definitiva: rutina completa de 4 pasos de transformación.</p>
+            <p class="precio-tienda">$85.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Menú Degustación Completo')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 12 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/gel-aloe.jpg" alt="Producto"></div>
+            <h3>Gel Hidratante de Aloe Vera</h3>
+            <p class="descripcion-corta">Calma rojeces e hidrata al instante sin aportar peso ni oleosidad.</p>
+            <p class="precio-tienda">$15.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Gel Hidratante de Aloe Vera')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 13 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/mascarilla-facial.jpg" alt="Producto"></div>
+            <h3>Mascarilla Ultra Nocturna</h3>
+            <p class="descripcion-corta">Tratamiento intensivo de reparación celular que actúa mientras duermes.</p>
+            <p class="precio-tienda">$29.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Mascarilla Ultra Nocturna')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 14 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/kit-viaje.jpg" alt="Producto"></div>
+            <h3>Kit de Viaje Cuidado Diario</h3>
+            <p class="descripcion-corta">Tus tres menús esenciales en formato compacto para llevar a todos lados.</p>
+            <p class="precio-tienda">$35.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Kit de Viaje Cuidado Diario')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 15 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/limpiador-facial.jpg" alt="Producto"></div>
+            <h3>Espuma Limpiadora Suave</h3>
+            <p class="descripcion-corta">Remueve impurezas cotidianas respetando los aceites naturales de la dermis.</p>
+            <p class="precio-tienda">$19.500</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Espuma Limpiadora Suave')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 16 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/gel-te.jpg" alt="Producto"></div>
+            <h3>Gel Purificante de Árbol de Té</h3>
+            <p class="descripcion-corta">Especial para controlar brillos, limpiar a fondo y calmar imperfecciones.</p>
+            <p class="precio-tienda">$21.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Gel Purificante de Árbol de Té')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 17 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/crema-noche.jpg" alt="Producto"></div>
+            <h3>Mascarilla de Arcilla Cremosa</h3>
+            <p class="descripcion-corta">Purifica poros congestionados sin deshidratar ni acartonar el rostro.</p>
+            <p class="precio-tienda">$16.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Mascarilla de Arcilla Cremosa')">COMPRAR</button>
+        </div>
+
+        <!-- Tarjeta 18 -->
+        <div class="tarjeta-tienda">
+            <div class="img-recuadro-tienda"><img src=".img/crema-exfoliante.jpg" alt="Producto"></div>
+            <h3>Crema Exfoliante Micro-gránulos</h3>
+            <p class="descripcion-corta">Retira células muertas suavemente. Diseñada para usarse una vez por semana.</p>
+            <p class="precio-tienda">$17.000</p>
+            <button class="btn-añadir-tienda" onclick="agregar('Crema Exfoliante Micro-gránulos')">COMPRAR</button>
+        </div>
+
+    </div>
+
+    <!-- BANNER DE INFORMACIÓN -->
+    <div class="banner-valores">
+        <div class="columna-valor">🌿 Ingredientes Puros</div>
+        <div class="columna-valor" style="border-left: 1px solid #bc9c82; border-right: 1px solid #bc9c82;">🐇 Cruelty Free</div>
+        <div class="columna-valor">📦 Envíos Nacionales</div>
+    </div>
+
+    <!-- SCRIPT DE CARRITO ACTIVO -->
+    <script>
+        let totalProductos = 0;
+
+        function agregar(nombreProducto) {
+            totalProductos = totalProductos + 1;
+            document.getElementById('contador-carrito').innerText = "🛒 (" + totalProductos + ")";
+            alert("¡" + nombreProducto + " se ha añadido al carrito!");
+        }
+    </script>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+<footer class="footer">
+  <div class="footer-contenedor">
+    <!-- NOMBRE / LOGO DE LA MARCA -->
+    <div class="footer-columna">
+      <h3 class="footer-logo">
+        eclat visage <span>✦</span>
+      </h3>
+      <p>
+        Skincare diseñado para resaltar la belleza natural
+        y mantener tu piel saludable y radiante.
+      </p>
+    </div>
+    <!-- INSTAGRAM -->
+    <div class="footer-columna">
+      <h4>Síguenos en Instagram</h4>
+      <p>
+        <a href="#" target="_blank">
+          Instagram: @eclatvisage
+        </a>
+      </p>
+    </div>
+    <!-- CONTACTO -->
+    <div class="footer-columna">
+      <h4>Contacto</h4>
+      <p>Correo: eclatvisage@gmail.com</p>
+      <p>Teléfono: 300 000 0000</p>
+    </div>
+    <!-- UBICACIÓN -->
+    <div class="footer-columna">
+      <h4>Ubicación</h4>
+      <p>Calarcá, Quindío, Colombia</p>
+    </div>
+    <!-- MÉTODOS DE PAGO -->
+    <div class="footer-columna">
+      <h4>Métodos de pago</h4>
+      <p>Nequi</p>
+      <p>Bancolombia</p>
+      <p>Tarjetas débito y crédito</p>
+    </div>
+  </div>
+  <!-- DERECHOS RESERVADOS -->
+  <div class="copyright">
+    © 2026 Eclat Visage — Todos los derechos reservados.
+  </div>
+</footer>
+</body>
+</html>

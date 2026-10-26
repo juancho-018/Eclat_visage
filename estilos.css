@@ -1,0 +1,735 @@
+/* ========================================== */
+/* --- RESET GENERAL --- */
+/* ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcfbfa;
+    color: #2c2a29;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================== */
+/* --- MENÚ SUPERIOR Y NAVEGACIÓN --- */
+/* ========================================== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f2ede7;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.logo span {
+    font-size: 14px;
+    color: #bc9c82;
+    vertical-align: super;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #4a4a4a;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 12px;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover {
+    color: #bc9c82;
+}
+
+.header-iconos {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-iconos span, .header-iconos a {
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- MENÚ DESPLEGABLE (DROPDOWN CRUD) --- */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropbtn {
+    text-decoration: none;
+    color: #4a4a4a;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.dropdown .dropbtn:hover {
+    color: #bc9c82;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 180px;
+    max-height: 320px;
+    overflow-y: auto;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.08);
+    border-radius: 6px;
+    border: 1px solid #f2ede7;
+    z-index: 1000;
+    padding: 6px 0;
+}
+
+.dropdown-content a {
+    color: #4a4a4a;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+    margin: 0;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #eedfd2;
+    color: #2c2a29;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ========================================== */
+/* --- SECCIÓN PRINCIPAL (HERO) --- */
+/* ========================================== */
+.hero {
+    display: flex;
+    align-items: center;
+    background-color: #eedfd2;
+    min-height: 450px;
+    padding: 0 0 0 8%;
+    overflow: hidden;
+}
+
+.hero-contenido {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.hero-contenido h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 45px;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.hero-contenido p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 25px;
+    max-width: 400px;
+}
+
+.hero-botones {
+    display: flex;
+    gap: 12px;
+}
+
+.hero-botones a {
+    text-decoration: none;
+    padding: 12px 24px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.btn-oscuro {
+    background-color: #bc9c82;
+    color: white;
+}
+
+.btn-claro {
+    border: 1px solid #2c2a29;
+    color: #2c2a29;
+}
+
+.hero-imagen {
+    flex: 1;
+    height: 450px;
+}
+
+.hero-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================================== */
+/* --- SECCIÓN PRODUCTOS TIENDA --- */
+/* ========================================== */
+.productos-seccion {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.productos-seccion h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+.productos-contenedor {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tarjeta-producto {
+    text-align: left;
+}
+
+.img-recuadro {
+    background-color: #e3d4c7;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 20px;
+}
+
+.img-recuadro img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.tarjeta-producto h3 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.estrellas {
+    font-size: 11px;
+    color: #bfa15f;
+    margin-bottom: 4px;
+}
+
+.precio {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.btn-carrito {
+    background-color: #eedfd2;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #4a4a4a;
+    transition: background-color 0.3s ease;
+}
+
+.btn-carrito:hover {
+    background-color: #e3d4c7;
+}
+
+/* ========================================== */
+/* --- VISTAS Y TABLAS CRUD (ESTILO REF. CLARO) --- */
+/* ========================================== */
+.panel-cliente, main.crud-body {
+    flex: 1;
+    background-color: #eedfd2;
+    padding: 50px 8%;
+    text-align: center;
+}
+
+.panel-cliente h1, main.crud-body h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    color: #2c2a29;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.btn-agregar {
+    background-color: #bc9c82;
+    color: #ffffff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #a4856d;
+}
+
+.barra-busqueda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.barra-busqueda input {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #bc9c82;
+    width: 230px;
+    outline: none;
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    color: #2c2a29;
+}
+
+.btn-consultar {
+    background-color: #bc9c82;
+    color: #ffffff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-consultar:hover {
+    background-color: #a4856d;
+}
+
+.btn-limpiar {
+    background-color: #c94c4c;
+    color: #ffffff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-limpiar:hover {
+    background-color: #a33838;
+}
+
+.tabla-contenedor {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow-x: auto;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    border-radius: 10px;
+}
+
+.tabla-clientes, .tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    color: #2c2a29;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabla-clientes th, .tabla-datos th {
+    background-color: #bc9c82;
+    color: #ffffff;
+    padding: 14px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.tabla-clientes td, .tabla-datos td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f2ede7;
+    font-size: 13px;
+    text-align: center;
+}
+
+.tabla-clientes tr:hover, .tabla-datos tr:hover {
+    background-color: #fcfbfa;
+}
+
+.btn-accion, .btn-editar {
+    background-color: #bc9c82;
+    border: none;
+    color: white;
+    padding: 5px 14px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    margin: 2px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.btn-accion:hover, .btn-editar:hover {
+    background-color: #a4856d;
+}
+
+.btn-eliminar {
+    background-color: #c94c4c;
+    border: none;
+    color: white;
+    padding: 5px 14px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    margin: 2px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.btn-eliminar:hover {
+    background-color: #a33838;
+}
+
+.acciones-cell {
+    white-space: nowrap;
+}
+
+.form-modal, .form-card {
+    background: #ffffff;
+    padding: 25px;
+    max-width: 480px;
+    margin: 20px auto;
+    border-radius: 10px;
+    text-align: left;
+    color: #333;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+    border: 1px solid #f2ede7;
+}
+
+.form-modal input, .form-modal select, .form-card input, .form-card select {
+    width: 100%;
+    padding: 9px 12px;
+    margin: 6px 0 14px;
+    border: 1px solid #e3d4c7;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+}
+
+/* ========================================== */
+/* --- ESTILOS DE FORMULARIOS (LOGIN Y REGISTRO) --- */
+/* ========================================== */
+.body-registro {
+    background-color: #eedfd2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.registro-card, .form-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 35px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    border: 1px solid #f2ede7;
+    margin: 40px auto;
+}
+
+.registro-card .logo, .form-container .logo {
+    margin-bottom: 10px;
+}
+
+.registro-card h2, .form-container h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #2c2a29;
+    margin-bottom: 6px;
+}
+
+.subtitulo-registro {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.registro-card .campo, .form-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.registro-card label, .form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #4a4a4a;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.registro-card input, .form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e3d4c7;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #2c2a29;
+    background-color: #fcfbfa;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.registro-card input:focus, .form-group input:focus, .form-group textarea:focus {
+    border-color: #bc9c82;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px rgba(188, 156, 130, 0.3);
+}
+
+.btn-registro, .btn-enviar {
+    width: 100%;
+    background-color: #bc9c82;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-registro:hover, .btn-enviar:hover {
+    background-color: #a4856d;
+}
+
+.alerta-error {
+    background-color: #f8d7da;
+    color: #842029;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 13px;
+    border: 1px solid #f5c2c7;
+}
+
+.alerta-exito {
+    background-color: #eaf4eb;
+    color: #2e6930;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.registro-secion {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #6e6456;
+}
+
+.registro-secion a {
+    color: #b38b59;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.registro-secion a:hover {
+    text-decoration: underline;
+}
+
+/* ========================================== */
+/* --- SECCIÓN MULTIMEDIA (FOTO Y VIDEO VERTICAL) --- */
+/* ========================================== */
+.multimedia-grid {
+    display: flex;
+    flex-direction: column; /* Apila la foto y el video uno debajo del otro */
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.equipo-marco-foto, .video-marco {
+    width: 100%;
+    max-width: 380px; /* Tamaño equilibrado para una visualización perfecta */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(61, 53, 42, 0.12);
+    border: 4px solid #ffffff;
+    background: #fff;
+}
+
+.equipo-marco-foto img, .video-marco video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ========================================== */
+/* --- PIE DE PÁGINA (FOOTER) --- */
+/* ========================================== */
+.footer, .footer-crud {
+    background-color: #f7f3ee;
+    color: #333;
+    padding: 50px 5% 20px;
+    border-top: 1px solid #e8e2d9;
+    font-size: 13px;
+}
+
+.footer-contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-columna {
+    flex: 1;
+    min-width: 180px;
+}
+
+.footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.footer-logo span {
+    color: #c9b097;
+    font-size: 14px;
+}
+
+.footer-columna h4 {
+    font-size: 14px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #2c2a29;
+}
+
+.footer-columna p {
+    color: #666;
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+.footer-columna a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-columna a:hover {
+    color: #bc9c82;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e2d9;
+    color: #888;
+    font-size: 11px;
+}
+
+/* ========================================== */
+/* --- RESPONSIVO --- */
+/* ========================================== */
+@media (max-width: 768px) {
+    .footer-contenedor {
+        flex-direction: column;
+        gap: 25px;
+    }
+    .footer-columna {
+        min-width: 100%;
+    }
+    .productos-contenedor {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hero {
+        flex-direction: column;
+        padding: 40px 5%;
+        text-align: center;
+    }
+    .hero-contenido {
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+    .hero-botones {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclat Visage</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Fuentes elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- MENÚ SUPERIOR -->
+    <header class="header">
+        <div class="logo">eclat visage<span>✦</span></div>
+        <nav class="nav">
+            <a href="index.html">INICIO</a>
+            <a href="tienda.html">VER TODO</a>
+            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
+            <a href="test.html">TEST DE PIEL</a>
+            <a href="blog.html">DIARIO</a>
+            <a href="nosotros.html">NOSOTROS</a>
+            
+            <!-- ENLACES DIRECTOS A FORMULARIOS Y DRIVE -->
+            <a href="CRUD/contacto.php">CONTACTO</a>
+            <a href="CRUD/registro_login.php">LOGIN</a>
+            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">DOCUMENTOS</a>
+
+            <!-- MENÚ DESPLEGABLE CRUD ACTUALIZADO -->
+            <div class="dropdown">
+                <a href="#" class="dropbtn">CRUD ▾</a>
+                <div class="dropdown-content">
+                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
+                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
+                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
+                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
+                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
+                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
+                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
+                </div>
+            </div>
+        </nav>
+        <div class="header-iconos">
+            <a href="CRUD/registro_login.php" title="Iniciar Sesión" style="text-decoration: none; color: inherit;"><span>👤</span></a>
+            <span id="contador-carrito">🛒 (0)</span>
+        </div>
+    </header>
+
+    <!-- SECCIÓN PRINCIPAL (HERO) -->
+    <section class="hero">
+        <div class="hero-contenido">
+            <h1>Despierta Tu<br>Resplandor Natural.</h1>
+            <p>Eclat Visage: Skincare premium para una piel radiante, saludable y luminosa.</p>
+            <div class="hero-botones">
+                <a href="tienda.html" class="btn-oscuro">COMPRAR AHORA</a>
+                <a href="test.html" class="btn-claro">DESCUBRE TU RUTINA</a>
+            </div>
+        </div>
+        <div class="hero-imagen">
+            <img src=".img/carrusel1.jpg" alt="Eclat Visage Banner" id="imagen-cambiante">
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE PRODUCTOS -->
+    <section class="productos-seccion">
+        <h2>Nuestros Favoritos</h2>
+        
+        <div class="productos-contenedor">
+            <!-- Producto 1 -->
+            <div class="tarjeta-producto">
+                <div class="img-recuadro">
+                    <img src=".img/serum.jpg" alt="Serum hidratante">
+                </div>
+                <h3>Serum hidratante 30ml</h3>
+                <div class="estrellas">★★★★★ 4.8</div>
+                <p class="precio">$18.000</p>
+                <button class="btn-carrito" onclick="agregarAlCarrito('Serum hidratante 30ml')">Añadir al Carrito</button>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="tarjeta-producto">
+                <div class="img-recuadro">
+                    <img src=".img/crema.jpg" alt="Crema facial">
+                </div>
+                <h3>Crema facial 50ml</h3>
+                <div class="estrellas">★★★★★ 4.8</div>
+                <p class="precio">$28.000</p>
+                <button class="btn-carrito" onclick="agregarAlCarrito('Crema facial 50ml')">Añadir al Carrito</button>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="tarjeta-producto">
+                <div class="img-recuadro">
+                    <img src=".img/crema2.jpg" alt="Night Cream">
+                </div>
+                <h3>Crema de brillo con Vitamina C</h3>
+                <div class="estrellas">★★★★★ 4.8</div>
+                <p class="precio">$26.000</p>
+                <button class="btn-carrito" onclick="agregarAlCarrito('Crema de brillo con Vitamina C')">Añadir al Carrito</button>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="tarjeta-producto">
+                <div class="img-recuadro">
+                    <img src=".img/combo.jpg" alt="Combo Facial">
+                </div>
+                <h3>Combo de Serum y Crema Hidratante</h3>
+                <div class="estrellas">★★★★★ 4.0</div>
+                <p class="precio">$48.000</p>
+                <button class="btn-carrito" onclick="agregarAlCarrito('Combo de Serum y Crema Hidratante')">Añadir al Carrito</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script>
+        // Lógica del carrito
+        let totalProductos = 0;
+        function agregarAlCarrito(nombreProducto) {
+            totalProductos = totalProductos + 1;
+            document.getElementById('contador-carrito').innerText = "🛒 (" + totalProductos + ")";
+            alert("¡" + nombreProducto + " se ha añadido a tu carrito!");
+        }
+
+        // Carrusel automático de imágenes
+        let misFotos = [
+            ".img/carrusel1.jpg",
+            ".img/carrusel2.jpg",
+            ".img/carrusel3.jpg",
+            ".img/carrusel4.jpg",
+            ".img/carrusel5.jpg",
+            ".img/carrusel6.jpg"
+        ];
+        
+        let posicionActual = 0;
+
+        function rotarImagenes() {
+            posicionActual = posicionActual + 1;
+            if (posicionActual >= misFotos.length) {
+                posicionActual = 0;
+            }
+            document.getElementById('imagen-cambiante').src = misFotos[posicionActual];
+        }
+
+        setInterval(rotarImagenes, 2000);
+    </script>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer">
+        <div class="footer-contenedor">
+            <div class="footer-columna">
+                <h3 class="footer-logo">eclat visage <span>✦</span></h3>
+                <p>Skincare diseñado para resaltar la belleza natural y mantener tu piel saludable y radiante.</p>
+            </div>
+            <div class="footer-columna">
+                <h4>Síguenos en Instagram</h4>
+                <p><a href="#" target="_blank">Instagram: @eclatvisage</a></p>
+            </div>
+            <div class="footer-columna">
+                <h4>Contacto</h4>
+                <p>Correo: eclatvisage@gmail.com</p>
+                <p>Teléfono: 300 000 0000</p>
+            </div>
+            <div class="footer-columna">
+                <h4>Ubicación</h4>
+                <p>Calarcá, Quindío, Colombia</p>
+            </div>
+            <div class="footer-columna">
+                <h4>Métodos de pago</h4>
+                <p>Nequi</p>
+                <p>Bancolombia</p>
+                <p>Tarjetas débito y crédito</p>
+            </div>
+        </div>
+        <div class="copyright">
+            ©️ 2026 Eclat Visage — Todos los derechos reservados.
+        </div>
+    </footer>
+</body>
+</html>

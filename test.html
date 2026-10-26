@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclat Visage - Test de Piel</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fbf9f6;
+            color: #4a4238;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .test-seccion {
+            width: 80%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .test-seccion h2 {
+            font-size: 32px;
+            color: #3d352a;
+        }
+
+        .test-seccion .subtitulo {
+            font-size: 14px;
+            color: #6e6456;
+            margin-bottom: 30px;
+        }
+
+        /* Bloques de las preguntas */
+        .pregunta-card {
+            background-color: #f3ede4;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .pregunta-card p {
+            font-size: 16px;
+            font-weight: bold;
+            color: #3d352a;
+        }
+
+        .opcion-label {
+            display: block;
+            background-color: #fbf9f6;
+            padding: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            border: 1px solid #e1dcd5;
+        }
+
+        /* Botón para enviar el formulario */
+        .btn-resultado {
+            background-color: #3d352a;
+            color: #fbf9f6;
+            padding: 12px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        /* Recuadro donde sale la respuesta */
+        .resultado-contenedor {
+            display: none; /* Al principio está escondido */
+            background-color: #f3ede4;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: left;
+            border: 1px solid #eae2d5;
+        }
+
+        .resultado-contenedor h3 {
+            font-size: 24px;
+            color: #3d352a;
+            text-align: center;
+        }
+
+        .diagnostico-texto {
+            font-size: 14px;
+            color: #5a5145;
+            text-align: center;
+        }
+
+        .recomendacion-bloque {
+            background-color: #fbf9f6;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-compra-test {
+            display: block;
+            text-align: center;
+            background-color: #3d352a;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+   <header class="header">
+        <div class="logo">eclat visage<span>✦</span></div>
+        <nav class="nav">
+            <a href="index.html">INICIO</a>
+            <a href="tienda.html">VER TODO</a>
+            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
+            <a href="test.html">TEST DE PIEL</a>
+            <a href="blog.html">DIARIO</a>
+            <a href="nosotros.html">NOSOTROS</a>
+        </nav>
+    </header>
+
+    <section class="test-seccion">
+        <h2>¿No conoces tu tipo de piel?</h2>
+        <p class="subtitulo">Responde según tus reacciones diarias y diseñaremos tu menú ideal.</p>
+
+        <form id="skin-quiz">
+            <div class="pregunta-card">
+                <p>1. Cuando te despiertas por la mañana, ¿cómo sientes tu rostro antes de aplicar algo?</p>
+                <label class="opcion-label"><input type="radio" name="p1" value="seca" required> Opaco, un poco áspero al tacto y con sensación de tirantez.</label>
+                <label class="opcion-label"><input type="radio" name="p1" value="mixta"> Normal en las mejillas, pero noto grasa en la nariz y la frente.</label>
+                <label class="opcion-label"><input type="radio" name="p1" value="grasa"> Con una capa brillante y oleosa en todo el rostro.</label>
+            </div>
+
+            <div class="pregunta-card">
+                <p>2. Si pasas medio día sin aplicarte ninguna crema ni maquillaje, ¿qué sucede?</p>
+                <label class="opcion-label"><input type="radio" name="p2" value="seca" required> Siento la piel muy seca, incómoda o tirante.</label>
+                <label class="opcion-label"><input type="radio" name="p2" value="mixta"> Me salen brillos solo en la frente y la nariz, pero el resto está normal.</label>
+                <label class="opcion-label"><input type="radio" name="p2" value="grasa"> Todo mi rostro brilla intensamente y siento la piel pesada.</label>
+            </div>
+
+            <div class="pregunta-card">
+                <p>3. ¿Cómo reacciona tu piel habitualmente cuando te aplicas productos nuevos?</p>
+                <label class="opcion-label"><input type="radio" name="p3" value="seca" required> Absorbe todo súper rápido porque le falta hidratación.</label>
+                <label class="opcion-label"><input type="radio" name="p3" value="mixta"> Me va bien afuera, pero me saca brillos rápido en el centro.</label>
+                <label class="opcion-label"><input type="radio" name="p3" value="grasa"> Siento que no se absorbe y me genera más grasa o granitos.</label>
+            </div>
+
+            <div class="pregunta-card">
+                <p>4. Mírate de cerca en un espejo con buena luz, ¿qué es lo que más resalta en tu piel?</p>
+                <label class="opcion-label"><input type="radio" name="p4" value="seca" required> Líneas finas marcadas por resequedad y poros casi invisibles.</label>
+                <label class="opcion-label"><input type="radio" name="p4" value="mixta"> Poros abiertos o puntitos negros solo en la zona de la nariz.</label>
+                <label class="opcion-label"><input type="radio" name="p4" value="grasa"> Poros bastante grandes en casi todo el rostro.</label>
+            </div>
+
+            <button type="button" class="btn-resultado" onclick="calcularResultado()">Analizar Mi Piel</button>
+        </form>
+
+        <div id="resultado" class="resultado-contenedor">
+            <h3 id="resultado-titulo">Tipo de Piel</h3>
+            <p id="resultado-descripcion" class="diagnostico-texto">Cargando...</p>
+            
+            <div class="recomendacion-bloque">
+                <h4>🍽️ Tu Menú de Nutrición Cutánea Completo:</h4>
+                <ul id="lista-productos">
+                    </ul>
+                <a href="tienda.html" class="btn-compra-test">Ir a la tienda y armar mi menú</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function calcularResultado() {
+            // Guardamos las respuestas de la pregunta 1 a la 4
+            let p1 = document.querySelector('input[name="p1"]:checked');
+            let p2 = document.querySelector('input[name="p2"]:checked');
+            let p3 = document.querySelector('input[name="p3"]:checked');
+            let p4 = document.querySelector('input[name="p4"]:checked');
+
+            // Si falta alguna por responder, avisa
+            if (!p1 || !p2 || !p3 || !p4) {
+                alert("Por favor, responde todas las preguntas del test.");
+                return;
+            }
+
+            // Contamos cuántas respuestas de cada tipo marcaron
+            let seca = 0;
+            let mixta = 0;
+            let grasa = 0;
+
+            if (p1.value == "seca") { seca++; } else if (p1.value == "mixta") { mixta++; } else { grasa++; }
+            if (p2.value == "seca") { seca++; } else if (p2.value == "mixta") { mixta++; } else { grasa++; }
+            if (p3.value == "seca") { seca++; } else if (p3.value == "mixta") { mixta++; } else { grasa++; }
+            if (p4.value == "seca") { seca++; } else if (p4.value == "mixta") { mixta++; } else { grasa++; }
+
+            // Elementos del HTML que vamos a cambiar de texto
+            let titulo = document.getElementById('resultado-titulo');
+            let desc = document.getElementById('resultado-descripcion');
+            let lista = document.getElementById('lista-productos');
+
+            // Caso 1: Mayoría de respuestas "seca"
+            if (seca >= mixta && seca >= grasa) {
+                titulo.innerHTML = "✦ Tu tipo de piel es: SECA ✦";
+                desc.innerHTML = "Tu piel necesita un menú de nutrición profunda para quitar la tirantez.";
+                lista.innerHTML = "<li><strong>Paso 1:</strong> Espuma Limpiadora Suave</li><li><strong>Paso 2:</strong> Tónico Botánico Calmante</li><li><strong>Paso 3:</strong> Sérum Hidratante Profundo</li><li><strong>Paso 4:</strong> Crema Nutritiva de Día</li>";
+            } 
+            // Caso 2: Mayoría de respuestas "grasa"
+            else if (grasa >= seca && grasa >= mixta) {
+                titulo.innerHTML = "✦ Tu tipo de piel es: GRASA ✦";
+                desc.innerHTML = "Tu piel necesita texturas ligeras en gel para controlar los brillos y limpiar poros.";
+                lista.innerHTML = "<li><strong>Paso 1:</strong> Gel Purificante de Árbol de Té</li><li><strong>Paso 2:</strong> Sérum de Niacinamida 10%</li><li><strong>Paso 3:</strong> Gel Hidratante de Aloe Vera</li><li><strong>Paso 4:</strong> Mascarilla de Arcilla Cremosa</li>";
+            } 
+            // Caso 3: Mayoría de respuestas "mixta" o empates
+            else {
+                titulo.innerHTML = "✦ Tu tipo de piel es: MIXTA ✦";
+                desc.innerHTML = "Tu piel necesita equilibrar la grasa de la zona T y la resequedad de las mejillas.";
+                lista.innerHTML = "<li><strong>Paso 1:</strong> Espuma Limpiadora Suave</li><li><strong>Paso 2:</strong> Elíxir Iluminador Vitamina C</li><li><strong>Paso 3:</strong> Dúo Nutrición Esencial (Kit Diario)</li><li><strong>Paso 4:</strong> Crema Exfoliante Micro-gránulos</li>";
+            }
+
+            // Hace visible la cajita de resultados cambiando el "none" por "block"
+            document.getElementById('resultado').style.display = "block";
+        }
+    </script>
+    <!-- PIE DE PÁGINA (FOOTER) -->
+<footer class="footer">
+  <div class="footer-contenedor">
+    <!-- NOMBRE / LOGO DE LA MARCA -->
+    <div class="footer-columna">
+      <h3 class="footer-logo">
+        eclat visage <span>✦</span>
+      </h3>
+      <p>
+        Skincare diseñado para resaltar la belleza natural
+        y mantener tu piel saludable y radiante.
+      </p>
+    </div>
+    <!-- INSTAGRAM -->
+    <div class="footer-columna">
+      <h4>Síguenos en Instagram</h4>
+      <p>
+        <a href="#" target="_blank">
+          Instagram: @eclatvisage
+        </a>
+      </p>
+    </div>
+    <!-- CONTACTO -->
+    <div class="footer-columna">
+      <h4>Contacto</h4>
+      <p>Correo: eclatvisage@gmail.com</p>
+      <p>Teléfono: 300 000 0000</p>
+    </div>
+    <!-- UBICACIÓN -->
+    <div class="footer-columna">
+      <h4>Ubicación</h4>
+      <p>Calarcá, Quindío, Colombia</p>
+    </div>
+    <!-- MÉTODOS DE PAGO -->
+    <div class="footer-columna">
+      <h4>Métodos de pago</h4>
+      <p>Nequi</p>
+      <p>Bancolombia</p>
+      <p>Tarjetas débito y crédito</p>
+    </div>
+  </div>
+  <!-- DERECHOS RESERVADOS -->
+  <div class="copyright">
+    © 2026 Eclat Visage — Todos los derechos reservados.
+  </div>
+</footer>
+</body>
+</html>

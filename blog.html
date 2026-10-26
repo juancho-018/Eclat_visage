@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclat Visage - Diario</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Fuentes elegantes de la marca -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fbf9f6;
+            color: #4a4238;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ENCABEZADO DE LA PÁGINA */
+        .diario-encabezado {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .diario-encabezado h2 {
+            font-size: 32px;
+            color: #3d352a;
+            margin-bottom: 10px;
+        }
+
+        .diario-encabezado p {
+            font-size: 14px;
+            color: #6e6456;
+        }
+
+        /* CONTENEDOR DE LAS PUBLICACIONES */
+        .diario-contenedor {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* TARJETAS DEL BLOG (3 por fila de forma tradicional) */
+        .tarjeta-blog {
+            background-color: #ffffff;
+            border: 1px solid #f2ede7;
+            width: 30%;
+            margin: 1.5%;
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .img-recuadro-blog {
+            background-color: #fcfbfa;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .img-recuadro-blog img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .fecha-blog {
+            font-size: 11px;
+            color: #bc9c82;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tarjeta-blog h3 {
+            font-size: 18px;
+            color: #3d352a;
+            margin: 10px 0;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .resumen-blog {
+            font-size: 13px;
+            color: #7a7065;
+            line-height: 1.5;
+            height: 75px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- MENÚ SUPERIOR -->
+    <header class="header">
+        <div class="logo">eclat visage<span>✦</span></div>
+        <nav class="nav">
+            <a href="index.html">INICIO</a>
+            <a href="tienda.html">VER TODO</a>
+            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
+            <a href="test.html">TEST DE PIEL</a>
+            <a href="blog.html" style="font-weight: bold; border-bottom: 2px solid #bc9c82; padding-bottom: 4px;">DIARIO</a>
+            <a href="nosotros.html">NOSOTROS</a>
+        </nav>
+        <div class="header-iconos">
+            <span>👤</span>
+            <span>🛒 (0)</span>
+        </div>
+    </header>
+
+    <!-- TÍTULO PRINCIPAL DEL DIARIO -->
+    <div class="diario-encabezado">
+        <h2>El Diario de Éclat</h2>
+        <p>Espacio de bienestar, mitos de belleza y alta nutrición para tu piel.</p>
+    </div>
+
+    <!-- SECCIÓN CON LAS TARJETAS DEL BLOG -->
+    <div class="diario-contenedor">
+        
+        <!-- Artículo 1 -->
+        <div class="tarjeta-blog">
+            <div class="img-recuadro-blog">
+                <img src=".img/diario1.jpg" alt="Rutina de skincare">
+            </div>
+            <span class="fecha-blog">Junio 2, 2026</span>
+            <h3>¿Cómo aplicar tu menú de nutrición en el orden correcto?</h3>
+            <p class="resumen-blog">Aplicar los productos al azar puede anular sus beneficios. Te enseñamos la regla de oro: ir desde el más ligero al más espeso para que la piel absorba todo.</p>
+        </div>
+
+        <!-- Artículo 2 -->
+        <div class="tarjeta-blog">
+            <div class="img-recuadro-blog">
+                <img src=".img/diario2.jpg" alt="Vitamina C y plantas">
+            </div>
+            <span class="fecha-blog">Mayo 28, 2026</span>
+            <h3>El poder antioxidante de la Vitamina C en mañanas opacas</h3>
+            <p class="resumen-blog">¿Tu rostro se despierta cansado? Descubre cómo este ingrediente botánico actúa como un escudo protector y despierta tu brillo natural desde la primera aplicación.</p>
+        </div>
+
+        <!-- Artículo 3 -->
+        <div class="tarjeta-blog">
+            <div class="img-recuadro-blog">
+                <img src=".img/diario3.jpg" alt="Piel hidratada">
+            </div>
+            <span class="fecha-blog">Mayo 15, 2026</span>
+            <h3>Mito o realidad: ¿La piel grasa necesita crema hidratante?</h3>
+            <p class="resumen-blog">Existe el gran error de pensar que si brilla no necesita agua. Te explicamos la diferencia entre el exceso de aceite y la falta de hidratación en las células cutáneas.</p>
+        </div>
+
+    </div>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer">
+      <div class="footer-contenedor">
+        <div class="footer-columna">
+          <h3 class="footer-logo">
+            eclat visage <span>✦</span>
+          </h3>
+          <p>
+            Skincare diseñado para resaltar la belleza natural
+            y mantener tu piel saludable y radiante.
+          </p>
+        </div>
+        <div class="footer-columna">
+          <h4>Síguenos en Instagram</h4>
+          <p>
+            <a href="#" target="_blank">
+              Instagram: @eclatvisage
+            </a>
+          </p>
+        </div>
+        <div class="footer-columna">
+          <h4>Contacto</h4>
+          <p>Correo: eclatvisage@gmail.com</p>
+          <p>Teléfono: 300 000 0000</p>
+        </div>
+        <div class="footer-columna">
+          <h4>Ubicación</h4>
+          <p>Calarcá, Quindío, Colombia</p>
+        </div>
+        <div class="footer-columna">
+          <h4>Métodos de pago</h4>
+          <p>Nequi</p>
+          <p>Bancolombia</p>
+          <p>Tarjetas débito y crédito</p>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 Eclat Visage — Todos los derechos reservados.
+      </div>
+    </footer>
+</body>
+</html>

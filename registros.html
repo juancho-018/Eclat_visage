@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Éclat Visage</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-registro">
+
+    <div class="registro-card">
+        <div class="logo">eclat visage<span>✦</span></div>
+        <h2>Bienvenida / Bienvenido</h2>
+        <p class="subtitulo-registro">Por favor regístrate para ingresar a nuestra tienda</p>
+
+        <form action="registro.php" method="POST">
+            <div class="campo">
+                <label>Nombre Completo:</label>
+                <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+            </div>
+
+            <div class="campo">
+                <label>Correo Electrónico:</label>
+                <input type="email" name="correo" placeholder="correo@ejemplo.com" required>
+            </div>
+
+            <div class="campo">
+                <label>Teléfono:</label>
+                <input type="text" name="telefono" placeholder="Ej: 3001234567" required>
+            </div>
+
+            <div class="campo">
+                <label>Dirección:</label>
+                <input type="text" name="direccion" placeholder="Ej: Calle 10 # 15-20" required>
+            </div>
+
+            <button type="submit" class="btn-registro">REGISTRARSE E INGRESAR</button>
+        </form>
+    </div>
+
+</body>
+</html>

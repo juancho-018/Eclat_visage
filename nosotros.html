@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclat Visage - Nosotros</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Paleta de colores armónica basada en tu Beige Central */
+        body {
+            background-color: #fbf9f6; /* Fondo lino ultra claro para toda la página */
+            color: #4a4238; /* Texto café oscuro elegante */
+        }
+
+        /* Estilos del menú superior unificado */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #fdfbf7; border-bottom: 1px solid #e6dfd5; }
+        .nav { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .nav a { text-decoration: none; color: #4a3b32; font-size: 13px; font-weight: 500; text-transform: uppercase; }
+        .nav a:hover { color: #b38b59; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #fdfbf7; min-width: 170px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); z-index: 1000; border: 1px solid #e6dfd5; border-radius: 6px; }
+        .dropdown-content a { color: #4a3b32; padding: 10px 15px; text-decoration: none; display: block; font-size: 13px; }
+        .dropdown-content a:hover { background-color: #f4efe6; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        .nosotros-banner {
+            display: flex;
+            background-color: #f3ede4; /* Tu beige central cálido y estético */
+            margin: 40px 5% 20px 5%;
+            align-items: center;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .nosotros-texto-mision {
+            flex: 1.2;
+            padding: 50px;
+            text-align: left;
+        }
+
+        .nosotros-texto-mision h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            color: #3d352a; /* Café profundo */
+        }
+
+        .nosotros-texto-mision p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #5a5145; /* Café medio para lectura suave */
+            margin-bottom: 25px;
+        }
+
+        .nosotros-texto-mision strong {
+            color: #3d352a;
+            font-weight: 500;
+        }
+
+        .nosotros-img-banner {
+            flex: 1;
+            align-self: stretch;
+            display: flex;
+        }
+
+        .nosotros-img-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Sección de ingredientes inferiores (Beige Arena) */
+        .ingredientes-contenedor-horizontal {
+            display: flex;
+            background-color: #eae2d5; /* Beige un toque más oscuro para resaltar abajo */
+            margin: 0 5% 40px 5%;
+            padding: 35px 20px;
+            justify-content: space-around;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .ingrediente-columna {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .ingrediente-columna h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            color: #3d352a;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .ingrediente-columna p {
+            font-size: 11.5px;
+            color: #6e6456;
+            margin: 0;
+        }
+
+        /* ESTILOS PARA LA SECCIÓN DE NUESTRO EQUIPO Y VIDEO PITCH EN VERTICAL */
+        .equipo-contenedor {
+            background-color: #f3ede4;
+            margin: 0 5% 50px 5%;
+            padding: 45px 30px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .equipo-contenedor h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            letter-spacing: 1px;
+            color: #3d352a;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .equipo-subtitulo {
+            font-size: 14px;
+            color: #5a5145;
+            margin-bottom: 35px;
+        }
+
+        /* Contenedor vertical: Foto arriba, Video abajo */
+        .multimedia-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .equipo-marco-foto, .video-marco {
+            width: 100%;
+            max-width: 550px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(61, 53, 42, 0.12);
+            border: 4px solid #ffffff;
+            background: #fff;
+        }
+
+        .equipo-marco-foto img, .video-marco video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- MENÚ SUPERIOR UNIFICADO -->
+    <header class="header">
+        <div class="logo">eclat visage<span>✦</span></div>
+        <nav class="nav">
+            <a href="index.html">INICIO</a>
+            <a href="tienda.html">VER TODO</a>
+            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
+            <a href="test.html">TEST DE PIEL</a>
+            <a href="blog.html">DIARIO</a>
+            <a href="nosotros.html" style="font-weight: bold; border-bottom: 2px solid #bc9c82; padding-bottom: 4px;">NOSOTROS</a>
+            <a href="CRUD/contacto.php">CONTACTO</a>
+            <a href="CRUD/registro_login.php">LOGIN</a>
+            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">DOCUMENTOS</a>
+
+            <div class="dropdown">
+                <a href="#" class="dropbtn">CRUD ▾</a>
+                <div class="dropdown-content">
+                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
+                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
+                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
+                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
+                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
+                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
+                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
+                </div>
+            </div>
+        </nav>
+        <div class="header-iconos">
+            <span>👤</span>
+            <span>🛒 (0)</span>
+        </div>
+    </header>
+
+    <!-- BLOQUE SUPERIOR: MISIÓN, VISIÓN E IMAGEN -->
+    <section class="nosotros-banner">
+        <div class="nosotros-texto-mision">
+            <h2>NUESTRA MISIÓN Y VISIÓN</h2>
+            
+            <p>
+                <strong>MISIÓN:</strong> Nutrir la belleza natural de cada persona a través de una experiencia sensorial única, transformando el cuidado de la piel en un ritual de 'alta cocina' dermatológica. En Eclat Visage, seleccionamos los ingredientes más puros y potentes para crear menús de nutrición cutánea que alimentan, restauran y revelan el resplandor saludable de la dermis.
+            </p>
+            
+            <p>
+                <strong>VISIÓN:</strong> Convertirnos en la marca referente de skincare premium a nivel internacional, siendo reconocidos por innovar en el concepto de nutrición facial. Aspiramos a que cada hogar disfrute de un "laboratorio culinario" para su piel, donde la ciencia y la naturaleza se fusionan para elevar los estándares de bienestar y cuidado personal.
+            </p>
+        </div>
+        
+        <div class="nosotros-img-banner">
+            <img src=".img/imagen_5.png" alt="Alta cocina dermatológica">
+        </div>
+    </section>
+
+    <!-- BLOQUE INFERIOR: INGREDIENTES ESTRELLA -->
+    <section class="ingredientes-contenedor-horizontal">
+        <div class="ingrediente-columna">
+            <h4>Vitamina C + Cúrcuma</h4>
+            <p>Luminosidad y Vitalidad Activa</p>
+        </div>
+        <div class="ingrediente-columna" style="border-left: 1px solid #d2c7b7; border-right: 1px solid #d2c7b7;">
+            <h4>Ácido Hialurónico</h4>
+            <p>Hidratación y Relleno Profundo</p>
+        </div>
+        <div class="ingrediente-columna">
+            <h4>Extractos Botánicos</h4>
+            <p>Restauración y Calma Cutánea</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: NUESTRO EQUIPO Y VIDEO PITCH (VERTICAL) -->
+    <section class="equipo-contenedor">
+        <h2>NUESTRO EQUIPO Y PITCH</h2>
+        <p class="equipo-subtitulo">Conoce a las mentes creativas detrás de la experiencia Eclat Visage.</p>
+        
+        <div class="multimedia-vertical">
+            <!-- Foto del equipo (Arriba) -->
+            <div class="equipo-marco-foto">
+                <img src=".img/equipo.jpg" alt="Equipo Eclat Visage">
+            </div>
+
+            <!-- Video Pitch integrado (Abajo) -->
+            <div class="video-marco">
+                <video controls width="100%">
+                    <source src=".img/video_pitch.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer">
+      <div class="footer-contenedor">
+        <!-- NOMBRE / LOGO DE LA MARCA -->
+        <div class="footer-columna">
+          <h3 class="footer-logo">
+            eclat visage <span>✦</span>
+          </h3>
+          <p>
+            Skincare diseñado para resaltar la belleza natural
+            y mantener tu piel saludable y radiante.
+          </p>
+        </div>
+        <!-- INSTAGRAM -->
+        <div class="footer-columna">
+          <h4>Síguenos en Instagram</h4>
+          <p>
+            <a href="#" target="_blank">
+              Instagram: @eclatvisage
+            </a>
+          </p>
+        </div>
+        <!-- CONTACTO -->
+        <div class="footer-columna">
+          <h4>Contacto</h4>
+          <p>Correo: eclatvisage@gmail.com</p>
+          <p>Teléfono: 300 000 0000</p>
+        </div>
+        <!-- UBICACIÓN -->
+        <div class="footer-columna">
+          <h4>Ubicación</h4>
+          <p>Calarcá, Quindío, Colombia</p>
+        </div>
+        <!-- MÉTODOS DE PAGO -->
+        <div class="footer-columna">
+          <h4>Métodos de pago</h4>
+          <p>Nequi</p>
+          <p>Bancolombia</p>
+          <p>Tarjetas débito y crédito</p>
+        </div>
+      </div>
+      <!-- DERECHOS RESERVADOS -->
+      <div class="copyright">
+        ©️ 2026 Eclat Visage — Todos los derechos reservados.
+      </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclat Visage - Más Vendidos</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Fuentes de la marca -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fbf9f6;
+            color: #4a4238;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* TITULO DE LA SECCIÓN */
+        .seccion-titulo {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .seccion-titulo h2 {
+            font-size: 32px;
+            color: #3d352a;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .seccion-titulo p {
+            font-size: 14px;
+            color: #6e6456;
+        }
+
+        /* CONTENEDOR DE PRODUCTOS */
+        .tienda-contenedor {
+            width: 85%;
+            margin: 0 auto 50px auto;
+            text-align: center;
+        }
+
+        /* TARJETA DE PRODUCTO */
+        .producto-tarjeta {
+            background-color: #ffffff;
+            border: 1px solid #f2ede7;
+            width: 28%;
+            margin: 2%;
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* ETIQUETA DE BEST SELLER */
+        .etiqueta-top {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #bc9c82;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .img-recuadro-producto {
+            background-color: #fcfbfa;
+            width: 100%;
+            height: 220px;
+            margin-bottom: 15px;
+        }
+
+        .img-recuadro-producto img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .producto-tarjeta h3 {
+            font-size: 16px;
+            color: #3d352a;
+            margin: 10px 0 5px 0;
+        }
+
+        .producto-categoria {
+            font-size: 11px;
+            color: #bc9c82;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .producto-precio {
+            font-size: 15px;
+            color: #4a4238;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* BOTÓN DE COMPRA */
+        .btn-anadir {
+            display: block;
+            width: 100%;
+            background-color: #3d352a;
+            color: #fbf9f6;
+            padding: 10px;
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- MENÚ SUPERIOR -->
+    <header class="header">
+        <div class="logo">eclat visage<span>✦</span></div>
+        <nav class="nav">
+            <a href="index.html">INICIO</a>
+            <a href="tienda.html">VER TODO</a>
+            <a href="mas-vendidos.html" style="font-weight: bold; border-bottom: 2px solid #bc9c82; padding-bottom: 4px;">MÁS VENDIDOS</a>
+            <a href="test.html">TEST DE PIEL</a>
+            <a href="blog.html">DIARIO</a>
+            <a href="nosotros.html">NOSOTROS</a>
+        </nav>
+        <div class="header-iconos">
+            <span>👤</span>
+            <span id="contador-carrito">🛒 (0)</span> <!-- Añadido el ID para que sume aquí -->
+        </div>
+    </header>
+
+    <!-- ENCABEZADO -->
+    <div class="seccion-titulo">
+        <h2>Los Más Vendidos</h2>
+        <p>Los menús favoritos de nuestra comunidad para transformar el rostro.</p>
+    </div>
+
+    <!-- GRILLA DE PRODUCTOS -->
+    <div class="tienda-contenedor">
+        
+        <!-- Producto 1 -->
+        <div class="producto-tarjeta">
+            <span class="etiqueta-top">Top 1</span>
+            <div class="img-recuadro-producto">
+                <img src=".img/serum-vitc.jpg" alt="Sérum Iluminador">
+            </div>
+            <span class="producto-categoria">Nutrición Activa</span>
+            <h3>Elíxir Iluminador Vitamina C</h3>
+            <div class="producto-precio">$24.000</div>
+            <!-- Cambiado texto y agregado onclick -->
+            <button class="btn-anadir" onclick="agregarAlCarrito('Elíxir Iluminador Vitamina C')">Añadir al Carrito</button>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="producto-tarjeta">
+            <span class="etiqueta-top">Top 2</span>
+            <div class="img-recuadro-producto">
+                <img src=".img/crema-brillo.jpg" alt="Crema Hidratante">
+            </div>
+            <span class="producto-categoria">Hidratación</span>
+            <h3>Crema Nutritiva de Día</h3>
+            <div class="producto-precio">$26.000</div>
+            <!-- Cambiado texto y agregado onclick -->
+            <button class="btn-anadir" onclick="agregarAlCarrito('Crema Nutritiva de Día')">Añadir al Carrito</button>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="producto-tarjeta">
+            <span class="etiqueta-top">Top 3</span>
+            <div class="img-recuadro-producto">
+                <img src=".img/limpiador-facial.jpg" alt="Espuma Limpiadora">
+            </div>
+            <span class="producto-categoria">Limpieza</span>
+            <h3>Espuma Limpiadora Suave</h3>
+            <div class="producto-precio">$19.500</div>
+            <!-- Cambiado texto y agregado onclick -->
+            <button class="btn-anadir" onclick="agregarAlCarrito('Espuma Limpiadora Suave')">Añadir al Carrito</button>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT BÁSICO PARA EL CARRITO -->
+    <script>
+        let totalProductos = 0;
+
+        function agregarAlCarrito(nombreProducto) {
+            // Suma uno cada vez que se unde el botón
+            totalProductos = totalProductos + 1;
+            
+            // Cambia el número del menú arriba
+            document.getElementById('contador-carrito').innerText = "🛒 (" + totalProductos + ")";
+            
+            // Muestra la alerta sencilla en pantalla
+            alert("¡" + nombreProducto + " se ha añadido a tu carrito!");
+        }
+    </script>
+    <!-- PIE DE PÁGINA (FOOTER) -->
+<footer class="footer">
+  <div class="footer-contenedor">
+    <!-- NOMBRE / LOGO DE LA MARCA -->
+    <div class="footer-columna">
+      <h3 class="footer-logo">
+        eclat visage <span>✦</span>
+      </h3>
+      <p>
+        Skincare diseñado para resaltar la belleza natural
+        y mantener tu piel saludable y radiante.
+      </p>
+    </div>
+    <!-- INSTAGRAM -->
+    <div class="footer-columna">
+      <h4>Síguenos en Instagram</h4>
+      <p>
+        <a href="#" target="_blank">
+          Instagram: @eclatvisage
+        </a>
+      </p>
+    </div>
+    <!-- CONTACTO -->
+    <div class="footer-columna">
+      <h4>Contacto</h4>
+      <p>Correo: eclatvisage@gmail.com</p>
+      <p>Teléfono: 300 000 0000</p>
+    </div>
+    <!-- UBICACIÓN -->
+    <div class="footer-columna">
+      <h4>Ubicación</h4>
+      <p>Calarcá, Quindío, Colombia</p>
+    </div>
+    <!-- MÉTODOS DE PAGO -->
+    <div class="footer-columna">
+      <h4>Métodos de pago</h4>
+      <p>Nequi</p>
+      <p>Bancolombia</p>
+      <p>Tarjetas débito y crédito</p>
+    </div>
+  </div>
+  <!-- DERECHOS RESERVADOS -->
+  <div class="copyright">
+    © 2026 Eclat Visage — Todos los derechos reservados.
+  </div>
+</footer>
+</body>
+</html>
