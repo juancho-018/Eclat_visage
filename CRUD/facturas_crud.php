@@ -1,15 +1,12 @@
 <?php
+require_once __DIR__ . '/auth_admin.php';
 include("conexion.php");
 
-// Búsqueda opcional
-$busqueda = "";
-if (isset($_GET['buscar']) && !empty($_GET['buscar'])) {
-    $filtro = $conexion->real_escape_string($_GET['buscar']);
-    $busqueda = " WHERE id_factura LIKE '%$filtro%' OR id_cliente LIKE '%$filtro%' OR id_empleado LIKE '%$filtro%'";
-}
-
-// CORREGIDO: Apuntando a la tabla 'factura' tal como está en la base de datos
-$sql = "SELECT * FROM factura $busqueda ORDER BY id_factura DESC";
+$sql = "SELECT f.*, c.nombre as cliente_nombre, c.correo as cliente_correo, e.nombre as empleado_nombre 
+        FROM factura f 
+        LEFT JOIN clientes c ON f.id_cliente = c.id_cliente 
+        LEFT JOIN empleados e ON f.id_empleado = e.id_empleado 
+        ORDER BY f.id_factura DESC";
 $resultado = $conexion->query($sql);
 ?>
 <!DOCTYPE html>
@@ -19,109 +16,9 @@ $resultado = $conexion->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Facturas — Éclat Visage</title>
     <link rel="stylesheet" href="../estilos.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        .crud-container {
-            max-width: 1000px;
-            margin: 30px auto;
-            background: #fdfbf7;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid #e6dfd5;
-        }
-        .crud-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .crud-header h2 {
-            font-family: 'Playfair Display', serif;
-            color: #4a3b32;
-            margin: 0;
-        }
-        .btn-nuevo {
-            background-color: #4a3b32;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-        .btn-nuevo:hover {
-            background-color: #5d4a3f;
-        }
-        .search-bar {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-        }
-        .search-bar input {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid #d8c5b2;
-            border-radius: 6px;
-            font-family: 'Poppins', sans-serif;
-        }
-        .search-bar button {
-            background-color: #8c7a6b;
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-            color: #5a4a42;
-        }
-        th {
-            background-color: #f4efe6;
-            font-weight: 600;
-            color: #4a3b32;
-        }
-        tr:hover {
-            background-color: #fdfbf7;
-        }
-        .acciones a {
-            text-decoration: none;
-            margin-right: 10px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        .btn-editar {
-            color: #b38b59;
-        }
-        .btn-editar:hover {
-            text-decoration: underline;
-        }
-        .btn-eliminar {
-            color: #a85d5d;
-        }
-        .btn-eliminar:hover {
-            text-decoration: underline;
-        }
-        .no-registros {
-            text-align: center;
-            padding: 20px;
-            color: #8c7a6b;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -129,53 +26,76 @@ $resultado = $conexion->query($sql);
         <div class="logo">eclat visage<span>✦</span></div>
         <nav class="nav">
             <a href="../index.html">INICIO</a>
-            <a href="facturas_agregar.php" class="btn-nuevo" style="color: #fff;">+ Nueva Factura</a>
+            <a href="../tienda.html">VER TODO</a>
+            <a href="../mas-vendidos.html">MÁS VENDIDOS</a>
+            <a href="../test.html">TEST DE PIEL</a>
+            <a href="../blog.html">DIARIO</a>
+            <a href="../nosotros.html">NOSOTROS</a>
+            
+            <div class="dropdown">
+                <a href="#" class="dropbtn">CRUD ▾</a>
+                <div class="dropdown-content">
+                    <a href="clientes_crud.php">Tabla Clientes</a>
+                    <a href="proveedores_crud.php">Tabla Proveedores</a>
+                    <a href="productos_crud.php">Tabla Productos</a>
+                    <a href="categorias_crud.php">Tabla Categorías</a>
+                    <a href="inventario_crud.php">Tabla Inventario</a>
+                    <a href="facturas_crud.php">Tabla Facturas</a>
+                    <a href="empleados_crud.php">Tabla Empleados</a>
+                </div>
+            </div>
         </nav>
+        <div class="header-iconos">
+            <span></span>
+            <span id="contador-carrito">🛒 (0)</span>
+        </div>
     </header>
 
-    <main>
-        <div class="crud-container">
-            <div class="crud-header">
-                <h2>Listado de Facturas</h2>
-                <a href="facturas_agregar.php" class="btn-nuevo">+ Registrar Factura</a>
-            </div>
+    <main class="panel-cliente">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <h1 style="margin: 0;">Gestión de Facturas</h1>
+            <a href="facturas_agregar.php" class="btn-agregar" style="margin: 0;">+ Registrar Factura Manual</a>
+        </div>
 
-            <form method="GET" class="search-bar">
-                <input type="text" name="buscar" placeholder="Buscar por ID de factura, cliente o empleado..." value="<?php echo isset($_GET['buscar']) ? $_GET['buscar'] : ''; ?>">
-                <button type="submit">Buscar</button>
-            </form>
-
-            <table>
+        <div class="tabla-contenedor">
+            <table id="tabla-facturas" class="tabla-clientes display" style="width:100%;">
                 <thead>
                     <tr>
-                        <th>ID Factura</th>
+                        <th>Nº Factura</th>
                         <th>Fecha</th>
-                        <th>Total</th>
-                        <th>ID Cliente</th>
-                        <th>ID Empleado</th>
+                        <th>Cliente</th>
+                        <th>Total ($ COP)</th>
+                        <th>Asesor / Empleado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if ($resultado && $resultado->num_rows > 0) { ?>
-                        <?php while($row = $resultado->fetch_assoc()) { ?>
+                    <?php if ($resultado && $resultado->num_rows > 0): ?>
+                        <?php while ($row = $resultado->fetch_assoc()): ?>
                             <tr>
-                                <td><?php echo $row['id_factura']; ?></td>
+                                <td><strong>#<?php echo $row['id_factura']; ?></strong></td>
                                 <td><?php echo $row['fecha_factura']; ?></td>
-                                <td>$<?php echo number_format($row['total'], 2); ?></td>
-                                <td><?php echo $row['id_cliente']; ?></td>
-                                <td><?php echo $row['id_empleado']; ?></td>
-                                <td class="acciones">
-                                    <a href="facturas_editar.php?id=<?php echo $row['id_factura']; ?>" class="btn-editar">Editar</a>
-                                    <a href="facturas_eliminar.php?id=<?php echo $row['id_factura']; ?>" class="btn-eliminar" onclick="return confirm('¿Estás segura de eliminar esta factura?');">Eliminar</a>
+                                <td>
+                                    <strong><?php echo htmlspecialchars($row['cliente_nombre'] ?? ('Cliente #' . $row['id_cliente'])); ?></strong>
+                                    <?php if (!empty($row['cliente_correo'])): ?>
+                                        <div style="font-size: 11.5px; color: #8c7a6b;"><?php echo htmlspecialchars($row['cliente_correo']); ?></div>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <strong style="color: #2e7d32; font-size: 14px;">
+                                        $<?php echo number_format($row['total'], 2); ?>
+                                    </strong>
+                                </td>
+                                <td>
+                                    <?php echo htmlspecialchars($row['empleado_nombre'] ?? ('ID #' . ($row['id_empleado'] ?? 'Web'))); ?>
+                                </td>
+                                <td class="acciones-cell">
+                                    <a href="facturas_editar.php?id=<?php echo $row['id_factura']; ?>" class="btn-accion">Editar</a>
+                                    <a href="facturas_eliminar.php?id=<?php echo $row['id_factura']; ?>" class="btn-eliminar">Eliminar</a>
                                 </td>
                             </tr>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <tr>
-                            <td colspan="6" class="no-registros">No hay facturas registradas en la base de datos.</td>
-                        </tr>
-                    <?php } ?>
+                        <?php endwhile; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
@@ -187,5 +107,36 @@ $resultado = $conexion->query($sql);
         </div>
     </footer>
 
+    <!-- jQuery, DataTables & Carrito Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="../carrito.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tabla-facturas').DataTable({
+                language: {
+                    decimal: "",
+                    emptyTable: "No hay facturas registradas en la base de datos",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ facturas",
+                    infoEmpty: "Mostrando 0 a 0 de 0 facturas",
+                    infoFiltered: "(filtrado de un total de _MAX_ facturas)",
+                    lengthMenu: "Mostrar _MENU_ facturas por página",
+                    loadingRecords: "Cargando...",
+                    processing: "Procesando...",
+                    search: "Buscar factura:",
+                    zeroRecords: "No se encontraron facturas coincidentes",
+                    paginate: {
+                        first: "«",
+                        last: "»",
+                        next: "Siguiente ›",
+                        previous: "‹ Anterior"
+                    }
+                },
+                pageLength: 10,
+                responsive: true,
+                order: [[0, 'desc']]
+            });
+        });
+    </script>
 </body>
 </html>

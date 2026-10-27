@@ -21,6 +21,7 @@ USE `eclat_visage`;
 -- --------------------------------------------------------
 -- 2. ELIMINACIÓN PREVENTIVA DE TABLAS (ORDEN SEGURO)
 -- --------------------------------------------------------
+DROP TABLE IF EXISTS `detalle_factura`;
 DROP TABLE IF EXISTS `inventario`;
 DROP TABLE IF EXISTS `factura`;
 DROP TABLE IF EXISTS `productos`;
@@ -39,6 +40,7 @@ CREATE TABLE `login` (
   `id_login` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_login` varchar(100) NOT NULL,
   `contrasena_login` varchar(255) NOT NULL,
+  `rol` varchar(30) NOT NULL DEFAULT 'cliente',
   PRIMARY KEY (`id_login`),
   UNIQUE KEY `uk_nombre_login` (`nombre_login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -126,15 +128,29 @@ CREATE TABLE `factura` (
   CONSTRAINT `fk_factura_empleado` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Tabla: detalle_factura (Productos asociados a cada factura)
+CREATE TABLE `detalle_factura` (
+  `id_producto` int(11) NOT NULL,
+  `id_factura` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id_producto`,`id_factura`),
+  KEY `fk_detalle_factura` (`id_factura`),
+  CONSTRAINT `fk_detalle_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_detalle_factura` FOREIGN KEY (`id_factura`) REFERENCES `factura` (`id_factura`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 -- 4. INSERCIÓN DE DATOS INICIALES (SEMILLA / DEMO)
 -- --------------------------------------------------------
 
--- 4.1 Usuarios de acceso (Login)
-INSERT INTO `login` (`id_login`, `nombre_login`, `contrasena_login`) VALUES
-(1, 'admin', 'admin123'),
-(2, 'eclat', 'eclat2026'),
-(3, 'usuario@email.com', '123456');
+-- 4.1 Usuarios de acceso (Login con contraseñas encriptadas con BCRYPT y roles)
+-- Contraseñas originales: admin -> admin123 | eclat -> eclat2026 | usuario@email.com -> 123456
+INSERT INTO `login` (`id_login`, `nombre_login`, `contrasena_login`, `rol`) VALUES
+(1, 'admin', '$2y$10$V2QVQGveePQH2R.KUqW7ceiTC74jwZ8R6JLOO4./2IF8sJ9jEU0O.', 'admin'),
+(2, 'eclat', '$2y$10$Ry6clswEdZZTRvXnwetRvO4NdjBIqM7z1EqrFSLBXSFgsBAjY2o8C', 'admin'),
+(3, 'usuario@email.com', '$2y$10$xqo0hcw8NkQrMw/AIiRjU..uj4d529Zqp59TkaaFXHFt8m7.XhsGe', 'cliente');
 
 -- 4.2 Categorías de cosméticos
 INSERT INTO `categoria` (`id_categoria`, `nombre_categoria`, `descripcion`) VALUES

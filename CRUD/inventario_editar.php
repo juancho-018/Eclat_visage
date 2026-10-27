@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/auth_admin.php';
 include("conexion.php");
 
 $id = intval($_GET['id']);

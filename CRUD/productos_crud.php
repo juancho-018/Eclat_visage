@@ -1,18 +1,11 @@
 <?php
+require_once __DIR__ . '/auth_admin.php';
 include("conexion.php");
 
-$busqueda = "";
-if (isset($_GET['consultar']) && !empty($_GET['query'])) {
-    $q = $conexion->real_escape_string($_GET['query']);
-    $busqueda = "WHERE p.id_producto LIKE '%$q%' OR p.nombre_producto LIKE '%$q%'";
-}
-
-// Consulta corregida usando los nombres exactos de la base de datos (en singular)
 $sql = "SELECT p.*, c.nombre_categoria, pr.nombre_empresa 
         FROM productos p 
         LEFT JOIN categoria c ON p.id_categoria = c.id_categoria 
         LEFT JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor 
-        $busqueda 
         ORDER BY p.id_producto DESC";
 $resultado = $conexion->query($sql);
 ?>
@@ -23,24 +16,9 @@ $resultado = $conexion->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos — Éclat Visage</title>
     <link rel="stylesheet" href="../estilos.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        .btn-limpiar {
-            background-color: #d8c5b2 !important;
-            color: #4a3b32 !important;
-            border: 1px solid #b8a08c !important;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            display: inline-block;
-            transition: background 0.3s;
-        }
-        .btn-limpiar:hover {
-            background-color: #c9b29c !important;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -50,8 +28,8 @@ $resultado = $conexion->query($sql);
             <a href="../index.html">INICIO</a>
             <a href="../tienda.html">VER TODO</a>
             <a href="../mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="../test-piel.html">TEST DE PIEL</a>
-            <a href="../diario.html">DIARIO</a>
+            <a href="../test.html">TEST DE PIEL</a>
+            <a href="../blog.html">DIARIO</a>
             <a href="../nosotros.html">NOSOTROS</a>
             
             <div class="dropdown">
@@ -67,25 +45,20 @@ $resultado = $conexion->query($sql);
                 </div>
             </div>
         </nav>
-        <div class="header-icons">
-            <a href="../login.html" title="Cuenta">👤</a>
-            <a href="../carrito.html" title="Carrito">🛒 (0)</a>
+        <div class="header-iconos">
+            <span></span>
+            <span id="contador-carrito">🛒 (0)</span>
         </div>
     </header>
 
     <main class="panel-cliente">
-        <h1>Gestión de Productos</h1>
-
-        <a href="productos_agregar.php" class="btn-agregar">Agregar Producto</a>
-
-        <form action="productos_crud.php" method="GET" class="barra-busqueda">
-            <input type="text" name="query" placeholder="ID o Nombre de Producto" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
-            <button type="submit" name="consultar" class="btn-consultar">Consultar</button>
-            <a href="productos_crud.php" class="btn-limpiar">Limpiar</a>
-        </form>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <h1 style="margin: 0;">Gestión de Productos</h1>
+            <a href="productos_agregar.php" class="btn-agregar" style="margin: 0;">+ Agregar Producto</a>
+        </div>
 
         <div class="tabla-contenedor">
-            <table class="tabla-clientes">
+            <table id="tabla-productos" class="tabla-clientes display" style="width:100%;">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -103,22 +76,22 @@ $resultado = $conexion->query($sql);
                         <?php while ($row = $resultado->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo $row['id_producto']; ?></td>
-                                <td><?php echo htmlspecialchars($row['nombre_producto']); ?></td>
-                                <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
+                                <td><strong><?php echo htmlspecialchars($row['nombre_producto']); ?></strong></td>
+                                <td><?php echo htmlspecialchars($row['descripcion'] ?? ''); ?></td>
                                 <td>$<?php echo number_format($row['precio'], 2); ?></td>
-                                <td><?php echo $row['stock']; ?></td>
+                                <td>
+                                    <span style="font-weight:600; color:<?php echo $row['stock'] <= 5 ? '#a85d5d' : '#2e7d32'; ?>;">
+                                        <?php echo $row['stock']; ?>
+                                    </span>
+                                </td>
                                 <td><?php echo htmlspecialchars($row['nombre_categoria'] ?? 'Sin categoría'); ?></td>
                                 <td><?php echo htmlspecialchars($row['nombre_empresa'] ?? 'Sin proveedor'); ?></td>
                                 <td class="acciones-cell">
                                     <a href="productos_editar.php?id=<?php echo $row['id_producto']; ?>" class="btn-accion">Editar</a>
-                                    <a href="productos_eliminar.php?id=<?php echo $row['id_producto']; ?>" class="btn-eliminar" onclick="return confirm('¿Estás segura de que deseas eliminar este producto?');">Eliminar</a>
+                                    <a href="productos_eliminar.php?id=<?php echo $row['id_producto']; ?>" class="btn-eliminar">Eliminar</a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="8" style="text-align:center;">No hay productos registrados en la base de datos.</td>
-                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -127,9 +100,40 @@ $resultado = $conexion->query($sql);
 
     <footer class="footer">
         <div class="copyright">
-            ©️ 2026 Eclat Visage — Todos los derechos reservados.
+            © 2026 Eclat Visage — Todos los derechos reservados.
         </div>
     </footer>
 
+    <!-- jQuery, DataTables & Carrito Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="../carrito.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tabla-productos').DataTable({
+                language: {
+                    decimal: "",
+                    emptyTable: "No hay productos registrados en la base de datos",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ productos",
+                    infoEmpty: "Mostrando 0 a 0 de 0 productos",
+                    infoFiltered: "(filtrado de un total de _MAX_ productos)",
+                    lengthMenu: "Mostrar _MENU_ productos por página",
+                    loadingRecords: "Cargando...",
+                    processing: "Procesando...",
+                    search: "Buscar producto:",
+                    zeroRecords: "No se encontraron productos coincidentes",
+                    paginate: {
+                        first: "«",
+                        last: "»",
+                        next: "Siguiente ›",
+                        previous: "‹ Anterior"
+                    }
+                },
+                pageLength: 10,
+                responsive: true,
+                order: [[0, 'desc']]
+            });
+        });
+    </script>
 </body>
 </html>

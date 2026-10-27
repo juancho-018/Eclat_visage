@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Eclat Visage - Tienda</title>
     <link rel="stylesheet" href="estilos.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Estilos básicos con fuentes del sistema */
         body {
@@ -154,6 +155,18 @@
             <a href="test.html">TEST DE PIEL</a>
             <a href="blog.html">DIARIO</a>
             <a href="nosotros.html">NOSOTROS</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">CRUD ▾</a>
+                <div class="dropdown-content">
+                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
+                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
+                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
+                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
+                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
+                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
+                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
+                </div>
+            </div>
             <!-- Carrito con su ID para actualizar la cuenta -->
             <a href="#" id="contador-carrito" style="font-weight: bold; color: #3d352a;">🛒 (0)</a>
         </div>
@@ -338,16 +351,8 @@
         <div class="columna-valor">📦 Envíos Nacionales</div>
     </div>
 
-    <!-- SCRIPT DE CARRITO ACTIVO -->
-    <script>
-        let totalProductos = 0;
-
-        function agregar(nombreProducto) {
-            totalProductos = totalProductos + 1;
-            document.getElementById('contador-carrito').innerText = "🛒 (" + totalProductos + ")";
-            alert("¡" + nombreProducto + " se ha añadido al carrito!");
-        }
-    </script>
+    <!-- SCRIPT DE CARRITO ACTIVO ÉCLAT VISAGE -->
+    <script src="carrito.js"></script>
 
     <!-- PIE DE PÁGINA (FOOTER) -->
 <footer class="footer">

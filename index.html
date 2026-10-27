@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="estilos.css">
     <!-- Fuentes elegantes -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -41,7 +42,7 @@
             </div>
         </nav>
         <div class="header-iconos">
-            <a href="CRUD/registro_login.php" title="Iniciar Sesión" style="text-decoration: none; color: inherit;"><span>👤</span></a>
+            <a href="CRUD/registro_login.php" title="Iniciar Sesión" style="text-decoration: none; color: inherit;"><span></span></a>
             <span id="contador-carrito">🛒 (0)</span>
         </div>
     </header>
@@ -112,16 +113,9 @@
         </div>
     </section>
 
-    <!-- SCRIPTS JAVASCRIPT -->
+    <!-- SCRIPT DEL CARRITO -->
+    <script src="carrito.js"></script>
     <script>
-        // Lógica del carrito
-        let totalProductos = 0;
-        function agregarAlCarrito(nombreProducto) {
-            totalProductos = totalProductos + 1;
-            document.getElementById('contador-carrito').innerText = "🛒 (" + totalProductos + ")";
-            alert("¡" + nombreProducto + " se ha añadido a tu carrito!");
-        }
-
         // Carrusel automático de imágenes
         let misFotos = [
             ".img/carrusel1.jpg",

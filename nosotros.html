@@ -18,11 +18,14 @@
         .nav { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
         .nav a { text-decoration: none; color: #4a3b32; font-size: 13px; font-weight: 500; text-transform: uppercase; }
         .nav a:hover { color: #b38b59; }
-        .dropdown { position: relative; display: inline-block; }
+        .dropdown { position: relative; display: none; user-select: none; }
+        body.es-admin .dropdown, .dropdown.admin-visible { display: inline-block !important; }
         .dropdown-content { display: none; position: absolute; background-color: #fdfbf7; min-width: 170px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); z-index: 1000; border: 1px solid #e6dfd5; border-radius: 6px; }
         .dropdown-content a { color: #4a3b32; padding: 10px 15px; text-decoration: none; display: block; font-size: 13px; }
         .dropdown-content a:hover { background-color: #f4efe6; }
-        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown.abierto .dropdown-content { display: block !important; }
+        .dropdown:not(.cerrado-forzado):hover .dropdown-content { display: block; }
+        .dropdown.cerrado-forzado .dropdown-content { display: none !important; }
 
         .nosotros-banner {
             display: flex;
@@ -182,8 +185,8 @@
             </div>
         </nav>
         <div class="header-iconos">
-            <span>👤</span>
-            <span>🛒 (0)</span>
+             
+            <span id="contador-carrito">🛒 (0)</span>
         </div>
     </header>
 
@@ -289,5 +292,6 @@
         ©️ 2026 Eclat Visage — Todos los derechos reservados.
       </div>
     </footer>
+    <script src="carrito.js"></script>
 </body>
 </html>

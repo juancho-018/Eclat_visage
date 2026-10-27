@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Éclat Visage</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         * {
             margin: 0;
@@ -123,15 +124,31 @@
         <h2>Bienvenida / Bienvenido</h2>
         <p class="subtitulo-registro">Por favor regístrate para ingresar a nuestra tienda</p>
 
+        <div id="aviso-carrito" style="display:none; background:#f4efe6; color:#4a3b32; padding:10px; border-radius:6px; font-size:12px; margin-bottom:15px; border:1px solid #d8c5b2;">
+            🛒 <strong>Para acceder a tu carrito</strong>, por favor regístrate o inicia sesión con tu cuenta.
+        </div>
+
         <form action="registro.php" method="POST">
+            <input type="hidden" name="redirect" id="campo-redirect" value="">
+
             <div class="campo">
                 <label>Nombre Completo:</label>
                 <input type="text" name="nombre" placeholder="Tu nombre completo" required>
             </div>
 
             <div class="campo">
+                <label>Nombre de Usuario (para Login):</label>
+                <input type="text" name="usuario" placeholder="Ej: camila2026" required>
+            </div>
+
+            <div class="campo">
                 <label>Correo Electrónico:</label>
                 <input type="email" name="correo" placeholder="correo@ejemplo.com" required>
+            </div>
+
+            <div class="campo">
+                <label>Contraseña (Encriptada con Bcrypt):</label>
+                <input type="password" name="password" placeholder="Mínimo 6 caracteres" required minlength="6">
             </div>
 
             <div class="campo">
@@ -146,7 +163,23 @@
 
             <button type="submit" class="btn-registro">REGISTRARSE E INGRESAR</button>
         </form>
+
+        <div style="margin-top: 20px; font-size: 13px; color: #6e6456;">
+            ¿Ya tienes una cuenta? 
+            <a href="CRUD/registro_login.php" style="color: #bc9c82; font-weight: 600; text-decoration: none;">Inicia Sesión aquí</a>
+        </div>
+        <div style="margin-top: 10px;">
+            <a href="index.html" style="font-size: 12px; color: #8c7a6b; text-decoration: underline;">← Volver a la Tienda</a>
+        </div>
     </div>
 
+    <script>
+        // Si viene con redirect=carrito, mostrar mensaje y pasar el parámetro
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('redirect') === 'carrito') {
+            document.getElementById('aviso-carrito').style.display = 'block';
+            document.getElementById('campo-redirect').value = 'carrito';
+        }
+    </script>
 </body>
 </html>

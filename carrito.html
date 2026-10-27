@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolsa de Compras — Éclat Visage</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .carrito-seccion {
+            background-color: #fdfbf7;
+            padding: 40px 0 80px 0;
+            min-height: 70vh;
+        }
+
+        .migas-pan {
+            font-size: 12px;
+            color: #8c7a6b;
+            margin-bottom: 25px;
+        }
+
+        .migas-pan a {
+            color: #8c7a6b;
+            text-decoration: none;
+        }
+
+        .migas-pan a:hover {
+            color: #bc9c82;
+            text-decoration: underline;
+        }
+
+        .checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 42, 41, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkout-modal.activo {
+            display: flex;
+        }
+
+        .checkout-card {
+            background: #ffffff;
+            width: 90%;
+            max-width: 520px;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .checkout-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #3d352a;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .checkout-form .campo {
+            margin-bottom: 14px;
+        }
+
+        .checkout-form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #5a4a42;
+            margin-bottom: 5px;
+        }
+
+        .checkout-form input, .checkout-form select, .checkout-form textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d8c5b2;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        .btn-confirmar-pedido {
+            background-color: #3d352a;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 25px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn-confirmar-pedido:hover {
+            background-color: #bc9c82;
+        }
+
+        .btn-cerrar-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #8c7a6b;
+        }
+
+        /* Banner de confirmación exitosa */
+        .confirmacion-exito {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2d9cd;
+            margin: 20px 0;
+        }
+
+        .confirmacion-exito.activo {
+            display: block;
+        }
+
+        .icono-check {
+            font-size: 50px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ SUPERIOR -->
+    <header class="header">
+        <div class="logo">eclat visage<span>✦</span></div>
+        <nav class="nav">
+            <a href="index.html">INICIO</a>
+            <a href="tienda.html">VER TODO</a>
+            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
+            <a href="test.html">TEST DE PIEL</a>
+            <a href="blog.html">DIARIO</a>
+            <a href="nosotros.html">NOSOTROS</a>
+
+            <div class="dropdown">
+                <a href="#" class="dropbtn">CRUD ▾</a>
+                <div class="dropdown-content">
+                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
+                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
+                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
+                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
+                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
+                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
+                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
+                </div>
+            </div>
+        </nav>
+        <div class="header-iconos">
+            <a href="CRUD/registro_login.php" title="Cuenta"></a>
+            <span id="contador-carrito" style="font-weight: 600; color: #bc9c82;">🛒 (0)</span>
+        </div>
+    </header>
+
+    <!-- CUERPO DEL CARRITO -->
+    <main class="carrito-seccion">
+        <div class="pagina-carrito-contenedor">
+            
+            <div class="migas-pan">
+                <a href="index.html">Inicio</a> &gt; <a href="tienda.html">Tienda</a> &gt; <span>Bolsa de Compras</span>
+            </div>
+
+            <h1 class="pagina-carrito-titulo">Tu Bolsa de Compras</h1>
+
+            <!-- PANTALLA DE ÉXITO TRAS ORDENAR -->
+            <div id="pantalla-confirmacion" class="confirmacion-exito">
+                <div class="icono-check">✓</div>
+                <h2 style="font-family:'Playfair Display', serif; color:#3d352a; margin-bottom:10px;">¡Gracias por tu compra!</h2>
+                <p id="confirmacion-detalle" style="color:#6e6456; max-width:500px; margin: 0 auto 20px auto; font-size:14px; line-height:1.6;">
+                    Tu pedido ha sido registrado con éxito. Te hemos enviado los detalles a tu correo electrónico.
+                </p>
+                <a href="tienda.html" class="btn-comprar-principal" style="display:inline-block; max-width:240px; text-decoration:none;">Seguir Comprando</a>
+            </div>
+
+            <!-- CONTENEDOR PRINCIPAL CON GRID -->
+            <div id="seccion-carrito-activa" class="carrito-grid">
+                
+                <!-- COLUMNA IZQUIERDA: LISTADO DE PRODUCTOS -->
+                <div class="carrito-tabla-card">
+                    <div class="carrito-tabla-header">
+                        <div>Producto</div>
+                        <div style="text-align: center;">Precio</div>
+                        <div style="text-align: center;">Cantidad</div>
+                        <div style="text-align: right;">Subtotal</div>
+                        <div></div>
+                    </div>
+
+                    <div id="lista-productos-carrito">
+                        <!-- Generado dinámicamente con JavaScript -->
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f0eae1;">
+                        <a href="tienda.html" style="color: #6e6456; font-size: 13px; text-decoration: none; font-weight: 500;">
+                            ← Continuar comprando
+                        </a>
+                        <button type="button" onclick="vaciarCarrito()" style="background: none; border: none; color: #a85d5d; font-size: 12px; cursor: pointer; text-decoration: underline;">
+                            Vaciar toda la bolsa
+                        </button>
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: RESUMEN DE COMPRA -->
+                <div class="carrito-resumen-card">
+                    <h3>Resumen del Pedido</h3>
+
+                    <div class="resumen-linea" style="margin-bottom: 10px;">
+                        <span>Subtotal de productos:</span>
+                        <strong id="resumen-subtotal">$0 COP</strong>
+                    </div>
+
+                    <div class="resumen-linea" style="margin-bottom: 10px;">
+                        <span>Costo de envío nacional:</span>
+                        <span id="resumen-envio">Calculando...</span>
+                    </div>
+
+                    <div id="descuento-linea" class="resumen-linea" style="display: none; color: #2e7d32; margin-bottom: 10px;">
+                        <span>Cupón de Descuento (10%):</span>
+                        <strong id="resumen-descuento">-$0 COP</strong>
+                    </div>
+
+                    <!-- TOTAL FINAL -->
+                    <div class="resumen-linea total-destacado" style="font-size: 18px; padding-top: 15px; margin-top: 10px; border-top: 1px solid #e6dfd5;">
+                        <span>Total:</span>
+                        <strong id="resumen-total">$0 COP</strong>
+                    </div>
+
+                    <!-- BOTONES DE PAGO -->
+                    <button type="button" class="btn-comprar-principal" onclick="abrirCheckoutModal()">
+                        Proceder al Pago Seguro ✦
+                    </button>
+
+                    <button type="button" class="btn-whatsapp-grande" onclick="enviarPedidoWhatsApp()">
+                        <span>Pedir directamente por WhatsApp</span>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL DE CHECKOUT / FINALIZAR COMPRA -->
+    <div id="modal-checkout" class="checkout-modal">
+        <div class="checkout-card">
+            <button type="button" class="btn-cerrar-modal" onclick="cerrarCheckoutModal()">✕</button>
+            <h3>Datos para la Entrega</h3>
+            <p style="font-size: 13px; color: #6e6456; text-align: center; margin-bottom: 20px;">
+                Ingresa tus datos para generar tu orden y coordinar el despacho.
+            </p>
+
+            <form class="checkout-form" onsubmit="procesarOrden(event)">
+                <div class="campo">
+                    <label>Nombre Completo:</label>
+                    <input type="text" id="chk-nombre" required placeholder="Ej: Valentina Morales">
+                </div>
+                <div class="campo">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" id="chk-correo" required placeholder="tu_correo@ejemplo.com">
+                </div>
+                <div class="campo">
+                    <label>Teléfono de Contacto (WhatsApp):</label>
+                    <input type="tel" id="chk-telefono" required placeholder="Ej: 312 345 6789">
+                </div>
+                <div class="campo">
+                    <label>Dirección de Envío:</label>
+                    <input type="text" id="chk-direccion" required placeholder="Calle, Carrera, Apto / Casa">
+                </div>
+                <div class="campo">
+                    <label>Ciudad / Municipio:</label>
+                    <input type="text" id="chk-ciudad" required placeholder="Ej: Bogotá, Medellín, Armenia...">
+                </div>
+                <div class="campo">
+                    <label>Método de Pago:</label>
+                    <select id="chk-metodo" required>
+                        <option value="Nequi">Nequi</option>
+                        <option value="Bancolombia">Transferencia Bancolombia</option>
+                        <option value="Tarjeta">Tarjeta Débito / Crédito</option>
+                        <option value="Contraentrega">Pago Contra Entrega</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-confirmar-pedido">
+                    Confirmar Pedido y Facturar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CARRITO Y CONTROLADOR ESPECÍFICO DE ESTA PÁGINA -->
+    <script src="carrito.js"></script>
+    <script>
+        let descuentoPorcentaje = 0;
+
+        function renderizarPaginaCarrito() {
+            const carrito = obtenerCarrito();
+            const contenedorLista = document.getElementById('lista-productos-carrito');
+            const seccionActiva = document.getElementById('seccion-carrito-activa');
+            const confirmacion = document.getElementById('pantalla-confirmacion');
+            if (!contenedorLista) return;
+
+            if (confirmacion.classList.contains('activo')) {
+                return; // Si ya se completó el pedido, mantener pantalla de confirmación
+            }
+
+            if (carrito.length === 0) {
+                seccionActiva.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 70px 20px; background:#fff; border-radius:12px; border:1px solid #f0eae1;">
+                        <div style="font-size: 55px; margin-bottom: 15px;">🛍️</div>
+                        <h2 style="font-family:'Playfair Display', serif; color:#3d352a; margin-bottom:10px;">Tu bolsa de compras está vacía</h2>
+                        <p style="color:#8c7a6b; font-size:14px; max-width:450px; margin:0 auto 25px auto;">
+                            Parece que aún no has seleccionado ninguna de nuestras fórmulas para el cuidado de tu piel.
+                        </p>
+                        <a href="tienda.html" class="btn-comprar-principal" style="display:inline-block; max-width:220px; text-decoration:none;">
+                            Explorar Fórmulas
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            let { subtotal, envio, total } = calcularTotales(carrito);
+
+            carrito.forEach(item => {
+                const subtotalItem = item.precio * item.cantidad;
+                html += `
+                    <div class="carrito-fila-item">
+                        <div class="item-info-col">
+                            <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='.img/serum.jpg'">
+                            <div>
+                                <h4>${item.nombre}</h4>
+                                <span>Fórmula botánica de nutrición facial</span>
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 13px; color: #5a4a42;">
+                            ${formatearMoneda(item.precio)}
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <div class="cantidad-control">
+                                <button type="button" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', -1)">−</button>
+                                <span class="cantidad-num">${item.cantidad}</span>
+                                <button type="button" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', 1)">+</button>
+                            </div>
+                        </div>
+                        <div style="text-align: right; font-weight: 600; color: #3d352a; font-size: 14px;">
+                            ${formatearMoneda(subtotalItem)}
+                        </div>
+                        <div class="item-accion-col" style="text-align: right;">
+                            <button type="button" onclick="eliminarProducto('${item.nombre.replace(/'/g, "\\'")}')" style="background:none; border:none; color:#a85d5d; cursor:pointer; font-size:16px;" title="Eliminar">
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contenedorLista.innerHTML = html;
+
+            // Aplicar descuento si existe
+            let montoDescuento = 0;
+            if (descuentoPorcentaje > 0) {
+                montoDescuento = Math.round(subtotal * (descuentoPorcentaje / 100));
+                document.getElementById('descuento-linea').style.display = 'flex';
+                document.getElementById('resumen-descuento').innerText = `-${formatearMoneda(montoDescuento)}`;
+            } else {
+                document.getElementById('descuento-linea').style.display = 'none';
+            }
+
+            const totalFinal = Math.max(0, subtotal - montoDescuento + envio);
+
+            document.getElementById('resumen-subtotal').innerText = formatearMoneda(subtotal);
+            document.getElementById('resumen-envio').innerHTML = envio === 0 ? '<strong style="color:#2e7d32;">GRATIS</strong>' : formatearMoneda(envio);
+            document.getElementById('resumen-total').innerText = `${formatearMoneda(totalFinal)} COP`;
+        }
+
+        function abrirCheckoutModal() {
+            const usuario = obtenerUsuarioAutenticado();
+            if (!usuario) {
+                Swal.fire({
+                    title: 'Acceso a Pago',
+                    text: 'Para proceder al pago y registrar tu pedido, por favor inicia sesión o regístrate.',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Iniciar Sesión',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#3d352a',
+                    cancelButtonColor: '#8c7a6b',
+                    background: '#fdfbf7',
+                    color: '#3d352a'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "CRUD/registro_login.php?redirect=carrito";
+                    }
+                });
+                return;
+            }
+
+            const carrito = obtenerCarrito();
+            if (carrito.length === 0) {
+                Swal.fire({
+                    title: 'Bolsa Vacía',
+                    text: 'Añade productos a tu bolsa de compras antes de proceder al pago.',
+                    icon: 'warning',
+                    confirmButtonColor: '#3d352a',
+                    background: '#fdfbf7',
+                    color: '#3d352a'
+                });
+                return;
+            }
+
+            // Autorrellenar datos del usuario autenticado
+            if (usuario.nombre && !document.getElementById('chk-nombre').value) {
+                document.getElementById('chk-nombre').value = usuario.nombre;
+            }
+            if ((usuario.correo || usuario.usuario) && !document.getElementById('chk-correo').value) {
+                document.getElementById('chk-correo').value = usuario.correo || usuario.usuario;
+            }
+
+            document.getElementById('modal-checkout').classList.add('activo');
+        }
+
+        function cerrarCheckoutModal() {
+            document.getElementById('modal-checkout').classList.remove('activo');
+        }
+
+        function procesarOrden(e) {
+            return procesarCompraEclat(e);
+        }
+
+        // Renderizar al cargar la página
+        document.addEventListener('DOMContentLoaded', renderizarPaginaCarrito);
+    </script>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer">
+        <div class="footer-contenedor">
+            <div class="footer-columna">
+                <h3 class="footer-logo">eclat visage <span>✦</span></h3>
+                <p>Skincare diseñado para resaltar la belleza natural y mantener tu piel saludable y radiante.</p>
+            </div>
+            <div class="footer-columna">
+                <h4>Síguenos en Instagram</h4>
+                <p><a href="#" target="_blank">Instagram: @eclatvisage</a></p>
+            </div>
+            <div class="footer-columna">
+                <h4>Contacto</h4>
+                <p>Correo: eclatvisage@gmail.com</p>
+                <p>Teléfono: 300 000 0000</p>
+            </div>
+            <div class="footer-columna">
+                <h4>Ubicación</h4>
+                <p>Calarcá, Quindío, Colombia</p>
+            </div>
+            <div class="footer-columna">
+                <h4>Métodos de pago</h4>
+                <p>Nequi</p>
+                <p>Bancolombia</p>
+                <p>Tarjetas débito y crédito</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 Eclat Visage — Todos los derechos reservados.
+        </div>
+    </footer>
+
+</body>
+</html>

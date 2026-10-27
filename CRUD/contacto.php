@@ -1,4 +1,5 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) session_start();
 include("conexion.php");
 // Lógica de inicio de sesión o registro
 ?>
@@ -86,7 +87,8 @@ include("conexion.php");
             <a href="registro_login.php">LOGIN</a>
             <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">DOCUMENTOS</a>
 
-            <div class="dropdown">
+            <?php if (isset($_SESSION['rol']) && strtolower(trim($_SESSION['rol'])) === 'admin'): ?>
+            <div class="dropdown admin-visible">
                 <a href="#" class="dropbtn">CRUD ▾</a>
                 <div class="dropdown-content">
                     <a href="clientes_crud.php">Tabla Clientes</a>
@@ -98,6 +100,7 @@ include("conexion.php");
                     <a href="empleados_crud.php">Tabla Empleados</a>
                 </div>
             </div>
+            <?php endif; ?>
         </nav>
         <div class="header-iconos">
             <span>🛒 (0)</span>
@@ -128,5 +131,6 @@ include("conexion.php");
         </div>
     </footer>
 
+    <script src="../carrito.js"></script>
 </body>
 </html>

@@ -118,6 +118,10 @@
             <a href="blog.html">DIARIO</a>
             <a href="nosotros.html">NOSOTROS</a>
         </nav>
+        <div class="header-iconos">
+            <span>👤</span>
+            <span id="contador-carrito">🛒 (0)</span>
+        </div>
     </header>
 
     <section class="test-seccion">
@@ -179,7 +183,18 @@
 
             // Si falta alguna por responder, avisa
             if (!p1 || !p2 || !p3 || !p4) {
-                alert("Por favor, responde todas las preguntas del test.");
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'Test Incompleto',
+                        text: 'Por favor, responde las 4 preguntas para diagnosticar tu tipo de piel con exactitud.',
+                        icon: 'warning',
+                        confirmButtonColor: '#3d352a',
+                        background: '#fdfbf7',
+                        color: '#3d352a'
+                    });
+                } else {
+                    alert("Por favor, responde todas las preguntas del test.");
+                }
                 return;
             }
 
@@ -267,5 +282,6 @@
     © 2026 Eclat Visage — Todos los derechos reservados.
   </div>
 </footer>
+<script src="carrito.js"></script>
 </body>
 </html>

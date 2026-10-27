@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/auth_admin.php';
 include("conexion.php");
 
 // 1. Si se envió el formulario para actualizar

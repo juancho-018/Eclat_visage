@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="estilos.css">
     <!-- Fuentes de la marca -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             background-color: #fbf9f6;
@@ -190,21 +191,8 @@
 
     </div>
 
-    <!-- JAVASCRIPT BÁSICO PARA EL CARRITO -->
-    <script>
-        let totalProductos = 0;
-
-        function agregarAlCarrito(nombreProducto) {
-            // Suma uno cada vez que se unde el botón
-            totalProductos = totalProductos + 1;
-            
-            // Cambia el número del menú arriba
-            document.getElementById('contador-carrito').innerText = "🛒 (" + totalProductos + ")";
-            
-            // Muestra la alerta sencilla en pantalla
-            alert("¡" + nombreProducto + " se ha añadido a tu carrito!");
-        }
-    </script>
+    <!-- SCRIPT DEL CARRITO ÉCLAT VISAGE -->
+    <script src="carrito.js"></script>
     <!-- PIE DE PÁGINA (FOOTER) -->
 <footer class="footer">
   <div class="footer-contenedor">
