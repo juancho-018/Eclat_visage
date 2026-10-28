@@ -1,297 +1,418 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclat Visage - Nosotros</title>
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Conoce la misión, visión, ingredientes y equipo de Éclat Visage, una marca dedicada al cuidado facial.">
+    <title>Nosotros | Éclat Visage</title>
     <link rel="stylesheet" href="estilos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        /* Paleta de colores armónica basada en tu Beige Central */
+        :root {
+            --nos-crema: #faf7f2;
+            --nos-beige: #f1e8dc;
+            --nos-blanco: #fffdf9;
+            --nos-cafe: #403329;
+            --nos-texto: #75665a;
+            --nos-dorado: #b49a72;
+            --nos-borde: #e8ded1;
+            --nos-sombra: 0 14px 40px rgba(64, 51, 41, .07);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            background-color: #fbf9f6; /* Fondo lino ultra claro para toda la página */
-            color: #4a4238; /* Texto café oscuro elegante */
+            margin: 0;
+            background: var(--nos-crema);
+            color: var(--nos-cafe);
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
+        .nosotros-pagina {
+            padding: 1px 0 65px;
+            background: radial-gradient(ellipse at top right, rgba(220, 202, 177, .16), transparent 35%), var(--nos-crema);
+        }
+        .nosotros-pagina img, .nosotros-pagina video { display: block; }
 
-        /* Estilos del menú superior unificado */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #fdfbf7; border-bottom: 1px solid #e6dfd5; }
-        .nav { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
-        .nav a { text-decoration: none; color: #4a3b32; font-size: 13px; font-weight: 500; text-transform: uppercase; }
-        .nav a:hover { color: #b38b59; }
-        .dropdown { position: relative; display: none; user-select: none; }
-        body.es-admin .dropdown, .dropdown.admin-visible { display: inline-block !important; }
-        .dropdown-content { display: none; position: absolute; background-color: #fdfbf7; min-width: 170px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); z-index: 1000; border: 1px solid #e6dfd5; border-radius: 6px; }
-        .dropdown-content a { color: #4a3b32; padding: 10px 15px; text-decoration: none; display: block; font-size: 13px; }
-        .dropdown-content a:hover { background-color: #f4efe6; }
-        .dropdown.abierto .dropdown-content { display: block !important; }
-        .dropdown:not(.cerrado-forzado):hover .dropdown-content { display: block; }
-        .dropdown.cerrado-forzado .dropdown-content { display: none !important; }
-
+        /* MISIÓN Y VISIÓN */
         .nosotros-banner {
-            display: flex;
-            background-color: #f3ede4; /* Tu beige central cálido y estético */
-            margin: 40px 5% 20px 5%;
-            align-items: center;
-            border-radius: 4px;
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+            width: min(90%, 1220px);
+            margin: 60px auto 30px;
             overflow: hidden;
+            background: var(--nos-beige);
+            border: 1px solid var(--nos-borde);
+            border-radius: 24px;
+            box-shadow: var(--nos-sombra);
+            animation: nosotrosEntrada .7s ease both;
         }
-
         .nosotros-texto-mision {
-            flex: 1.2;
-            padding: 50px;
-            text-align: left;
+            align-self: center;
+            padding: clamp(28px, 5vw, 62px);
         }
-
-        .nosotros-texto-mision h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 30px;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            color: #3d352a; /* Café profundo */
-        }
-
-        .nosotros-texto-mision p {
-            font-size: 14px;
-            line-height: 1.8;
-            color: #5a5145; /* Café medio para lectura suave */
-            margin-bottom: 25px;
-        }
-
-        .nosotros-texto-mision strong {
-            color: #3d352a;
+        .nosotros-etiqueta {
+            display: inline-block;
+            margin-bottom: 16px;
+            color: var(--nos-dorado);
+            font-size: 10px;
             font-weight: 500;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
         }
-
-        .nosotros-img-banner {
-            flex: 1;
-            align-self: stretch;
+        .nosotros-texto-mision h1 {
+            margin: 0 0 27px;
+            color: var(--nos-cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(34px, 4vw, 48px);
+            font-weight: 400;
+            line-height: 1.18;
+            letter-spacing: -.7px;
+        }
+        .nosotros-texto-mision h1 em {
+            color: var(--nos-dorado);
+            font-weight: 400;
+        }
+        .nosotros-bloque-texto {
+            margin-top: 24px;
+        }
+        .nosotros-bloque-texto h2 {
             display: flex;
+            align-items: center;
+            gap: 11px;
+            margin: 0 0 10px;
+            color: var(--nos-cafe);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
-
+        .nosotros-bloque-texto h2::before {
+            content: "";
+            width: 23px;
+            height: 1px;
+            flex-shrink: 0;
+            background: var(--nos-dorado);
+        }
+        .nosotros-bloque-texto p {
+            margin: 0;
+            color: #66594e;
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 2;
+        }
+        .nosotros-bloque-texto strong { color: var(--nos-cafe); font-weight: 500; }
+        .nosotros-img-banner {
+            position: relative;
+            min-width: 0;
+            min-height: 590px;
+            overflow: hidden;
+            background: #e7daca;
+        }
+        .nosotros-img-banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(55, 43, 32, .12), transparent 45%);
+            pointer-events: none;
+        }
         .nosotros-img-banner img {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            transition: transform .7s ease;
         }
-        
-        /* Sección de ingredientes inferiores (Beige Arena) */
-        .ingredientes-contenedor-horizontal {
-            display: flex;
-            background-color: #eae2d5; /* Beige un toque más oscuro para resaltar abajo */
-            margin: 0 5% 40px 5%;
-            padding: 35px 20px;
-            justify-content: space-around;
+        .nosotros-banner:hover .nosotros-img-banner img { transform: scale(1.025); }
+
+        /* INGREDIENTES ESTRELLA */
+        .ingredientes-seccion {
+            width: min(90%, 1220px);
+            margin: 0 auto 55px;
+        }
+        .ingredientes-encabezado {
+            margin: 55px 0 28px;
             text-align: center;
-            border-radius: 4px;
         }
-
-        .ingrediente-columna {
-            flex: 1;
-            padding: 0 15px;
-        }
-
-        .ingrediente-columna h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            color: #3d352a;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .ingrediente-columna p {
-            font-size: 11.5px;
-            color: #6e6456;
-            margin: 0;
-        }
-
-        /* ESTILOS PARA LA SECCIÓN DE NUESTRO EQUIPO Y VIDEO PITCH EN VERTICAL */
-        .equipo-contenedor {
-            background-color: #f3ede4;
-            margin: 0 5% 50px 5%;
-            padding: 45px 30px;
-            text-align: center;
-            border-radius: 4px;
-        }
-
-        .equipo-contenedor h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            letter-spacing: 1px;
-            color: #3d352a;
+        .ingredientes-encabezado span {
+            display: block;
             margin-bottom: 10px;
+            color: var(--nos-dorado);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
         }
-
-        .equipo-subtitulo {
-            font-size: 14px;
-            color: #5a5145;
-            margin-bottom: 35px;
+        .ingredientes-encabezado h2 {
+            margin: 0;
+            color: var(--nos-cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        .ingredientes-contenedor-horizontal {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .ingrediente-columna {
+            position: relative;
+            padding: 32px 22px;
+            overflow: hidden;
+            background: var(--nos-blanco);
+            border: 1px solid var(--nos-borde);
+            border-radius: 18px;
+            text-align: center;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+        .ingrediente-columna:hover {
+            transform: translateY(-4px);
+            border-color: #d7c5a9;
+            box-shadow: var(--nos-sombra);
+        }
+        .ingrediente-numero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 19px;
+            background: var(--nos-beige);
+            color: #91764f;
+            border: 1px solid #e4d5c0;
+            border-radius: 50%;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+        }
+        .ingrediente-columna h3 {
+            margin: 0 0 10px;
+            color: var(--nos-cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .ingrediente-columna p {
+            margin: 0;
+            color: var(--nos-texto);
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 1.9;
         }
 
-        /* Contenedor vertical: Foto arriba, Video abajo */
+        /* EQUIPO Y VIDEO PITCH */
+        .equipo-contenedor {
+            width: min(90%, 1220px);
+            margin: 70px auto 0;
+            padding: clamp(25px, 5vw, 55px);
+            background: var(--nos-blanco);
+            border: 1px solid var(--nos-borde);
+            border-radius: 24px;
+            box-shadow: 0 8px 28px rgba(64, 51, 41, .035);
+            text-align: center;
+        }
+        .equipo-etiqueta {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--nos-dorado);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+        .equipo-contenedor > h2 {
+            margin: 0 0 12px;
+            color: var(--nos-cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(30px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        .equipo-subtitulo {
+            max-width: 600px;
+            margin: 0 auto 38px;
+            color: var(--nos-texto);
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 2;
+        }
         .multimedia-vertical {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 32px;
         }
-
         .equipo-marco-foto, .video-marco {
-            width: 100%;
-            max-width: 550px;
-            border-radius: 8px;
+            width: min(100%, 760px);
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(61, 53, 42, 0.12);
-            border: 4px solid #ffffff;
-            background: #fff;
+            background: #f0e8dd;
+            border: 1px solid var(--nos-borde);
+            border-radius: 18px;
+            box-shadow: 0 10px 28px rgba(64, 51, 41, .08);
+        }
+        .equipo-marco-foto img {
+            height: 350px;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            object-position: center;
+        }
+        .multimedia-titulo {
+            margin: 0;
+            padding: 17px 20px 0;
+            color: var(--nos-cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 21px;
+            font-weight: 400;
+            text-align: left;
+        }
+        .multimedia-descripcion {
+            margin: 6px 0 16px;
+            padding: 0 20px;
+            color: var(--nos-texto);
+            font-size: 11px;
+            font-weight: 300;
+            text-align: left;
+        }
+        .video-marco video {
+            width: 100%;
+            height: 300px;
+            aspect-ratio: 16 / 9;
+            background: #29221d;
+            object-fit: contain;
         }
 
-        .equipo-marco-foto img, .video-marco video {
-            width: 100%;
-            height: auto;
-            display: block;
+        /* ANIMACIONES */
+        @keyframes nosotrosEntrada {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TABLET */
+        @media (max-width: 850px) {
+            .nosotros-banner { grid-template-columns: 1fr; }
+            .nosotros-texto-mision { padding: 38px 30px; }
+            .nosotros-img-banner { min-height: 420px; }
+        }
+
+        /* CELULAR */
+        @media (max-width: 600px) {
+            .nosotros-banner { width: 92%; margin-top: 35px; border-radius: 18px; }
+            .nosotros-texto-mision { padding: 28px 21px 32px; }
+            .nosotros-texto-mision h1 { font-size: 36px; }
+            .nosotros-bloque-texto p { font-size: 11.5px; }
+            .nosotros-img-banner { min-height: 290px; }
+            .ingredientes-seccion { width: 92%; margin-bottom: 35px; }
+            .ingredientes-encabezado { margin: 40px 0 23px; }
+            .ingredientes-contenedor-horizontal { grid-template-columns: 1fr; gap: 14px; }
+            .ingrediente-columna { padding: 25px 18px; }
+            .ingrediente-numero { width: 42px; height: 42px; margin-bottom: 13px; }
+            .equipo-contenedor { width: 92%; margin-top: 45px; padding: 26px 16px; border-radius: 18px; }
+            .equipo-contenedor > h2 { font-size: 30px; }
+            .equipo-subtitulo { margin-bottom: 25px; }
+            .multimedia-vertical { gap: 23px; }
+            .equipo-marco-foto, .video-marco { border-radius: 13px; }
+            .multimedia-titulo { padding: 14px 13px 0; font-size: 19px; }
+            .multimedia-descripcion { padding: 0 13px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <div id="navbar-modulo"></div>
+    <script src="modulos/nav.js"></script>
 
-   <!-- MENÚ SUPERIOR UNIFICADO -->
-    <header class="header">
-        <div class="logo">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="index.html">INICIO</a>
-            <a href="tienda.html">VER TODO</a>
-            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="test.html">TEST DE PIEL</a>
-            <a href="blog.html">DIARIO</a>
-            <a href="nosotros.html" style="font-weight: bold; border-bottom: 2px solid #bc9c82; padding-bottom: 4px;">NOSOTROS</a>
-            <a href="CRUD/contacto.php">CONTACTO</a>
-            <a href="CRUD/registro_login.php">LOGIN</a>
-            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">DOCUMENTOS</a>
+    <main class="nosotros-pagina">
+        <!-- MISIÓN Y VISIÓN -->
+        <section class="nosotros-banner">
+            <div class="nosotros-texto-mision">
+                <span class="nosotros-etiqueta">La esencia de nuestra marca</span>
+                <h1>Nuestra misión <em>y visión</em></h1>
 
-            <div class="dropdown">
-                <a href="#" class="dropbtn">CRUD ▾</a>
-                <div class="dropdown-content">
-                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
-                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
-                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
-                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
-                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
-                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
-                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
+                <div class="nosotros-bloque-texto">
+                    <h2>Misión</h2>
+                    <p>Nutrir la belleza natural de cada persona a través de una experiencia sensorial única, transformando el cuidado de la piel en un ritual de alta cocina dermatológica. En Éclat Visage, seleccionamos los ingredientes más puros y potentes para crear menús de nutrición cutánea que alimentan, restauran y revelan el resplandor saludable de la dermis.</p>
+                </div>
+
+                <div class="nosotros-bloque-texto">
+                    <h2>Visión</h2>
+                    <p>Convertirnos en la marca referente de skincare premium a nivel internacional, siendo reconocidos por innovar en el concepto de nutrición facial. Aspiramos a que cada hogar disfrute de un laboratorio culinario para su piel, donde la ciencia y la naturaleza se fusionen para elevar los estándares de bienestar y cuidado personal.</p>
                 </div>
             </div>
-        </nav>
-        <div class="header-iconos">
-             
-            <span id="contador-carrito">🛒 (0)</span>
-        </div>
-    </header>
 
-    <!-- BLOQUE SUPERIOR: MISIÓN, VISIÓN E IMAGEN -->
-    <section class="nosotros-banner">
-        <div class="nosotros-texto-mision">
-            <h2>NUESTRA MISIÓN Y VISIÓN</h2>
-            
-            <p>
-                <strong>MISIÓN:</strong> Nutrir la belleza natural de cada persona a través de una experiencia sensorial única, transformando el cuidado de la piel en un ritual de 'alta cocina' dermatológica. En Eclat Visage, seleccionamos los ingredientes más puros y potentes para crear menús de nutrición cutánea que alimentan, restauran y revelan el resplandor saludable de la dermis.
-            </p>
-            
-            <p>
-                <strong>VISIÓN:</strong> Convertirnos en la marca referente de skincare premium a nivel internacional, siendo reconocidos por innovar en el concepto de nutrición facial. Aspiramos a que cada hogar disfrute de un "laboratorio culinario" para su piel, donde la ciencia y la naturaleza se fusionan para elevar los estándares de bienestar y cuidado personal.
-            </p>
-        </div>
-        
-        <div class="nosotros-img-banner">
-            <img src=".img/imagen_5.png" alt="Alta cocina dermatológica">
-        </div>
-    </section>
-
-    <!-- BLOQUE INFERIOR: INGREDIENTES ESTRELLA -->
-    <section class="ingredientes-contenedor-horizontal">
-        <div class="ingrediente-columna">
-            <h4>Vitamina C + Cúrcuma</h4>
-            <p>Luminosidad y Vitalidad Activa</p>
-        </div>
-        <div class="ingrediente-columna" style="border-left: 1px solid #d2c7b7; border-right: 1px solid #d2c7b7;">
-            <h4>Ácido Hialurónico</h4>
-            <p>Hidratación y Relleno Profundo</p>
-        </div>
-        <div class="ingrediente-columna">
-            <h4>Extractos Botánicos</h4>
-            <p>Restauración y Calma Cutánea</p>
-        </div>
-    </section>
-
-    <!-- SECCIÓN: NUESTRO EQUIPO Y VIDEO PITCH (VERTICAL) -->
-    <section class="equipo-contenedor">
-        <h2>NUESTRO EQUIPO Y PITCH</h2>
-        <p class="equipo-subtitulo">Conoce a las mentes creativas detrás de la experiencia Eclat Visage.</p>
-        
-        <div class="multimedia-vertical">
-            <!-- Foto del equipo (Arriba) -->
-            <div class="equipo-marco-foto">
-                <img src=".img/equipo.jpg" alt="Equipo Eclat Visage">
+            <div class="nosotros-img-banner">
+                <img src=".img/imagen_5.png" alt="Concepto de belleza y cuidado facial de Éclat Visage" fetchpriority="high">
             </div>
+        </section>
 
-            <!-- Video Pitch integrado (Abajo) -->
-            <div class="video-marco">
-                <video controls width="100%">
-                    <source src=".img/video_pitch.mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de videos.
-                </video>
+        <!-- INGREDIENTES ESTRELLA -->
+        <section class="ingredientes-seccion">
+            <header class="ingredientes-encabezado">
+                <span>Inspirados en la naturaleza</span>
+                <h2>Los activos de nuestro ritual</h2>
+            </header>
+
+            <div class="ingredientes-contenedor-horizontal">
+                <article class="ingrediente-columna">
+                    <div class="ingrediente-numero" aria-hidden="true">01</div>
+                    <h3>Vitamina C + Cúrcuma</h3>
+                    <p>Luminosidad y vitalidad activa</p>
+                </article>
+                <article class="ingrediente-columna">
+                    <div class="ingrediente-numero" aria-hidden="true">02</div>
+                    <h3>Ácido hialurónico</h3>
+                    <p>Hidratación y efecto rellenador</p>
+                </article>
+                <article class="ingrediente-columna">
+                    <div class="ingrediente-numero" aria-hidden="true">03</div>
+                    <h3>Extractos botánicos</h3>
+                    <p>Restauración y calma cutánea</p>
+                </article>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PIE DE PÁGINA (FOOTER) -->
-    <footer class="footer">
-      <div class="footer-contenedor">
-        <!-- NOMBRE / LOGO DE LA MARCA -->
-        <div class="footer-columna">
-          <h3 class="footer-logo">
-            eclat visage <span>✦</span>
-          </h3>
-          <p>
-            Skincare diseñado para resaltar la belleza natural
-            y mantener tu piel saludable y radiante.
-          </p>
-        </div>
-        <!-- INSTAGRAM -->
-        <div class="footer-columna">
-          <h4>Síguenos en Instagram</h4>
-          <p>
-            <a href="#" target="_blank">
-              Instagram: @eclatvisage
-            </a>
-          </p>
-        </div>
-        <!-- CONTACTO -->
-        <div class="footer-columna">
-          <h4>Contacto</h4>
-          <p>Correo: eclatvisage@gmail.com</p>
-          <p>Teléfono: 300 000 0000</p>
-        </div>
-        <!-- UBICACIÓN -->
-        <div class="footer-columna">
-          <h4>Ubicación</h4>
-          <p>Calarcá, Quindío, Colombia</p>
-        </div>
-        <!-- MÉTODOS DE PAGO -->
-        <div class="footer-columna">
-          <h4>Métodos de pago</h4>
-          <p>Nequi</p>
-          <p>Bancolombia</p>
-          <p>Tarjetas débito y crédito</p>
-        </div>
-      </div>
-      <!-- DERECHOS RESERVADOS -->
-      <div class="copyright">
-        ©️ 2026 Eclat Visage — Todos los derechos reservados.
-      </div>
-    </footer>
+        <!-- EQUIPO Y VIDEO PITCH -->
+        <section class="equipo-contenedor">
+            <span class="equipo-etiqueta">Las personas detrás de la marca</span>
+            <h2>Nuestro equipo y pitch</h2>
+            <p class="equipo-subtitulo">Conoce a las mentes creativas detrás de la experiencia Éclat Visage y descubre la esencia de nuestro proyecto.</p>
+
+            <div class="multimedia-vertical">
+                <div class="equipo-marco-foto">
+                    <img src=".img/equipo.jpg" alt="Equipo de Éclat Visage" loading="lazy">
+                    <h3 class="multimedia-titulo">Las personas detrás de Éclat</h3>
+                    <p class="multimedia-descripcion">Creatividad, dedicación y pasión por el cuidado de la piel.</p>
+                </div>
+
+                <div class="video-marco">
+                    <h3 class="multimedia-titulo">Conoce nuestra propuesta</h3>
+                    <p class="multimedia-descripcion">Nuestro pitch: la visión y el propósito de Éclat Visage.</p>
+                    <video controls playsinline preload="metadata" aria-label="Video de presentación de Éclat Visage">
+                        <source src=".img/video_pitch.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de videos.
+                    </video>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER CENTRALIZADO -->
+    <div id="footer-modulo"></div>
+    <script src="modulos/footer.js"></script>
+
     <script src="carrito.js"></script>
 </body>
 </html>

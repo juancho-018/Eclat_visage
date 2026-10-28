@@ -1,174 +1,368 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclat Visage</title>
+    <meta name="theme-color" content="#faf7f2">
+    <title>Éclat Visage | Skincare Premium</title>
     <link rel="stylesheet" href="estilos.css">
-    <!-- Fuentes elegantes -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * { box-sizing: border-box; }
+
+        /* CARRUSEL: TAMAÑO FIJO Y POSICIÓN */
+        .hero .hero-imagen {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            position: relative;
+            top: 25px;
+            left: -20px;
+            width: 100% !important;
+            max-width: 620px !important;
+            min-width: 0;
+            flex-shrink: 0;
+            gap: 0 !important;
+            overflow: visible !important;
+        }
+        .hero .hero-imagen #imagen-cambiante {
+            display: block !important;
+            width: 100% !important;
+            height: 380px !important;
+            min-height: 380px !important;
+            max-height: 380px !important;
+            flex: 0 0 380px !important;
+            object-fit: cover !important;
+            object-position: center;
+            border-radius: 20px;
+            background: #f0e8dd;
+            opacity: 1;
+            transition: opacity .3s ease;
+        }
+        .hero .hero-imagen #imagen-cambiante.cambiando { opacity: .35; }
+
+        /* BAJAR EL FONDO DECORATIVO ROSADO 10 PX */
+        .hero .hero-imagen::before { translate: 0 10px; }
+
+        /* INDICADORES CIRCULARES */
+        .hero .hero-imagen .slider-indicadores {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            flex-direction: row !important;
+            gap: 12px !important;
+            position: relative;
+            z-index: 10;
+            width: 100% !important;
+            height: 42px !important;
+            min-height: 42px !important;
+            max-height: 42px !important;
+            flex: 0 0 42px !important;
+            margin: 8px 0 0 !important;
+            padding: 5px !important;
+            overflow: visible !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        .hero .hero-imagen .slider-punto {
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            display: block !important;
+            width: 11px !important;
+            height: 11px !important;
+            min-width: 11px !important;
+            min-height: 11px !important;
+            max-width: 11px !important;
+            max-height: 11px !important;
+            flex: 0 0 11px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #d8cabb !important;
+            border: 1px solid #b49a72 !important;
+            border-radius: 50% !important;
+            box-shadow: none !important;
+            cursor: pointer;
+            transition: background .25s ease, transform .25s ease;
+        }
+        .hero .hero-imagen .slider-punto:hover {
+            background: #9b8261 !important;
+            transform: scale(1.2);
+        }
+        .hero .hero-imagen .slider-punto.activo {
+            background: #403329 !important;
+            border-color: #403329 !important;
+            transform: scale(1.2);
+        }
+        .hero .hero-imagen .slider-punto:focus-visible {
+            outline: 2px solid #b49a72;
+            outline-offset: 4px;
+        }
+
+        /* PRODUCTOS */
+        .productos-seccion { padding: 55px 5%; }
+        .productos-seccion > h2 {
+            margin-bottom: 35px;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 400;
+            text-align: center;
+        }
+        .productos-contenedor {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tarjeta-producto {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 16px;
+            overflow: hidden;
+            background: #fffdf9;
+            border: 1px solid #e8ded1;
+            border-radius: 16px;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .tarjeta-producto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(64, 51, 41, .08);
+        }
+        .img-recuadro {
+            width: 100%;
+            height: 250px;
+            min-height: 250px;
+            max-height: 250px;
+            flex: 0 0 250px;
+            overflow: hidden;
+            background: #f0e8dd;
+            border-radius: 12px;
+        }
+        .img-recuadro img {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 100%;
+            max-height: 100%;
+            object-fit: cover !important;
+            object-position: center;
+            transition: transform .4s ease;
+        }
+        .tarjeta-producto:hover .img-recuadro img { transform: scale(1.04); }
+        .tarjeta-producto h3 {
+            min-height: 45px;
+            margin: 16px 0 8px;
+            color: #403329;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .estrellas { color: #a88b56; font-size: 12px; letter-spacing: .5px; }
+        .precio { margin: 10px 0; color: #403329; font-size: 18px; font-weight: 600; }
+        .btn-carrito {
+            width: 100%;
+            margin-top: auto;
+            padding: 12px 10px;
+            background: #403329;
+            color: #fffdf9;
+            border: 1px solid #403329;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            transition: background .25s ease, transform .25s ease;
+        }
+        .btn-carrito:hover { background: #5b4737; transform: translateY(-1px); }
+
+        /* TABLET */
+        @media (max-width: 900px) {
+            .hero .hero-imagen #imagen-cambiante {
+                height: 340px !important;
+                min-height: 340px !important;
+                max-height: 340px !important;
+                flex-basis: 340px !important;
+            }
+            .productos-contenedor { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+        }
+
+        /* CELULAR */
+        @media (max-width: 480px) {
+            .hero .hero-imagen { left: -10px; }
+            .hero .hero-imagen #imagen-cambiante {
+                height: 260px !important;
+                min-height: 260px !important;
+                max-height: 260px !important;
+                flex-basis: 260px !important;
+                border-radius: 14px;
+            }
+            .hero .hero-imagen .slider-indicadores { gap: 10px !important; }
+            .hero .hero-imagen .slider-punto {
+                width: 10px !important;
+                height: 10px !important;
+                min-width: 10px !important;
+                min-height: 10px !important;
+                max-width: 10px !important;
+                max-height: 10px !important;
+                flex-basis: 10px !important;
+            }
+            .productos-seccion { padding: 35px 4%; }
+            .productos-contenedor { gap: 12px; }
+            .tarjeta-producto { padding: 10px; border-radius: 12px; }
+            .img-recuadro {
+                height: 180px;
+                min-height: 180px;
+                max-height: 180px;
+                flex-basis: 180px;
+            }
+            .tarjeta-producto h3 { min-height: 40px; font-size: 14px; }
+            .precio { font-size: 16px; }
+            .btn-carrito { padding: 10px 5px; font-size: 10px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero .hero-imagen #imagen-cambiante, .slider-punto,
+            .tarjeta-producto, .img-recuadro img, .btn-carrito { transition: none; }
+        }
+    </style>
 </head>
 <body>
+    <!-- MENÚ -->
+    <div id="navbar-modulo"></div>
+    <script src="modulos/nav.js"></script>
 
-    <!-- MENÚ SUPERIOR -->
-    <header class="header">
-        <div class="logo">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="index.html">INICIO</a>
-            <a href="tienda.html">VER TODO</a>
-            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="test.html">TEST DE PIEL</a>
-            <a href="blog.html">DIARIO</a>
-            <a href="nosotros.html">NOSOTROS</a>
-            
-            <!-- ENLACES DIRECTOS A FORMULARIOS Y DRIVE -->
-            <a href="CRUD/contacto.php">CONTACTO</a>
-            <a href="CRUD/registro_login.php">LOGIN</a>
-            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">DOCUMENTOS</a>
-
-            <!-- MENÚ DESPLEGABLE CRUD ACTUALIZADO -->
-            <div class="dropdown">
-                <a href="#" class="dropbtn">CRUD ▾</a>
-                <div class="dropdown-content">
-                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
-                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
-                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
-                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
-                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
-                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
-                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
-                </div>
-            </div>
-        </nav>
-        <div class="header-iconos">
-            <a href="CRUD/registro_login.php" title="Iniciar Sesión" style="text-decoration: none; color: inherit;"><span></span></a>
-            <span id="contador-carrito">🛒 (0)</span>
-        </div>
-    </header>
-
-    <!-- SECCIÓN PRINCIPAL (HERO) -->
+    <!-- SECCIÓN PRINCIPAL -->
     <section class="hero">
         <div class="hero-contenido">
             <h1>Despierta Tu<br>Resplandor Natural.</h1>
-            <p>Eclat Visage: Skincare premium para una piel radiante, saludable y luminosa.</p>
+            <p>Éclat Visage: skincare premium para una piel radiante, saludable y luminosa.</p>
             <div class="hero-botones">
                 <a href="tienda.html" class="btn-oscuro">COMPRAR AHORA</a>
                 <a href="test.html" class="btn-claro">DESCUBRE TU RUTINA</a>
             </div>
         </div>
+
+        <!-- CARRUSEL -->
         <div class="hero-imagen">
-            <img src=".img/carrusel1.jpg" alt="Eclat Visage Banner" id="imagen-cambiante">
+            <img src=".img/carrusel1.jpg" alt="Cuidado facial Éclat Visage" id="imagen-cambiante" width="620" height="420">
+            <div class="slider-indicadores" role="group" aria-label="Seleccionar imagen del carrusel">
+                <button type="button" class="slider-punto activo" data-slide="0" aria-label="Mostrar imagen 1" aria-current="true"></button>
+                <button type="button" class="slider-punto" data-slide="1" aria-label="Mostrar imagen 2" aria-current="false"></button>
+                <button type="button" class="slider-punto" data-slide="2" aria-label="Mostrar imagen 3" aria-current="false"></button>
+                <button type="button" class="slider-punto" data-slide="3" aria-label="Mostrar imagen 4" aria-current="false"></button>
+                <button type="button" class="slider-punto" data-slide="4" aria-label="Mostrar imagen 5" aria-current="false"></button>
+                <button type="button" class="slider-punto" data-slide="5" aria-label="Mostrar imagen 6" aria-current="false"></button>
+            </div>
         </div>
     </section>
 
-    <!-- SECCIÓN DE PRODUCTOS -->
+    <!-- PRODUCTOS -->
     <section class="productos-seccion">
         <h2>Nuestros Favoritos</h2>
-        
         <div class="productos-contenedor">
-            <!-- Producto 1 -->
             <div class="tarjeta-producto">
-                <div class="img-recuadro">
-                    <img src=".img/serum.jpg" alt="Serum hidratante">
-                </div>
-                <h3>Serum hidratante 30ml</h3>
+                <div class="img-recuadro"><img src=".img/serum.jpg" alt="Sérum hidratante de 30 ml" width="250" height="250" loading="lazy"></div>
+                <h3>Sérum hidratante 30 ml</h3>
                 <div class="estrellas">★★★★★ 4.8</div>
                 <p class="precio">$18.000</p>
-                <button class="btn-carrito" onclick="agregarAlCarrito('Serum hidratante 30ml')">Añadir al Carrito</button>
+                <button type="button" class="btn-carrito" onclick="agregarAlCarrito('Serum hidratante 30ml')">Añadir al carrito</button>
             </div>
-
-            <!-- Producto 2 -->
             <div class="tarjeta-producto">
-                <div class="img-recuadro">
-                    <img src=".img/crema.jpg" alt="Crema facial">
-                </div>
-                <h3>Crema facial 50ml</h3>
+                <div class="img-recuadro"><img src=".img/crema.jpg" alt="Crema facial de 50 ml" width="250" height="250" loading="lazy"></div>
+                <h3>Crema facial 50 ml</h3>
                 <div class="estrellas">★★★★★ 4.8</div>
                 <p class="precio">$28.000</p>
-                <button class="btn-carrito" onclick="agregarAlCarrito('Crema facial 50ml')">Añadir al Carrito</button>
+                <button type="button" class="btn-carrito" onclick="agregarAlCarrito('Crema facial 50ml')">Añadir al carrito</button>
             </div>
-
-            <!-- Producto 3 -->
             <div class="tarjeta-producto">
-                <div class="img-recuadro">
-                    <img src=".img/crema2.jpg" alt="Night Cream">
-                </div>
-                <h3>Crema de brillo con Vitamina C</h3>
+                <div class="img-recuadro"><img src=".img/crema2.jpg" alt="Crema facial con vitamina C" width="250" height="250" loading="lazy"></div>
+                <h3>Crema de brillo con vitamina C</h3>
                 <div class="estrellas">★★★★★ 4.8</div>
                 <p class="precio">$26.000</p>
-                <button class="btn-carrito" onclick="agregarAlCarrito('Crema de brillo con Vitamina C')">Añadir al Carrito</button>
+                <button type="button" class="btn-carrito" onclick="agregarAlCarrito('Crema de brillo con Vitamina C')">Añadir al carrito</button>
             </div>
-
-            <!-- Producto 4 -->
             <div class="tarjeta-producto">
-                <div class="img-recuadro">
-                    <img src=".img/combo.jpg" alt="Combo Facial">
-                </div>
-                <h3>Combo de Serum y Crema Hidratante</h3>
+                <div class="img-recuadro"><img src=".img/combo.jpg" alt="Combo de sérum y crema hidratante" width="250" height="250" loading="lazy"></div>
+                <h3>Combo de sérum y crema hidratante</h3>
                 <div class="estrellas">★★★★★ 4.0</div>
                 <p class="precio">$48.000</p>
-                <button class="btn-carrito" onclick="agregarAlCarrito('Combo de Serum y Crema Hidratante')">Añadir al Carrito</button>
+                <button type="button" class="btn-carrito" onclick="agregarAlCarrito('Combo de Serum y Crema Hidratante')">Añadir al carrito</button>
             </div>
         </div>
     </section>
 
-    <!-- SCRIPT DEL CARRITO -->
+    <!-- FOOTER CENTRALIZADO -->
+    <div id="footer-modulo"></div>
+    <script src="modulos/footer.js"></script>
+
     <script src="carrito.js"></script>
     <script>
-        // Carrusel automático de imágenes
-        let misFotos = [
-            ".img/carrusel1.jpg",
-            ".img/carrusel2.jpg",
-            ".img/carrusel3.jpg",
-            ".img/carrusel4.jpg",
-            ".img/carrusel5.jpg",
-            ".img/carrusel6.jpg"
+        const TIEMPO_CAMBIO = 3000;
+        const fotosCarrusel = [
+            { src: '.img/carrusel1.jpg', alt: 'Cuidado facial Éclat Visage' },
+            { src: '.img/carrusel2.jpg', alt: 'Productos de cuidado facial' },
+            { src: '.img/carrusel3.jpg', alt: 'Rutina de belleza facial' },
+            { src: '.img/carrusel4.jpg', alt: 'Skincare para una piel radiante' },
+            { src: '.img/carrusel5.jpg', alt: 'Belleza natural y cuidado de la piel' },
+            { src: '.img/carrusel6.jpg', alt: 'Experiencia Éclat Visage' }
         ];
-        
-        let posicionActual = 0;
 
-        function rotarImagenes() {
-            posicionActual = posicionActual + 1;
-            if (posicionActual >= misFotos.length) {
-                posicionActual = 0;
-            }
-            document.getElementById('imagen-cambiante').src = misFotos[posicionActual];
+        const imagenCarrusel = document.getElementById('imagen-cambiante');
+        const puntosCarrusel = document.querySelectorAll('.slider-punto');
+        let posicionActual = 0;
+        let intervaloCarrusel = null;
+        let solicitudImagen = 0;
+
+        function mostrarImagen(indice) {
+            posicionActual = (indice + fotosCarrusel.length) % fotosCarrusel.length;
+            const foto = fotosCarrusel[posicionActual];
+            const solicitudActual = ++solicitudImagen;
+
+            puntosCarrusel.forEach((punto, i) => {
+                const seleccionado = i === posicionActual;
+                punto.classList.toggle('activo', seleccionado);
+                punto.setAttribute('aria-current', String(seleccionado));
+            });
+
+            imagenCarrusel.classList.add('cambiando');
+
+            const precarga = new Image();
+            precarga.onload = () => {
+                if (solicitudActual !== solicitudImagen) return;
+                imagenCarrusel.src = precarga.src;
+                imagenCarrusel.alt = foto.alt;
+                imagenCarrusel.classList.remove('cambiando');
+            };
+            precarga.onerror = () => {
+                if (solicitudActual !== solicitudImagen) return;
+                imagenCarrusel.classList.remove('cambiando');
+                console.error('No se pudo cargar la imagen:', foto.src);
+            };
+            precarga.src = foto.src;
         }
 
-        setInterval(rotarImagenes, 2000);
-    </script>
+        function iniciarCarrusel() {
+            clearInterval(intervaloCarrusel);
+            intervaloCarrusel = setInterval(() => {
+                mostrarImagen(posicionActual + 1);
+            }, TIEMPO_CAMBIO);
+        }
 
-    <!-- PIE DE PÁGINA (FOOTER) -->
-    <footer class="footer">
-        <div class="footer-contenedor">
-            <div class="footer-columna">
-                <h3 class="footer-logo">eclat visage <span>✦</span></h3>
-                <p>Skincare diseñado para resaltar la belleza natural y mantener tu piel saludable y radiante.</p>
-            </div>
-            <div class="footer-columna">
-                <h4>Síguenos en Instagram</h4>
-                <p><a href="#" target="_blank">Instagram: @eclatvisage</a></p>
-            </div>
-            <div class="footer-columna">
-                <h4>Contacto</h4>
-                <p>Correo: eclatvisage@gmail.com</p>
-                <p>Teléfono: 300 000 0000</p>
-            </div>
-            <div class="footer-columna">
-                <h4>Ubicación</h4>
-                <p>Calarcá, Quindío, Colombia</p>
-            </div>
-            <div class="footer-columna">
-                <h4>Métodos de pago</h4>
-                <p>Nequi</p>
-                <p>Bancolombia</p>
-                <p>Tarjetas débito y crédito</p>
-            </div>
-        </div>
-        <div class="copyright">
-            ©️ 2026 Eclat Visage — Todos los derechos reservados.
-        </div>
-    </footer>
+        puntosCarrusel.forEach(punto => {
+            punto.addEventListener('click', () => {
+                mostrarImagen(Number(punto.dataset.slide));
+                iniciarCarrusel();
+            });
+        });
+
+        imagenCarrusel.addEventListener('error', () => {
+            console.error('No se pudo cargar la imagen inicial:', imagenCarrusel.src);
+        });
+
+        iniciarCarrusel();
+    </script>
 </body>
 </html>

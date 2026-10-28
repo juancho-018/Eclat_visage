@@ -23,19 +23,30 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
+    padding: 12px 3.5%;
     background-color: #ffffff;
     border-bottom: 1px solid #f2ede7;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(61, 53, 42, 0.03);
 }
 
 .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #2c2a29;
 }
 
 .logo span {
-    font-size: 14px;
+    font-size: 13px;
     color: #bc9c82;
     vertical-align: super;
 }
@@ -43,39 +54,66 @@ body {
 .nav {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
+    flex-wrap: nowrap;
+    gap: 3px;
 }
 
 .nav a {
     text-decoration: none;
     color: #4a4a4a;
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 500;
-    margin: 0 12px;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
+    padding: 6px 9px;
+    margin: 0;
+    letter-spacing: 0.6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    border-radius: 4px;
 }
 
 .nav a:hover {
     color: #bc9c82;
+    background-color: rgba(188, 156, 130, 0.08);
+}
+
+.nav a.activo {
+    color: #bc9c82 !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid #bc9c82;
+    border-radius: 4px 4px 0 0;
 }
 
 .header-iconos {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
 .header-iconos span, .header-iconos a {
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     text-decoration: none;
     color: inherit;
 }
 
+.header-iconos #contador-carrito {
+    background: #faf7f2;
+    border: 1px solid #ebd9c9;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #bc9c82;
+    transition: all 0.2s ease;
+    font-size: 12px;
+}
+
+.header-iconos #contador-carrito:hover {
+    background: #eedfd2;
+    color: #8c6d54;
+}
+
 /* --- MENÚ DESPLEGABLE (DROPDOWN CRUD) --- */
-/* Oculto por defecto: Únicamente visible cuando el rol es admin */
 .dropdown {
     position: relative;
     display: none;
@@ -90,74 +128,224 @@ body.es-admin .dropdown,
 
 .dropdown .dropbtn {
     text-decoration: none;
-    color: #4a4a4a;
-    font-size: 12px;
+    color: #3d352a;
+    font-size: 11.5px;
     font-weight: 600;
-    margin: 0 10px;
-    padding: 6px 8px;
-    letter-spacing: 1px;
+    padding: 5px 10px;
+    margin: 0 3px;
+    letter-spacing: 0.6px;
     cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    background: #faf7f2;
+    border: 1px solid #ebd9c9;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    transition: color 0.3s ease, background-color 0.2s ease;
+    gap: 5px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .dropdown .dropbtn:hover,
-.dropdown.abierto .dropbtn,
-.dropdown.open .dropbtn {
-    color: #bc9c82;
-    background-color: rgba(188, 156, 130, 0.08);
+.dropdown.abierto .dropbtn {
+    color: #ffffff !important;
+    background-color: #bc9c82;
+    border-color: #bc9c82;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #ffffff;
-    min-width: 190px;
-    max-height: 340px;
-    overflow-y: auto;
-    box-shadow: 0px 10px 24px rgba(0,0,0,0.12);
-    border-radius: 8px;
-    border: 1px solid #e8dfd5;
-    z-index: 9999;
-    padding: 6px 0;
+.dropdown .dropbtn .dropbtn-arrow {
+    font-size: 9px;
+    display: inline-block;
+    transition: transform 0.25s ease;
 }
 
-.dropdown-content a {
-    color: #4a4a4a;
-    padding: 10px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 12px;
-    margin: 0;
-    letter-spacing: 0.5px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    user-select: none;
+.dropdown.abierto .dropbtn .dropbtn-arrow {
+    transform: rotate(180deg);
 }
 
-.dropdown-content a:hover {
-    background-color: #eedfd2;
-    color: #2c2a29;
-}
-
-/* Control estricto de visibilidad interactiva */
-.dropdown.abierto .dropdown-content,
-.dropdown.open .dropdown-content {
-    display: block !important;
-}
-
-.dropdown:not(.cerrado-forzado):hover .dropdown-content {
-    display: block;
-}
-
-.dropdown.cerrado-forzado .dropdown-content {
+/* SUBNAV - MENÚ DESPLEGABLE CRUD */
+/* IMPORTANTE: NUNCA se abre con :hover, ÚNICAMENTE con .abierto al dar clic */
+.dropdown-content,
+.dropdown .dropdown-content {
     display: none !important;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    left: auto;
+    background-color: #ffffff;
+    width: 440px;
+    max-width: 90vw;
+    box-shadow: 0 16px 40px rgba(61, 53, 42, 0.16), 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    border: 1px solid #e8dfd5;
+    z-index: 10000;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+/* Triangulito indicador superior */
+.dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 22px;
+    transform: rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-left: 1px solid #e8dfd5;
+    border-top: 1px solid #e8dfd5;
+}
+
+/* Se abre ÚNICAMENTE con la clase .abierto activada por clic */
+.dropdown.abierto .dropdown-content {
+    display: block !important;
+    animation: subnavSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes subnavSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Elementos internos del Subnav */
+.subnav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f2ede7;
+}
+
+.subnav-badge {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    background: #bc9c82;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.subnav-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6e6456;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.subnav-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.subnav-card {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    background: #faf8f5;
+    border: 1px solid #f0e8df;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #3d352a;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subnav-card:hover {
+    background: #eedfd2;
+    border-color: #bc9c82;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(188, 156, 130, 0.15);
+}
+
+.subnav-card.activo {
+    background: #eedfd2;
+    border-color: #bc9c82;
+    box-shadow: inset 0 0 0 1px #bc9c82;
+}
+
+.subnav-card.subnav-card-full {
+    grid-column: 1 / -1;
+}
+
+
+.subnav-num {
+    font-size: 11px;
+    font-weight: 700;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #8c6d54;
+    border-radius: 6px;
+    border: 1px solid #ebd9c9;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s ease;
+}
+
+.subnav-card:hover .subnav-num,
+.subnav-card.activo .subnav-num {
+    background: #bc9c82;
+    color: #ffffff;
+    border-color: #bc9c82;
+}
+
+.subnav-icon {
+    font-size: 15px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #ebd9c9;
+    flex-shrink: 0;
+}
+
+.subnav-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    overflow: hidden;
+}
+
+.subnav-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d352a;
+    white-space: nowrap;
+}
+
+.subnav-desc {
+    font-size: 10px;
+    color: #8c7a6b;
+    white-space: nowrap;
+}
+
+.subnav-footer {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #ebd9c9;
+    text-align: center;
+    font-size: 10.5px;
+    color: #a89a8c;
+    font-style: italic;
 }
 
 /* ========================================== */
@@ -208,11 +396,24 @@ body.es-admin .dropdown,
 .btn-oscuro {
     background-color: #bc9c82;
     color: white;
+    cursor: pointer;
+}
+
+.btn-oscuro:hover {
+    background-color: #bc9c8200;
+    color: white;
 }
 
 .btn-claro {
     border: 1px solid #2c2a29;
     color: #2c2a29;
+    cursor : pointer
+}
+
+.btn-claro:hover {
+    border: none;
+    color: #2c2a29;
+    background-color: #c8c7c7;
 }
 
 .hero-imagen {
@@ -1395,13 +1596,6 @@ body.es-admin .dropdown,
     border-bottom: 1px solid #f2ede7;
 }
 
-.drawer-user-badge {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: #5a4a42;
-}
 
 .btn-cerrar-sesion-pill {
     background: none;
@@ -1749,4 +1943,178 @@ table.dataTable tbody tr:hover {
 
 
 
-
+
+
+/* ADAPTACIÓN DE PROPORCIONES PARA PANTALLAS MEDIANAS (900px - 1100px) */
+@media (max-width: 1100px) {
+    .header {
+        padding: 10px 2%;
+    }
+    .logo {
+        font-size: 19px;
+    }
+    .nav {
+        gap: 1px;
+        margin: 0 4px;
+        flex-wrap: nowrap !important;
+    }
+    .nav a {
+        font-size: 10.5px;
+        padding: 5px 6px;
+        letter-spacing: 0.3px;
+    }
+    .dropdown .dropbtn {
+        font-size: 10.5px;
+        padding: 4px 7px;
+    }
+    .header-iconos {
+        gap: 8px;
+    }
+    .dropdown-content, .dropdown .dropdown-content {
+        width: 380px;
+        right: -10px;
+    }
+}
+
+
+/* ======================================================= */
+/* --- REALCE DE IMÁGENES Y TARJETAS CON PROFUNDIDAD Y BORDER-BOX --- */
+/* ======================================================= */
+
+/* Contenedores de tarjetas de producto con relieve y borde */
+.tarjeta-producto,
+.tarjeta-tienda,
+.producto-tarjeta,
+.tarjeta-blog {
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border: 1px solid #e8ded4 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 24px rgba(61, 53, 42, 0.07), 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    overflow: hidden;
+    padding: 16px !important;
+    position: relative;
+}
+
+.tarjeta-producto:hover,
+.tarjeta-tienda:hover,
+.producto-tarjeta:hover,
+.tarjeta-blog:hover {
+    transform: translateY(-5px) !important;
+    border-color: #bc9c82 !important;
+    box-shadow: 0 18px 36px rgba(61, 53, 42, 0.13), 0 4px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Recuadros interiores de imágenes con profundidad estilo vitrina de lujo */
+.img-recuadro,
+.img-recuadro-tienda,
+.img-recuadro-producto,
+.img-recuadro-blog {
+    box-sizing: border-box !important;
+    background: linear-gradient(145deg, #ffffff, #f7f3ed) !important;
+    border: 1px solid #ebd9c9 !important;
+    border-radius: 10px !important;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 4px 14px rgba(61, 53, 42, 0.06) !important;
+    overflow: hidden;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 14px !important;
+    transition: all 0.3s ease !important;
+}
+
+.tarjeta-producto:hover .img-recuadro,
+.tarjeta-tienda:hover .img-recuadro-tienda,
+.producto-tarjeta:hover .img-recuadro-producto,
+.tarjeta-blog:hover .img-recuadro-blog {
+    border-color: #bc9c82 !important;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(61, 53, 42, 0.1) !important;
+}
+
+.img-recuadro img,
+.img-recuadro-tienda img,
+.img-recuadro-producto img,
+.img-recuadro-blog img {
+    box-sizing: border-box !important;
+    max-width: 90% !important;
+    max-height: 90% !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 6px 12px rgba(61, 53, 42, 0.14)) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tarjeta-producto:hover .img-recuadro img,
+.tarjeta-tienda:hover .img-recuadro-tienda img,
+.producto-tarjeta:hover .img-recuadro-producto img,
+.tarjeta-blog:hover .img-recuadro-blog img {
+    transform: scale(1.05) !important;
+}
+
+/* Banners, Hero e imágenes destacadas con marco volumétrico */
+.hero-imagen {
+    box-sizing: border-box !important;
+}
+
+.hero-imagen img {
+    box-sizing: border-box !important;
+    border: 1px solid #e8ded4 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 16px 36px rgba(61, 53, 42, 0.12), 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+
+.nosotros-banner {
+    box-sizing: border-box !important;
+    border: 1px solid #e8ded4 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 14px 34px rgba(61, 53, 42, 0.08) !important;
+    overflow: hidden;
+}
+
+.nosotros-img-banner {
+    box-sizing: border-box !important;
+}
+
+.nosotros-img-banner img {
+    box-sizing: border-box !important;
+    object-fit: cover !important;
+    border-left: 1px solid #ebd9c9 !important;
+    box-shadow: inset 6px 0 16px rgba(61, 53, 42, 0.05) !important;
+}
+
+.equipo-marco-foto,
+.video-marco {
+    box-sizing: border-box !important;
+    border: 4px solid #ffffff !important;
+    border-radius: 14px !important;
+    box-shadow: 0 14px 32px rgba(61, 53, 42, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    overflow: hidden;
+}
+
+.equipo-marco-foto img,
+.video-marco video {
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+}
+
+.ingredientes-contenedor-horizontal,
+.banner-valores {
+    box-sizing: border-box !important;
+    border: 1px solid #e8ded4 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 10px 28px rgba(61, 53, 42, 0.06) !important;
+}
+
+/* Tablas, formularios y tarjetas del CRUD */
+.tabla-contenedor,
+.form-card,
+.registro-card,
+.crud-card,
+.carrito-tabla-card,
+.carrito-resumen-card,
+.pregunta-card {
+    box-sizing: border-box !important;
+    border: 1px solid #e8ded4 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 12px 32px rgba(61, 53, 42, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+}

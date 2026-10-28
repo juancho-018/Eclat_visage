@@ -143,35 +143,10 @@
 </head>
 <body>
 
-    <!-- MENÚ SUPERIOR -->
-    <header class="header">
-        <div class="logo">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="index.html">INICIO</a>
-            <a href="tienda.html">VER TODO</a>
-            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="test.html">TEST DE PIEL</a>
-            <a href="blog.html">DIARIO</a>
-            <a href="nosotros.html">NOSOTROS</a>
+    <!-- MÓDULO NAV CENTRALIZADO -->
+    <div id="navbar-modulo"></div>
+    <script src="modulos/nav.js"></script>
 
-            <div class="dropdown">
-                <a href="#" class="dropbtn">CRUD ▾</a>
-                <div class="dropdown-content">
-                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
-                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
-                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
-                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
-                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
-                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
-                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
-                </div>
-            </div>
-        </nav>
-        <div class="header-iconos">
-            <a href="CRUD/registro_login.php" title="Cuenta"></a>
-            <span id="contador-carrito" style="font-weight: 600; color: #bc9c82;">🛒 (0)</span>
-        </div>
-    </header>
 
     <!-- CUERPO DEL CARRITO -->
     <main class="carrito-seccion">
@@ -452,37 +427,9 @@
         document.addEventListener('DOMContentLoaded', renderizarPaginaCarrito);
     </script>
 
-    <!-- PIE DE PÁGINA (FOOTER) -->
-    <footer class="footer">
-        <div class="footer-contenedor">
-            <div class="footer-columna">
-                <h3 class="footer-logo">eclat visage <span>✦</span></h3>
-                <p>Skincare diseñado para resaltar la belleza natural y mantener tu piel saludable y radiante.</p>
-            </div>
-            <div class="footer-columna">
-                <h4>Síguenos en Instagram</h4>
-                <p><a href="#" target="_blank">Instagram: @eclatvisage</a></p>
-            </div>
-            <div class="footer-columna">
-                <h4>Contacto</h4>
-                <p>Correo: eclatvisage@gmail.com</p>
-                <p>Teléfono: 300 000 0000</p>
-            </div>
-            <div class="footer-columna">
-                <h4>Ubicación</h4>
-                <p>Calarcá, Quindío, Colombia</p>
-            </div>
-            <div class="footer-columna">
-                <h4>Métodos de pago</h4>
-                <p>Nequi</p>
-                <p>Bancolombia</p>
-                <p>Tarjetas débito y crédito</p>
-            </div>
-        </div>
-        <div class="copyright">
-            © 2026 Eclat Visage — Todos los derechos reservados.
-        </div>
-    </footer>
+    <!-- FOOTER CENTRALIZADO -->
+    <div id="footer-modulo"></div>
+    <script src="modulos/footer.js"></script>
 
 </body>
 </html>

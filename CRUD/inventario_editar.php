@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="body-registro">
     <div class="registro-card">
-        <div class="logo">eclat visage<span>✦</span></div>
+        <div class="logo">eclat visage</div>
         <h2>Editar Movimiento ID: <?php echo $id; ?></h2>
         <?php if(isset($error)) { echo "<p style='color:red; font-size:12px;'>$error</p>"; } ?>
         <form action="" method="POST">

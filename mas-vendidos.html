@@ -118,28 +118,20 @@
             text-transform: uppercase;
             font-weight: bold;
             border: none;
-            cursor: pointer;
+            cursor : pointer !important;
+        }
+
+        .btn-anadir:hover {
+            background-color: #bc9c82;
         }
     </style>
 </head>
 <body>
 
-   <!-- MENÚ SUPERIOR -->
-    <header class="header">
-        <div class="logo">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="index.html">INICIO</a>
-            <a href="tienda.html">VER TODO</a>
-            <a href="mas-vendidos.html" style="font-weight: bold; border-bottom: 2px solid #bc9c82; padding-bottom: 4px;">MÁS VENDIDOS</a>
-            <a href="test.html">TEST DE PIEL</a>
-            <a href="blog.html">DIARIO</a>
-            <a href="nosotros.html">NOSOTROS</a>
-        </nav>
-        <div class="header-iconos">
-            <span>👤</span>
-            <span id="contador-carrito">🛒 (0)</span> <!-- Añadido el ID para que sume aquí -->
-        </div>
-    </header>
+    <!-- MÓDULO NAV CENTRALIZADO -->
+    <div id="navbar-modulo"></div>
+    <script src="modulos/nav.js"></script>
+
 
     <!-- ENCABEZADO -->
     <div class="seccion-titulo">
@@ -193,51 +185,8 @@
 
     <!-- SCRIPT DEL CARRITO ÉCLAT VISAGE -->
     <script src="carrito.js"></script>
-    <!-- PIE DE PÁGINA (FOOTER) -->
-<footer class="footer">
-  <div class="footer-contenedor">
-    <!-- NOMBRE / LOGO DE LA MARCA -->
-    <div class="footer-columna">
-      <h3 class="footer-logo">
-        eclat visage <span>✦</span>
-      </h3>
-      <p>
-        Skincare diseñado para resaltar la belleza natural
-        y mantener tu piel saludable y radiante.
-      </p>
-    </div>
-    <!-- INSTAGRAM -->
-    <div class="footer-columna">
-      <h4>Síguenos en Instagram</h4>
-      <p>
-        <a href="#" target="_blank">
-          Instagram: @eclatvisage
-        </a>
-      </p>
-    </div>
-    <!-- CONTACTO -->
-    <div class="footer-columna">
-      <h4>Contacto</h4>
-      <p>Correo: eclatvisage@gmail.com</p>
-      <p>Teléfono: 300 000 0000</p>
-    </div>
-    <!-- UBICACIÓN -->
-    <div class="footer-columna">
-      <h4>Ubicación</h4>
-      <p>Calarcá, Quindío, Colombia</p>
-    </div>
-    <!-- MÉTODOS DE PAGO -->
-    <div class="footer-columna">
-      <h4>Métodos de pago</h4>
-      <p>Nequi</p>
-      <p>Bancolombia</p>
-      <p>Tarjetas débito y crédito</p>
-    </div>
-  </div>
-  <!-- DERECHOS RESERVADOS -->
-  <div class="copyright">
-    © 2026 Eclat Visage — Todos los derechos reservados.
-  </div>
-</footer>
+    <!-- FOOTER CENTRALIZADO -->
+    <div id="footer-modulo"></div>
+    <script src="modulos/footer.js"></script>
 </body>
 </html>

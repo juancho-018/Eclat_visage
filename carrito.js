@@ -229,8 +229,8 @@ function actualizarContadores() {
     
     const contadores = document.querySelectorAll('#contador-carrito, .contador-carrito-badge');
     contadores.forEach(el => {
-        el.innerText = `🛒 (${cantidadTotal})`;
-        el.setAttribute('title', `Ver carrito (${cantidadTotal} productos)`);
+        el.innerText = `Carrito (${cantidadTotal})`;
+        el.setAttribute('title', `Ver bolsa (${cantidadTotal} productos)`);
         el.style.cursor = 'pointer';
     });
 
@@ -264,7 +264,7 @@ function agregarAlCarrito(nombre, precioParam, imagenParam) {
     }
 
     guardarCarrito(carrito);
-    mostrarToast(`✨ ¡"${nombre}" añadido a tu bolsa!`);
+    mostrarToast(`"${nombre}" añadido a tu bolsa`);
 }
 
 window.agregar = agregarAlCarrito;
@@ -372,27 +372,16 @@ function renderizarDrawer() {
     const { cantidadTotal, subtotal, envio, total, faltaParaEnvioGratis } = calcularTotales(carrito);
     const rutaBase = getRutaBase();
 
-    // Actualizar banner del usuario autenticado
-    if (userBanner && usuario) {
-        userBanner.innerHTML = `
-            <div class="drawer-user-badge">
-                <span>  <strong>${usuario.nombre || usuario.usuario}</strong></span>
-                <button type="button" class="btn-cerrar-sesion-pill" onclick="cerrarSesionUsuario(event)" title="Cerrar sesión">
-                    Cerrar sesión
-                </button>
-            </div>
-        `;
-    }
 
     // Barra de progreso envío gratis
     if (alertaEnvio) {
         if (subtotal === 0) {
             alertaEnvio.innerHTML = `
-                <div class="envio-msj">📦 <strong>Envío Gratis</strong> en compras superiores a ${formatearMoneda(META_ENVIO_GRATIS)}</div>
+                <div class="envio-msj"><strong>Envío Gratis</strong> en compras superiores a ${formatearMoneda(META_ENVIO_GRATIS)}</div>
             `;
         } else if (faltaParaEnvioGratis === 0) {
             alertaEnvio.innerHTML = `
-                <div class="envio-msj exito">🎉 ¡Felicidades! Tienes <strong>Envío Gratis</strong> en este pedido</div>
+                <div class="envio-msj exito">Tienes <strong>Envío Gratis</strong> en este pedido</div>
                 <div class="envio-barra-bg"><div class="envio-barra-fill" style="width: 100%;"></div></div>
             `;
         } else {
@@ -408,7 +397,7 @@ function renderizarDrawer() {
     if (carrito.length === 0) {
         itemsCont.innerHTML = `
             <div class="carrito-vacio-box">
-                <div class="icono-vacio">🧴✨</div>
+                <div class="icono-vacio" style="font-size:14px;color:#8c7a6b;">Bolsa vacía</div>
                 <h4>Tu carrito está vacío</h4>
                 <p>Descubre el menú de nutrición facial botánica que diseñamos para consentir tu piel.</p>
                 <a href="${rutaBase}tienda.html" class="btn-ir-tienda" onclick="cerrarCarrito()">Explorar la Tienda</a>
@@ -441,7 +430,7 @@ function renderizarDrawer() {
                             <button type="button" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', 1)" title="Aumentar">+</button>
                         </div>
                         <button type="button" class="btn-eliminar-text" onclick="eliminarProducto('${item.nombre.replace(/'/g, "\\'")}')" title="Eliminar del carrito">
-                            🗑 Quitar
+                            Quitar
                         </button>
                     </div>
                 </div>
@@ -472,13 +461,13 @@ function renderizarDrawer() {
         </div>
         <div class="drawer-botones">
             <button type="button" class="btn-drawer-checkout" onclick="abrirCheckoutModal()">
-                Finalizar Compra y Facturar ✦
+                Finalizar Compra y Facturar
             </button>
             <a href="${rutaBase}carrito.html" class="btn-drawer-ver-todo" onclick="cerrarCarrito()">
                 Ver Carrito Detallado
             </a>
             <button type="button" class="btn-drawer-whatsapp" onclick="enviarPedidoWhatsApp()">
-                📱 Pedir por WhatsApp
+                Pedir por WhatsApp
             </button>
             <button type="button" class="btn-drawer-vaciar" onclick="vaciarCarrito()">
                 Vaciar Carrito
@@ -504,17 +493,17 @@ function enviarPedidoWhatsApp() {
     const nombreCliente = usuario ? (usuario.nombre || usuario.usuario) : "Cliente Éclat";
     const { subtotal, envio, total } = calcularTotales(carrito);
     
-    let mensaje = `✨ *¡Hola Éclat Visage! Deseo realizar este pedido:* ✨\n`;
+    let mensaje = `*Hola Éclat Visage. Deseo realizar este pedido:*\n`;
     mensaje += `  *Cliente:* ${nombreCliente}\n\n`;
 
     carrito.forEach((p, idx) => {
         mensaje += `*${idx + 1}.* ${p.nombre} x${p.cantidad} — ${formatearMoneda(p.precio * p.cantidad)}\n`;
     });
     
-    mensaje += `\n📦 *Subtotal:* ${formatearMoneda(subtotal)}`;
-    mensaje += `\n🚚 *Envío:* ${envio === 0 ? 'GRATIS' : formatearMoneda(envio)}`;
-    mensaje += `\n💳 *TOTAL A PAGAR:* ${formatearMoneda(total)} COP\n`;
-    mensaje += `\n📍 *Por favor indíquenme medios de pago para el despacho.* Muchas gracias.`;
+    mensaje += `\n *Subtotal:* ${formatearMoneda(subtotal)}`;
+    mensaje += `\n *Envío:* ${envio === 0 ? 'GRATIS' : formatearMoneda(envio)}`;
+    mensaje += `\n *TOTAL A PAGAR:* ${formatearMoneda(total)} COP\n`;
+    mensaje += `\n *Por favor indíquenme medios de pago para el despacho.* Muchas gracias.`;
 
     const telefono = "573229795322";
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
@@ -554,259 +543,30 @@ function mostrarToast(mensaje, tipo = 'success') {
 // 5. ACTUALIZACIÓN DINÁMICA DEL ENCABEZADO (AUTH & BOTÓN CERRAR SESIÓN)
 // ----------------------------------------------------
 function sincronizarHeaderAuth() {
-    const usuario = obtenerUsuarioAutenticado();
-    const rutaBase = getRutaBase();
-    // Requisito estricto: único que puede ver el CRUD es quien tenga rol == 'admin'
-    const esAdmin = Boolean(usuario && usuario.rol && String(usuario.rol).toLowerCase().trim() === 'admin');
-
-    // 1. REQUISITO: Si el usuario ya está autenticado, NO mostrar botón para iniciar sesión;
-    // mostrar en su lugar botón para 'CERRAR SESIÓN'. Si no está autenticado, mostrar 'LOGIN'.
-    const navLinks = document.querySelectorAll('.nav a, .header .nav a, header nav a');
-    let authNavFound = false;
-
-    navLinks.forEach(link => {
-        const txt = link.innerText.trim().toUpperCase();
-        const href = (link.getAttribute('href') || '').toLowerCase();
-
-        if (txt === 'LOGIN' || txt === 'INICIAR SESIÓN' || txt === 'CERRAR SESIÓN' || href.includes('registro_login.php') || link.classList.contains('nav-auth-toggle')) {
-            authNavFound = true;
-            link.classList.add('nav-auth-toggle');
-
-            if (usuario) {
-                // Ya está autenticado -> NO SALE MÁS BOTÓN PARA INICIAR SESIÓN; SALE BOTÓN CERRAR SESIÓN
-                link.innerText = 'CERRAR SESIÓN';
-                link.href = '#';
-                link.title = 'Cerrar sesión actual';
-                link.style.color = '#a85d5d';
-                link.style.fontWeight = '600';
-                link.onclick = function(e) {
-                    e.preventDefault();
-                    cerrarSesionUsuario(e);
-                };
-            } else {
-                // No está autenticado -> SALE BOTÓN DE LOGIN
-                link.innerText = 'LOGIN';
-                link.href = `${rutaBase}CRUD/registro_login.php`;
-                link.title = 'Iniciar sesión';
-                link.style.color = '';
-                link.style.fontWeight = '';
-                link.onclick = null;
-            }
-        }
-    });
-
-    // Si la barra no tenía enlace de login previo, asegurarlo según el estado
-    if (!authNavFound) {
-        const navBars = document.querySelectorAll('.nav, nav.nav, .header .nav');
-        navBars.forEach(nav => {
-            let dynLink = nav.querySelector('.nav-auth-toggle');
-            if (!dynLink) {
-                dynLink = document.createElement('a');
-                dynLink.className = 'nav-auth-toggle';
-                nav.appendChild(dynLink);
-            }
-            if (usuario) {
-                dynLink.innerText = 'CERRAR SESIÓN';
-                dynLink.href = '#';
-                dynLink.style.color = '#a85d5d';
-                dynLink.style.fontWeight = '600';
-                dynLink.onclick = function(e) {
-                    e.preventDefault();
-                    cerrarSesionUsuario(e);
-                };
-            } else {
-                dynLink.innerText = 'LOGIN';
-                dynLink.href = `${rutaBase}CRUD/registro_login.php`;
-                dynLink.style.color = '';
-                dynLink.style.fontWeight = '';
-                dynLink.onclick = null;
-            }
-        });
+    if (typeof window.actualizarNavbarModulo === 'function') {
+        window.actualizarNavbarModulo();
+        actualizarContadores();
+        return;
     }
 
-    // 2. REQUISITO ESTRICTO: NO MOSTRAR EL BOTÓN CRUD SI NO ES ROL == ADMIN
+    const usuario = obtenerUsuarioAutenticado();
+    const esAdmin = Boolean(usuario && usuario.rol && String(usuario.rol).toLowerCase().trim() === 'admin');
+
     if (esAdmin) {
         document.body.classList.add('es-admin');
     } else {
         document.body.classList.remove('es-admin');
     }
 
-    const crudDropdowns = document.querySelectorAll('.dropdown, .nav .dropdown, header .dropdown, [class*="dropdown"]');
-    crudDropdowns.forEach(dd => {
-        if (esAdmin) {
-            dd.classList.add('admin-visible');
-            dd.style.setProperty('display', 'inline-block', 'important');
-        } else {
-            dd.classList.remove('admin-visible');
-            dd.style.setProperty('display', 'none', 'important');
-        }
-    });
-
-    // Ocultar cualquier botón o enlace que contenga la palabra CRUD o enlaces directos al CRUD si no es admin
-    const todosLosEnlacesNav = document.querySelectorAll('.nav a, header a, .header a');
-    todosLosEnlacesNav.forEach(a => {
-        const txt = a.innerText.trim().toUpperCase();
-        const href = (a.getAttribute('href') || '').toLowerCase();
-        if (txt.includes('CRUD') || href.includes('_crud.php')) {
-            const contenedorDropdown = a.closest('.dropdown');
-            if (contenedorDropdown) {
-                if (esAdmin) {
-                    contenedorDropdown.style.setProperty('display', 'inline-block', 'important');
-                } else {
-                    contenedorDropdown.style.setProperty('display', 'none', 'important');
-                }
-            } else {
-                if (esAdmin) {
-                    a.style.removeProperty('display');
-                } else {
-                    a.style.setProperty('display', 'none', 'important');
-                }
-            }
-        }
-    });
-
-    // 3. Inyectar o actualizar bloque de usuario en .header-iconos
-    const iconContainers = document.querySelectorAll('.header-iconos, .header-icons');
-    iconContainers.forEach(container => {
-        const existingAuthBox = container.querySelector('.auth-header-wrapper');
-        if (existingAuthBox) existingAuthBox.remove();
-
-        const authWrapper = document.createElement('div');
-        authWrapper.className = 'auth-header-wrapper';
-        authWrapper.style.display = 'inline-flex';
-        authWrapper.style.alignItems = 'center';
-        authWrapper.style.gap = '8px';
-
-        if (usuario) {
-            const adminPill = esAdmin ? '<span style="font-size:10px; background:#bc9c82; color:#fff; padding:2px 6px; border-radius:10px; font-weight:600;">ADMIN</span>' : '';
-            authWrapper.innerHTML = `
-                <span style="font-size: 12px; color: #5a4a42; font-weight: 500;">
-                      <strong>${(usuario.nombre || usuario.usuario).split(' ')[0]}</strong> ${adminPill}
-                </span>
-                <button type="button" class="btn-logout-nav" onclick="cerrarSesionUsuario(event)" title="Cerrar sesión">
-                    Cerrar sesión
-                </button>
-            `;
-        } else {
-            authWrapper.innerHTML = `
-                <a href="${rutaBase}CRUD/registro_login.php" title="Iniciar Sesión" style="text-decoration:none; color:inherit; font-size:14px;">
-                     
-                </a>
-            `;
-        }
-
-        const cartElement = container.querySelector('#contador-carrito, span:last-child');
-        if (cartElement) {
-            container.insertBefore(authWrapper, cartElement);
-        } else {
-            container.appendChild(authWrapper);
-        }
-    });
-
-    // Inicializar listeners interactivos de los dropdowns (abrir/cerrar al clic, clic fuera, ESC)
-    inicializarDropdownsCRUD();
+    actualizarContadores();
 }
 
 // ----------------------------------------------------
 // 5.1 CONTROL INTERACTIVO DEL DROPDOWN CRUD
-// Permite abrir y CERRAR al hacer clic en CRUD ▾, al dar clic
-// por fuera en la pantalla, al mover el mouse o al pulsar ESC.
+// Gestionado de forma exclusiva y limpia por modulos/nav.js
 // ----------------------------------------------------
 function inicializarDropdownsCRUD() {
-    const dropdowns = document.querySelectorAll('.dropdown');
-
-    dropdowns.forEach(dd => {
-        const btn = dd.querySelector('.dropbtn');
-        const content = dd.querySelector('.dropdown-content');
-        if (!btn || !content) return;
-
-        // Evitar que el texto se resalte en azul al hacer doble clic
-        btn.style.userSelect = 'none';
-        btn.style.webkitUserSelect = 'none';
-
-        if (dd.dataset.dropdownConfigured === 'true') return;
-        dd.dataset.dropdownConfigured = 'true';
-
-        // 1. Clic en el botón CRUD ▾: si está abierto lo CIERRA; si está cerrado lo ABRE
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const estaAbierto = dd.classList.contains('abierto') || 
-                               (!dd.classList.contains('cerrado-forzado') && window.getComputedStyle(content).display !== 'none');
-
-            // Cerrar cualquier otro dropdown
-            document.querySelectorAll('.dropdown').forEach(otro => {
-                otro.classList.remove('abierto');
-                otro.classList.add('cerrado-forzado');
-                const c = otro.querySelector('.dropdown-content');
-                if (c) c.style.setProperty('display', 'none', 'important');
-            });
-
-            if (estaAbierto) {
-                // Ya estaba abierto -> SE CIERRA INMEDIATAMENTE
-                dd.classList.remove('abierto');
-                dd.classList.add('cerrado-forzado');
-                content.style.setProperty('display', 'none', 'important');
-            } else {
-                // Estaba cerrado -> SE ABRE
-                dd.classList.remove('cerrado-forzado');
-                dd.classList.add('abierto');
-                content.style.setProperty('display', 'block', 'important');
-            }
-        });
-
-        // 2. Al entrar el mouse (hover intuitivo)
-        dd.addEventListener('mouseenter', function() {
-            if (!dd.classList.contains('cerrado-forzado')) {
-                dd.classList.add('abierto');
-                content.style.setProperty('display', 'block', 'important');
-            }
-        });
-
-        // 3. Al salir el mouse (mouseleave -> SE CIERRA AUTOMÁTICAMENTE)
-        dd.addEventListener('mouseleave', function() {
-            dd.classList.remove('abierto');
-            dd.classList.remove('cerrado-forzado');
-            content.style.setProperty('display', 'none', 'important');
-        });
-
-        // 4. Al hacer clic en cualquiera de las opciones internas -> SE CIERRA
-        content.querySelectorAll('a').forEach(opcion => {
-            opcion.addEventListener('click', function() {
-                dd.classList.remove('abierto');
-                dd.classList.add('cerrado-forzado');
-                content.style.setProperty('display', 'none', 'important');
-            });
-        });
-    });
-}
-
-// Cierre global por fuera de cualquier dropdown
-if (!window._dropdownGlobalListenersAdded) {
-    window._dropdownGlobalListenersAdded = true;
-
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown')) {
-            document.querySelectorAll('.dropdown').forEach(dd => {
-                dd.classList.remove('abierto');
-                dd.classList.add('cerrado-forzado');
-                const content = dd.querySelector('.dropdown-content');
-                if (content) content.style.setProperty('display', 'none', 'important');
-            });
-        }
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' || e.key === 'Esc') {
-            document.querySelectorAll('.dropdown').forEach(dd => {
-                dd.classList.remove('abierto');
-                dd.classList.add('cerrado-forzado');
-                const content = dd.querySelector('.dropdown-content');
-                if (content) content.style.setProperty('display', 'none', 'important');
-            });
-        }
-    });
+    // Delegado exclusivamente a modulos/nav.js
 }
 
 // ----------------------------------------------------
@@ -832,7 +592,7 @@ function inicializarSistemaCarrito() {
         drawer.innerHTML = `
             <div class="drawer-header">
                 <div class="drawer-titulo-box">
-                    <h3>Tu Carrito <span>✦</span></h3>
+                    <h3>Tu Carrito</h3>
                     <span id="drawer-total-articulos" class="drawer-conteo-badge">0 productos</span>
                 </div>
                 <button type="button" class="btn-cerrar-drawer" onclick="cerrarCarrito()" aria-label="Cerrar carrito">✕</button>
@@ -872,7 +632,7 @@ function asegurarModalCheckoutEnDOM() {
         modal.className = 'checkout-modal';
         modal.innerHTML = `
             <div class="checkout-card">
-                <button type="button" class="btn-cerrar-modal" onclick="cerrarCheckoutModal()">✕</button>
+                <button type="button" class="btn-cerrar-modal" onclick="cerrarCheckoutModal()">Cerrar</button>
                 <h3>Datos de Entrega y Facturación</h3>
                 <p style="font-size: 13px; color: #6e6456; text-align: center; margin-bottom: 20px;">
                     Tus datos se registrarán en la tabla de <strong>Clientes</strong> y se generará tu <strong>Factura</strong> automáticamente.
@@ -910,7 +670,7 @@ function asegurarModalCheckoutEnDOM() {
                     </div>
 
                     <button type="submit" class="btn-confirmar-pedido" id="btn-submit-factura">
-                        Confirmar Pedido y Facturar ✦
+                        Confirmar Pedido y Facturar
                     </button>
                 </form>
             </div>
@@ -984,7 +744,7 @@ async function procesarCompraEclat(e) {
     if (e && e.preventDefault) e.preventDefault();
 
     const btnSubmit = document.querySelector('.btn-confirmar-pedido') || document.getElementById('btn-submit-factura');
-    const textoOriginal = btnSubmit ? btnSubmit.innerHTML : 'Confirmar Pedido y Facturar ✦';
+    const textoOriginal = btnSubmit ? btnSubmit.innerHTML : 'Confirmar Pedido y Facturar';
 
     const nombre = (document.getElementById('chk-nombre')?.value || '').trim();
     const correo = (document.getElementById('chk-correo')?.value || '').trim();
@@ -1008,7 +768,7 @@ async function procesarCompraEclat(e) {
 
     if (btnSubmit) {
         btnSubmit.disabled = true;
-        btnSubmit.innerHTML = '⏳ Registrando cliente y factura...';
+        btnSubmit.innerHTML = ' Registrando cliente y factura...';
     }
 
     try {
@@ -1057,14 +817,14 @@ async function procesarCompraEclat(e) {
             detalleConfirmacion.innerHTML = `
                 <div style="background:#fdfbf7; border:1px solid #d8c5b2; border-radius:10px; padding:18px; margin:15px auto; text-align:left; max-width:480px; font-size:13.5px; color:#3d352a;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px dashed #d8c5b2; padding-bottom:8px;">
-                        <span>🧾 <strong>Factura Registrada:</strong></span>
+                        <span><strong>Factura Registrada:</strong></span>
                         <span style="color:#bc9c82; font-weight:700;">#${resultado.id_factura}</span>
                     </div>
                     <div style="margin-bottom:6px;">  <strong>Cliente:</strong> ${resultado.cliente_nombre} (ID: #${resultado.id_cliente})</div>
-                    <div style="margin-bottom:6px;">📧 <strong>Correo:</strong> ${resultado.cliente_correo}</div>
-                    <div style="margin-bottom:6px;">📞 <strong>Teléfono:</strong> ${resultado.cliente_telefono || 'No registrado'}</div>
-                    <div style="margin-bottom:6px;">📍 <strong>Envío a:</strong> ${resultado.cliente_direccion || 'No especificada'}</div>
-                    <div style="margin-bottom:6px;">💳 <strong>Método de Pago:</strong> ${resultado.metodo_pago}</div>
+                    <div style="margin-bottom:6px;"><strong>Correo:</strong> ${resultado.cliente_correo}</div>
+                    <div style="margin-bottom:6px;"><strong>Teléfono:</strong> ${resultado.cliente_telefono || 'No registrado'}</div>
+                    <div style="margin-bottom:6px;"><strong>Envío a:</strong> ${resultado.cliente_direccion || 'No especificada'}</div>
+                    <div style="margin-bottom:6px;"><strong>Método de Pago:</strong> ${resultado.metodo_pago}</div>
                     <div style="display:flex; justify-content:space-between; margin-top:10px; padding-top:8px; border-top:1px solid #d8c5b2; font-size:15px;">
                         <span><strong>Total Facturado:</strong></span>
                         <span style="font-weight:700; color:#2e7d32;">${formatearMoneda(resultado.total)} COP</span>
@@ -1075,10 +835,10 @@ async function procesarCompraEclat(e) {
                 </p>
                 <div style="margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
                     <a href="${rutaBase}CRUD/facturas_crud.php" class="btn-comprar-principal" style="background:#3d352a; padding:10px 18px; font-size:13px; text-decoration:none;">
-                        Ver en Tabla Facturas ➔
+                        Ver en Tabla Facturas
                     </a>
                     <a href="${rutaBase}CRUD/clientes_crud.php" class="btn-comprar-principal" style="background:#8c7a6b; padding:10px 18px; font-size:13px; text-decoration:none;">
-                        Ver en Tabla Clientes ➔
+                        Ver en Tabla Clientes
                     </a>
                 </div>
             `;
@@ -1091,7 +851,7 @@ async function procesarCompraEclat(e) {
                 html: `
                     <div style="text-align: left; font-size: 13.5px; line-height: 1.6; color: #3d352a;">
                         <p style="margin-bottom: 12px; text-align:center; color: #2e7d32; font-weight:600;">
-                            ✓ Factura creada y cliente registrado en la base de datos.
+                            Factura creada y cliente registrado en la base de datos.
                         </p>
                         <div style="background:#f9f5f0; padding:14px; border-radius:10px; border:1px solid #e6dfd5; font-size:13px;">
                             <div><strong>Nº Factura:</strong> <span style="color:#bc9c82; font-weight:700;">#${resultado.id_factura}</span></div>
@@ -1188,7 +948,8 @@ if (document.readyState === 'loading') {
     inicializarSistemaCarrito();
 }
 
-// Exportar globalmente
+window.agregar = agregarAlCarrito;
+window.agregarAlCarrito = agregarAlCarrito;
 window.abrirCarrito = abrirCarrito;
 window.cerrarCarrito = cerrarCarrito;
 window.cambiarCantidad = cambiarCantidad;

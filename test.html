@@ -1,287 +1,466 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclat Visage - Test de Piel</title>
+    <meta name="theme-color" content="#faf7f2">
+    <title>Éclat Visage | Test de Piel</title>
     <link rel="stylesheet" href="estilos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --crema: #faf7f2;
+            --crema-oscuro: #f0e8dd;
+            --blanco: #fffdf9;
+            --cafe: #403329;
+            --cafe-suave: #75665a;
+            --dorado: #b49a72;
+            --borde: #e8ded1;
+            --sombra: 0 15px 45px rgba(64, 51, 41, .07);
+            --radio: 20px;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            background-color: #fbf9f6;
-            color: #4a4238;
-            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background: radial-gradient(ellipse at top right, rgba(220, 202, 177, .17), transparent 38%), var(--crema);
+            color: var(--cafe);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
+        ::selection { background: #dfd0ba; color: var(--cafe); }
+        button, a, input { font-family: inherit; -webkit-tap-highlight-color: transparent; }
 
+        /* SECCIÓN PRINCIPAL */
         .test-seccion {
-            width: 80%;
-            margin: 40px auto;
+            width: min(88%, 850px);
+            margin: 78px auto 100px;
             text-align: center;
+            animation: aparecer .8s ease both;
         }
-
+        .test-seccion::before {
+            content: "E C L A T   V I S A G E";
+            display: inline-block;
+            margin-bottom: 18px;
+            color: var(--dorado);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+        }
         .test-seccion h2 {
-            font-size: 32px;
-            color: #3d352a;
+            margin: 0 auto 16px;
+            color: var(--cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(34px, 5vw, 50px);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -1px;
         }
-
         .test-seccion .subtitulo {
-            font-size: 14px;
-            color: #6e6456;
-            margin-bottom: 30px;
+            max-width: 520px;
+            margin: 0 auto 44px;
+            color: var(--cafe-suave);
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 2;
         }
+        #skin-quiz { text-align: left; }
 
-        /* Bloques de las preguntas */
+        /* TARJETAS DE PREGUNTAS */
         .pregunta-card {
-            background-color: #f3ede4;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: left;
+            position: relative;
+            margin-bottom: 22px;
+            padding: 27px 30px;
+            overflow: hidden;
+            background: rgba(255, 253, 249, .88);
+            border: 1px solid var(--borde);
+            border-radius: var(--radio);
+            box-shadow: 0 5px 20px rgba(64, 51, 41, .025);
+            transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
         }
-
+        .pregunta-card:hover {
+            border-color: #d5c2a7;
+            box-shadow: var(--sombra);
+            transform: translateY(-2px);
+        }
         .pregunta-card p {
-            font-size: 16px;
-            font-weight: bold;
-            color: #3d352a;
+            margin: 0 0 21px;
+            color: var(--cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 19px;
+            font-weight: 500;
+            line-height: 1.55;
         }
 
+        /* OPCIONES DE RESPUESTA */
         .opcion-label {
-            display: block;
-            background-color: #fbf9f6;
-            padding: 10px;
-            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding: 14px 16px;
+            background: var(--crema);
+            color: #66594e;
+            border: 1px solid #eee6dc;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 13px;
-            border: 1px solid #e1dcd5;
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 1.8;
+            transition: all .25s ease;
         }
+        .opcion-label:last-child { margin-bottom: 0; }
+        .opcion-label:hover {
+            background: #f4ede3;
+            border-color: #d9c5a7;
+            color: var(--cafe);
+        }
+        .opcion-label input[type="radio"] {
+            flex-shrink: 0;
+            width: 17px;
+            height: 17px;
+            margin: 3px 0 0;
+            accent-color: var(--cafe);
+            cursor: pointer;
+        }
+        .opcion-label:has(input:checked) {
+            background: #f2e9dc;
+            border-color: var(--dorado);
+            color: var(--cafe);
+            box-shadow: inset 3px 0 0 var(--dorado);
+        }
+        .opcion-label:focus-within { outline: 2px solid var(--dorado); outline-offset: 3px; }
 
-        /* Botón para enviar el formulario */
+        /* BOTÓN DE ANÁLISIS */
         .btn-resultado {
-            background-color: #3d352a;
-            color: #fbf9f6;
-            padding: 12px 30px;
-            border: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 54px;
+            margin-top: 16px;
+            padding: 15px 35px;
+            background: var(--cafe);
+            color: var(--blanco);
+            border: 1px solid var(--cafe);
+            border-radius: 100px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            transition: all .3s ease;
+        }
+        .btn-resultado::after {
+            content: "↗";
+            margin-left: 10px;
+            font-size: 16px;
+            transition: transform .3s ease;
+        }
+        .btn-resultado:hover {
+            background: #5b4737;
+            border-color: #5b4737;
+            box-shadow: 0 9px 22px rgba(64, 51, 41, .18);
+            transform: translateY(-2px);
+        }
+        .btn-resultado:hover::after { transform: translate(3px, -3px); }
+        .btn-resultado:focus-visible, .btn-compra-test:focus-visible {
+            outline: 2px solid var(--dorado);
+            outline-offset: 4px;
         }
 
-        /* Recuadro donde sale la respuesta */
+        /* PANEL DE RESULTADOS */
         .resultado-contenedor {
-            display: none; /* Al principio está escondido */
-            background-color: #f3ede4;
-            padding: 30px;
-            margin-top: 30px;
+            display: none;
+            margin-top: 38px;
+            padding: clamp(24px, 5vw, 45px);
             text-align: left;
-            border: 1px solid #eae2d5;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 24px;
+            box-shadow: var(--sombra);
+            animation: aparecer .6s ease both;
+            scroll-margin-top: 30px;
         }
-
         .resultado-contenedor h3 {
-            font-size: 24px;
-            color: #3d352a;
+            margin: 0 0 16px;
+            color: var(--cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(27px, 4vw, 36px);
+            font-weight: 400;
+            line-height: 1.35;
             text-align: center;
         }
-
         .diagnostico-texto {
-            font-size: 14px;
-            color: #5a5145;
-            text-align: center;
-        }
-
-        .recomendacion-bloque {
-            background-color: #fbf9f6;
-            padding: 15px;
-            margin-top: 15px;
-        }
-
-        .btn-compra-test {
-            display: block;
-            text-align: center;
-            background-color: #3d352a;
-            color: white;
-            padding: 10px;
-            text-decoration: none;
+            max-width: 560px;
+            margin: 0 auto 30px;
+            color: var(--cafe-suave);
             font-size: 13px;
-            margin-top: 15px;
+            font-weight: 300;
+            line-height: 2;
+            text-align: center;
+        }
+
+        /* RECOMENDACIONES */
+        .recomendacion-bloque {
+            margin-top: 25px;
+            padding: 25px;
+            background: var(--crema);
+            border: 1px solid var(--borde);
+            border-radius: 17px;
+        }
+        .recomendacion-bloque h4 {
+            margin: 0 0 20px;
+            color: var(--cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 21px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        #lista-productos { margin: 0; padding: 0; list-style: none; }
+        #lista-productos li {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding: 12px 0;
+            color: #66594e;
+            border-bottom: 1px solid var(--borde);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+        #lista-productos li:last-child { margin-bottom: 0; border-bottom: none; }
+        #lista-productos li strong { flex-shrink: 0; color: var(--cafe); font-weight: 500; }
+
+        /* ENLACE A LA TIENDA */
+        .btn-compra-test {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            margin-top: 24px;
+            padding: 14px 22px;
+            background: var(--cafe);
+            color: white;
+            border: 1px solid var(--cafe);
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            line-height: 1.8;
+            text-align: center;
             text-transform: uppercase;
+            transition: all .3s ease;
+        }
+        .btn-compra-test::after {
+            content: "→";
+            font-size: 17px;
+            transition: transform .3s ease;
+        }
+        .btn-compra-test:hover {
+            background: #5b4737;
+            box-shadow: 0 8px 20px rgba(64, 51, 41, .14);
+            transform: translateY(-2px);
+        }
+        .btn-compra-test:hover::after { transform: translateX(4px); }
+
+        /* ANIMACIONES */
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TABLET */
+        @media (max-width: 768px) {
+            .test-seccion { width: 90%; margin: 55px auto 75px; }
+            .test-seccion .subtitulo { margin-bottom: 32px; }
+            .pregunta-card { padding: 23px 20px; }
+            .pregunta-card p { font-size: 18px; }
+        }
+
+        /* CELULARES */
+        @media (max-width: 480px) {
+            .test-seccion { width: 92%; margin: 42px auto 60px; }
+            .test-seccion h2 { font-size: 34px; letter-spacing: -.7px; }
+            .test-seccion .subtitulo { font-size: 12px; line-height: 1.9; }
+            .pregunta-card { margin-bottom: 16px; padding: 20px 15px; border-radius: 16px; }
+            .pregunta-card p { margin-bottom: 17px; font-size: 17px; }
+            .opcion-label { gap: 10px; padding: 12px; font-size: 11px; }
+            .btn-resultado { display: flex; width: 100%; padding: 14px 18px; }
+            .resultado-contenedor { margin-top: 28px; padding: 22px 16px; border-radius: 18px; }
+            .recomendacion-bloque { padding: 18px 14px; }
+            .recomendacion-bloque h4 { font-size: 19px; }
+            #lista-productos li { align-items: flex-start; font-size: 11px; }
+            .btn-compra-test { padding: 13px 16px; font-size: 9px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <div id="navbar-modulo"></div>
+    <script src="modulos/nav.js"></script>
 
-   <header class="header">
-        <div class="logo">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="index.html">INICIO</a>
-            <a href="tienda.html">VER TODO</a>
-            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="test.html">TEST DE PIEL</a>
-            <a href="blog.html">DIARIO</a>
-            <a href="nosotros.html">NOSOTROS</a>
-        </nav>
-        <div class="header-iconos">
-            <span>👤</span>
-            <span id="contador-carrito">🛒 (0)</span>
-        </div>
-    </header>
+    <!-- TEST DE TIPO DE PIEL -->
+    <main>
+        <section class="test-seccion">
+            <h2>¿No conoces tu tipo de piel?</h2>
+            <p class="subtitulo">Responde según tus reacciones diarias y diseñaremos tu menú ideal de cuidado facial.</p>
 
-    <section class="test-seccion">
-        <h2>¿No conoces tu tipo de piel?</h2>
-        <p class="subtitulo">Responde según tus reacciones diarias y diseñaremos tu menú ideal.</p>
+            <form id="skin-quiz">
+                <div class="pregunta-card">
+                    <p>1. Cuando te despiertas por la mañana, ¿cómo sientes tu rostro antes de aplicar algo?</p>
+                    <label class="opcion-label"><input type="radio" name="p1" value="seca" required> Opaco, un poco áspero al tacto y con sensación de tirantez.</label>
+                    <label class="opcion-label"><input type="radio" name="p1" value="mixta"> Normal en las mejillas, pero noto grasa en la nariz y la frente.</label>
+                    <label class="opcion-label"><input type="radio" name="p1" value="grasa"> Con una capa brillante y oleosa en todo el rostro.</label>
+                </div>
 
-        <form id="skin-quiz">
-            <div class="pregunta-card">
-                <p>1. Cuando te despiertas por la mañana, ¿cómo sientes tu rostro antes de aplicar algo?</p>
-                <label class="opcion-label"><input type="radio" name="p1" value="seca" required> Opaco, un poco áspero al tacto y con sensación de tirantez.</label>
-                <label class="opcion-label"><input type="radio" name="p1" value="mixta"> Normal en las mejillas, pero noto grasa en la nariz y la frente.</label>
-                <label class="opcion-label"><input type="radio" name="p1" value="grasa"> Con una capa brillante y oleosa en todo el rostro.</label>
+                <div class="pregunta-card">
+                    <p>2. Si pasas medio día sin aplicarte ninguna crema ni maquillaje, ¿qué sucede?</p>
+                    <label class="opcion-label"><input type="radio" name="p2" value="seca" required> Siento la piel muy seca, incómoda o tirante.</label>
+                    <label class="opcion-label"><input type="radio" name="p2" value="mixta"> Me salen brillos solo en la frente y la nariz, pero el resto está normal.</label>
+                    <label class="opcion-label"><input type="radio" name="p2" value="grasa"> Todo mi rostro brilla intensamente y siento la piel pesada.</label>
+                </div>
+
+                <div class="pregunta-card">
+                    <p>3. ¿Cómo reacciona tu piel habitualmente cuando te aplicas productos nuevos?</p>
+                    <label class="opcion-label"><input type="radio" name="p3" value="seca" required> Absorbe todo muy rápido porque parece necesitar hidratación.</label>
+                    <label class="opcion-label"><input type="radio" name="p3" value="mixta"> Me va bien, pero me salen brillos rápidamente en el centro del rostro.</label>
+                    <label class="opcion-label"><input type="radio" name="p3" value="grasa"> Siento que no se absorben bien y me generan más grasa o granitos.</label>
+                </div>
+
+                <div class="pregunta-card">
+                    <p>4. Mírate de cerca en un espejo con buena luz, ¿qué es lo que más resalta en tu piel?</p>
+                    <label class="opcion-label"><input type="radio" name="p4" value="seca" required> Líneas finas marcadas por resequedad y poros casi invisibles.</label>
+                    <label class="opcion-label"><input type="radio" name="p4" value="mixta"> Poros abiertos o puntitos negros solo en la zona de la nariz.</label>
+                    <label class="opcion-label"><input type="radio" name="p4" value="grasa"> Poros bastante grandes en casi todo el rostro.</label>
+                </div>
+
+                <button type="button" class="btn-resultado" onclick="calcularResultado()">Analizar mi piel</button>
+            </form>
+
+            <!-- RESULTADOS -->
+            <div id="resultado" class="resultado-contenedor" aria-live="polite">
+                <h3 id="resultado-titulo">Tu tipo de piel</h3>
+                <p id="resultado-descripcion" class="diagnostico-texto"></p>
+                <div class="recomendacion-bloque">
+                    <h4>Tu menú de cuidado facial</h4>
+                    <ul id="lista-productos"></ul>
+                    <a href="tienda.html" class="btn-compra-test">Ir a la tienda y armar mi menú</a>
+                </div>
             </div>
+        </section>
+    </main>
 
-            <div class="pregunta-card">
-                <p>2. Si pasas medio día sin aplicarte ninguna crema ni maquillaje, ¿qué sucede?</p>
-                <label class="opcion-label"><input type="radio" name="p2" value="seca" required> Siento la piel muy seca, incómoda o tirante.</label>
-                <label class="opcion-label"><input type="radio" name="p2" value="mixta"> Me salen brillos solo en la frente y la nariz, pero el resto está normal.</label>
-                <label class="opcion-label"><input type="radio" name="p2" value="grasa"> Todo mi rostro brilla intensamente y siento la piel pesada.</label>
-            </div>
-
-            <div class="pregunta-card">
-                <p>3. ¿Cómo reacciona tu piel habitualmente cuando te aplicas productos nuevos?</p>
-                <label class="opcion-label"><input type="radio" name="p3" value="seca" required> Absorbe todo súper rápido porque le falta hidratación.</label>
-                <label class="opcion-label"><input type="radio" name="p3" value="mixta"> Me va bien afuera, pero me saca brillos rápido en el centro.</label>
-                <label class="opcion-label"><input type="radio" name="p3" value="grasa"> Siento que no se absorbe y me genera más grasa o granitos.</label>
-            </div>
-
-            <div class="pregunta-card">
-                <p>4. Mírate de cerca en un espejo con buena luz, ¿qué es lo que más resalta en tu piel?</p>
-                <label class="opcion-label"><input type="radio" name="p4" value="seca" required> Líneas finas marcadas por resequedad y poros casi invisibles.</label>
-                <label class="opcion-label"><input type="radio" name="p4" value="mixta"> Poros abiertos o puntitos negros solo en la zona de la nariz.</label>
-                <label class="opcion-label"><input type="radio" name="p4" value="grasa"> Poros bastante grandes en casi todo el rostro.</label>
-            </div>
-
-            <button type="button" class="btn-resultado" onclick="calcularResultado()">Analizar Mi Piel</button>
-        </form>
-
-        <div id="resultado" class="resultado-contenedor">
-            <h3 id="resultado-titulo">Tipo de Piel</h3>
-            <p id="resultado-descripcion" class="diagnostico-texto">Cargando...</p>
-            
-            <div class="recomendacion-bloque">
-                <h4>🍽️ Tu Menú de Nutrición Cutánea Completo:</h4>
-                <ul id="lista-productos">
-                    </ul>
-                <a href="tienda.html" class="btn-compra-test">Ir a la tienda y armar mi menú</a>
-            </div>
-        </div>
-    </section>
+    <!-- FOOTER CENTRALIZADO -->
+    <div id="footer-modulo"></div>
+    <script src="modulos/footer.js"></script>
 
     <script>
         function calcularResultado() {
-            // Guardamos las respuestas de la pregunta 1 a la 4
-            let p1 = document.querySelector('input[name="p1"]:checked');
-            let p2 = document.querySelector('input[name="p2"]:checked');
-            let p3 = document.querySelector('input[name="p3"]:checked');
-            let p4 = document.querySelector('input[name="p4"]:checked');
+            const formulario = document.getElementById('skin-quiz');
+            const resultado = document.getElementById('resultado');
 
-            // Si falta alguna por responder, avisa
-            if (!p1 || !p2 || !p3 || !p4) {
+            // Verificar que todas las preguntas tengan una respuesta.
+            const respuestas = ['p1', 'p2', 'p3', 'p4'].map(nombre =>
+                formulario.querySelector(`input[name="${nombre}"]:checked`)
+            );
+
+            if (respuestas.some(respuesta => !respuesta)) {
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
-                        title: 'Test Incompleto',
-                        text: 'Por favor, responde las 4 preguntas para diagnosticar tu tipo de piel con exactitud.',
+                        title: 'Test incompleto',
+                        text: 'Por favor, responde las cuatro preguntas para conocer tu tipo de piel.',
                         icon: 'warning',
-                        confirmButtonColor: '#3d352a',
-                        background: '#fdfbf7',
-                        color: '#3d352a'
+                        confirmButtonColor: '#403329',
+                        background: '#fffdf9',
+                        color: '#403329'
                     });
                 } else {
-                    alert("Por favor, responde todas las preguntas del test.");
+                    alert('Por favor, responde todas las preguntas del test.');
                 }
                 return;
             }
 
-            // Contamos cuántas respuestas de cada tipo marcaron
-            let seca = 0;
-            let mixta = 0;
-            let grasa = 0;
+            // Contabilizar las respuestas.
+            const conteo = { seca: 0, mixta: 0, grasa: 0 };
+            respuestas.forEach(respuesta => conteo[respuesta.value]++);
 
-            if (p1.value == "seca") { seca++; } else if (p1.value == "mixta") { mixta++; } else { grasa++; }
-            if (p2.value == "seca") { seca++; } else if (p2.value == "mixta") { mixta++; } else { grasa++; }
-            if (p3.value == "seca") { seca++; } else if (p3.value == "mixta") { mixta++; } else { grasa++; }
-            if (p4.value == "seca") { seca++; } else if (p4.value == "mixta") { mixta++; } else { grasa++; }
-
-            // Elementos del HTML que vamos a cambiar de texto
-            let titulo = document.getElementById('resultado-titulo');
-            let desc = document.getElementById('resultado-descripcion');
-            let lista = document.getElementById('lista-productos');
-
-            // Caso 1: Mayoría de respuestas "seca"
-            if (seca >= mixta && seca >= grasa) {
-                titulo.innerHTML = "✦ Tu tipo de piel es: SECA ✦";
-                desc.innerHTML = "Tu piel necesita un menú de nutrición profunda para quitar la tirantez.";
-                lista.innerHTML = "<li><strong>Paso 1:</strong> Espuma Limpiadora Suave</li><li><strong>Paso 2:</strong> Tónico Botánico Calmante</li><li><strong>Paso 3:</strong> Sérum Hidratante Profundo</li><li><strong>Paso 4:</strong> Crema Nutritiva de Día</li>";
-            } 
-            // Caso 2: Mayoría de respuestas "grasa"
-            else if (grasa >= seca && grasa >= mixta) {
-                titulo.innerHTML = "✦ Tu tipo de piel es: GRASA ✦";
-                desc.innerHTML = "Tu piel necesita texturas ligeras en gel para controlar los brillos y limpiar poros.";
-                lista.innerHTML = "<li><strong>Paso 1:</strong> Gel Purificante de Árbol de Té</li><li><strong>Paso 2:</strong> Sérum de Niacinamida 10%</li><li><strong>Paso 3:</strong> Gel Hidratante de Aloe Vera</li><li><strong>Paso 4:</strong> Mascarilla de Arcilla Cremosa</li>";
-            } 
-            // Caso 3: Mayoría de respuestas "mixta" o empates
-            else {
-                titulo.innerHTML = "✦ Tu tipo de piel es: MIXTA ✦";
-                desc.innerHTML = "Tu piel necesita equilibrar la grasa de la zona T y la resequedad de las mejillas.";
-                lista.innerHTML = "<li><strong>Paso 1:</strong> Espuma Limpiadora Suave</li><li><strong>Paso 2:</strong> Elíxir Iluminador Vitamina C</li><li><strong>Paso 3:</strong> Dúo Nutrición Esencial (Kit Diario)</li><li><strong>Paso 4:</strong> Crema Exfoliante Micro-gránulos</li>";
+            // Determinar el tipo de piel manteniendo la prioridad original en los empates.
+            let tipo;
+            if (conteo.seca >= conteo.mixta && conteo.seca >= conteo.grasa) {
+                tipo = 'seca';
+            } else if (conteo.grasa >= conteo.seca && conteo.grasa >= conteo.mixta) {
+                tipo = 'grasa';
+            } else {
+                tipo = 'mixta';
             }
 
-            // Hace visible la cajita de resultados cambiando el "none" por "block"
-            document.getElementById('resultado').style.display = "block";
+            // Configurar el resultado y sus recomendaciones.
+            const recomendaciones = {
+                seca: {
+                    titulo: 'Tu tipo de piel es: SECA',
+                    descripcion: 'Tu piel puede beneficiarse de productos suaves e hidratantes que ayuden a reducir la sensación de tirantez.',
+                    productos: [
+                        'Espuma limpiadora suave',
+                        'Tónico botánico calmante',
+                        'Sérum hidratante profundo',
+                        'Crema nutritiva de día'
+                    ]
+                },
+                grasa: {
+                    titulo: 'Tu tipo de piel es: GRASA',
+                    descripcion: 'Tu rutina puede enfocarse en una limpieza suave, hidratación ligera y productos que ayuden a controlar el exceso de brillo.',
+                    productos: [
+                        'Gel limpiador suave',
+                        'Sérum de niacinamida',
+                        'Gel hidratante ligero',
+                        'Mascarilla de arcilla de uso ocasional'
+                    ]
+                },
+                mixta: {
+                    titulo: 'Tu tipo de piel es: MIXTA',
+                    descripcion: 'Tu piel puede necesitar una rutina equilibrada que aporte hidratación y atienda las diferencias entre la zona T y las mejillas.',
+                    productos: [
+                        'Espuma limpiadora suave',
+                        'Sérum hidratante',
+                        'Crema hidratante ligera',
+                        'Protector solar facial de amplio espectro'
+                    ]
+                }
+            };
+
+            const seleccion = recomendaciones[tipo];
+            document.getElementById('resultado-titulo').textContent = seleccion.titulo;
+            document.getElementById('resultado-descripcion').textContent = seleccion.descripcion;
+
+            // Crear la lista sin insertar contenido HTML dinámico.
+            const lista = document.getElementById('lista-productos');
+            lista.replaceChildren();
+
+            seleccion.productos.forEach((producto, indice) => {
+                const elemento = document.createElement('li');
+                const paso = document.createElement('strong');
+                paso.textContent = `Paso ${indice + 1}:`;
+                elemento.append(paso, document.createTextNode(` ${producto}`));
+                lista.appendChild(elemento);
+            });
+
+            resultado.style.display = 'block';
+            resultado.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
-    <!-- PIE DE PÁGINA (FOOTER) -->
-<footer class="footer">
-  <div class="footer-contenedor">
-    <!-- NOMBRE / LOGO DE LA MARCA -->
-    <div class="footer-columna">
-      <h3 class="footer-logo">
-        eclat visage <span>✦</span>
-      </h3>
-      <p>
-        Skincare diseñado para resaltar la belleza natural
-        y mantener tu piel saludable y radiante.
-      </p>
-    </div>
-    <!-- INSTAGRAM -->
-    <div class="footer-columna">
-      <h4>Síguenos en Instagram</h4>
-      <p>
-        <a href="#" target="_blank">
-          Instagram: @eclatvisage
-        </a>
-      </p>
-    </div>
-    <!-- CONTACTO -->
-    <div class="footer-columna">
-      <h4>Contacto</h4>
-      <p>Correo: eclatvisage@gmail.com</p>
-      <p>Teléfono: 300 000 0000</p>
-    </div>
-    <!-- UBICACIÓN -->
-    <div class="footer-columna">
-      <h4>Ubicación</h4>
-      <p>Calarcá, Quindío, Colombia</p>
-    </div>
-    <!-- MÉTODOS DE PAGO -->
-    <div class="footer-columna">
-      <h4>Métodos de pago</h4>
-      <p>Nequi</p>
-      <p>Bancolombia</p>
-      <p>Tarjetas débito y crédito</p>
-    </div>
-  </div>
-  <!-- DERECHOS RESERVADOS -->
-  <div class="copyright">
-    © 2026 Eclat Visage — Todos los derechos reservados.
-  </div>
-</footer>
-<script src="carrito.js"></script>
+    <script src="carrito.js"></script>
 </body>
 </html>

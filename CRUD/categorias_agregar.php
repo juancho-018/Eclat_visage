@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="body-registro">
     <div class="registro-card">
-        <div class="logo">eclat visage<span>✦</span></div>
+        <div class="logo">eclat visage</div>
         <h2>Nueva Categoría</h2>
         <p class="subtitulo-registro">Añade una categoría al sistema</p>
         

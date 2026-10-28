@@ -1,10 +1,11 @@
+
 <?php
 require_once __DIR__ . '/auth_admin.php';
 include("conexion.php");
 
-$sql = "SELECT i.*, p.nombre_producto 
-        FROM inventario i 
-        LEFT JOIN productos p ON i.id_producto = p.id_producto 
+$sql = "SELECT i.*, p.nombre_producto
+        FROM inventario i
+        LEFT JOIN productos p ON i.id_producto = p.id_producto
         ORDER BY i.id_movimiento DESC";
 $resultado = $conexion->query($sql);
 ?>
@@ -13,47 +14,22 @@ $resultado = $conexion->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#faf7f2">
     <title>Gestión de Inventario — Éclat Visage</title>
     <link rel="stylesheet" href="../estilos.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
-
-    <header class="header">
-        <div class="logo">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="../index.html">INICIO</a>
-            <a href="../tienda.html">VER TODO</a>
-            <a href="../mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="../test.html">TEST DE PIEL</a>
-            <a href="../blog.html">DIARIO</a>
-            <a href="../nosotros.html">NOSOTROS</a>
-            
-            <div class="dropdown">
-                <a href="#" class="dropbtn">CRUD ▾</a>
-                <div class="dropdown-content">
-                    <a href="clientes_crud.php">Tabla Clientes</a>
-                    <a href="proveedores_crud.php">Tabla Proveedores</a>
-                    <a href="productos_crud.php">Tabla Productos</a>
-                    <a href="categorias_crud.php">Tabla Categorías</a>
-                    <a href="inventario_crud.php">Tabla Inventario</a>
-                    <a href="facturas_crud.php">Tabla Facturas</a>
-                    <a href="empleados_crud.php">Tabla Empleados</a>
-                </div>
-            </div>
-        </nav>
-        <div class="header-iconos">
-            <span></span>
-            <span id="contador-carrito">🛒 (0)</span>
-        </div>
-    </header>
+    <!-- MÓDULO NAV CENTRALIZADO -->
+    <?php include_once __DIR__ . '/../modulos/nav.php'; ?>
 
     <main class="panel-cliente">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-            <h1 style="margin: 0;">Kárdex & Movimientos de Inventario</h1>
-            <a href="inventario_agregar.php" class="btn-agregar" style="margin: 0;">+ Registrar Movimiento</a>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+            <h1 style="margin:0;">Kárdex &amp; Movimientos de Inventario</h1>
+            <a href="inventario_agregar.php" class="btn-agregar" style="margin:0;">+ Registrar Movimiento</a>
         </div>
 
         <div class="tabla-contenedor">
@@ -75,10 +51,10 @@ $resultado = $conexion->query($sql);
                                 <td><?php echo $row['id_movimiento']; ?></td>
                                 <td>
                                     <strong><?php echo htmlspecialchars($row['nombre_producto'] ?? ('Producto #' . $row['id_producto'])); ?></strong>
-                                    <span style="font-size:11px; color:#8c7a6b;">(ID: <?php echo $row['id_producto']; ?>)</span>
+                                    <span style="font-size:11px;color:#8c7a6b;">(ID: <?php echo $row['id_producto']; ?>)</span>
                                 </td>
                                 <td>
-                                    <span style="display:inline-block; padding:3px 8px; border-radius:12px; font-size:12px; font-weight:600; <?php echo strtoupper($row['tipo_movimiento']) === 'ENTRADA' ? 'background:#e8f5e9; color:#2e7d32;' : 'background:#ffebee; color:#c62828;'; ?>">
+                                    <span style="display:inline-block;padding:3px 8px;border-radius:12px;font-size:12px;font-weight:600;<?php echo strtoupper($row['tipo_movimiento']) === 'ENTRADA' ? 'background:#e8f5e9;color:#2e7d32;' : 'background:#ffebee;color:#c62828;'; ?>">
                                         <?php echo htmlspecialchars($row['tipo_movimiento']); ?>
                                     </span>
                                 </td>
@@ -95,13 +71,10 @@ $resultado = $conexion->query($sql);
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="copyright">
-            © 2026 Eclat Visage — Todos los derechos reservados.
-        </div>
-    </footer>
+    <!-- FOOTER CENTRALIZADO -->
+    <?php include_once __DIR__ . '/../modulos/footer.php'; ?>
 
-    <!-- jQuery, DataTables & Carrito Scripts -->
+    <!-- JQUERY, DATATABLES Y CARRITO -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="../carrito.js"></script>

@@ -1,199 +1,311 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclat Visage - Diario</title>
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Descubre consejos de cuidado facial, bienestar y belleza natural en El Diario de Éclat.">
+    <title>El Diario de Éclat | Éclat Visage</title>
     <link rel="stylesheet" href="estilos.css">
-    <!-- Fuentes elegantes de la marca -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            background-color: #fbf9f6;
-            color: #4a4238;
-            font-family: Arial, Helvetica, sans-serif;
+        :root {
+            --diario-crema: #faf7f2;
+            --diario-blanco: #fffdf9;
+            --diario-cafe: #403329;
+            --diario-texto: #75665a;
+            --diario-dorado: #b49a72;
+            --diario-borde: #e8ded1;
+            --diario-sombra: 0 14px 40px rgba(64, 51, 41, .07);
+        }
+
+        /* CONFIGURACIÓN GENERAL */
+        .diario-pagina {
             margin: 0;
-            padding: 0;
+            padding: 1px 0 75px;
+            background: radial-gradient(ellipse at top right, rgba(220, 202, 177, .18), transparent 38%), var(--diario-crema);
+            color: var(--diario-cafe);
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
+        .diario-pagina *, .diario-pagina *::before, .diario-pagina *::after { box-sizing: border-box; }
 
-        /* ENCABEZADO DE LA PÁGINA */
+        /* ENCABEZADO */
         .diario-encabezado {
+            max-width: 780px;
+            margin: 75px auto 52px;
+            padding: 0 22px;
             text-align: center;
-            margin-top: 40px;
-            margin-bottom: 40px;
+            animation: diarioEntrada .7s ease both;
         }
-
-        .diario-encabezado h2 {
-            font-size: 32px;
-            color: #3d352a;
-            margin-bottom: 10px;
-        }
-
-        .diario-encabezado p {
-            font-size: 14px;
-            color: #6e6456;
-        }
-
-        /* CONTENEDOR DE LAS PUBLICACIONES */
-        .diario-contenedor {
-            width: 90%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        /* TARJETAS DEL BLOG (3 por fila de forma tradicional) */
-        .tarjeta-blog {
-            background-color: #ffffff;
-            border: 1px solid #f2ede7;
-            width: 30%;
-            margin: 1.5%;
+        .diario-etiqueta {
             display: inline-block;
-            vertical-align: top;
-            box-sizing: border-box;
-            padding: 20px;
-            text-align: left;
+            margin-bottom: 17px;
+            color: var(--diario-dorado);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
+        .diario-encabezado h1 {
+            margin: 0 0 18px;
+            color: var(--diario-cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(38px, 6vw, 62px);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+        .diario-encabezado h1 span { color: var(--diario-dorado); font-style: italic; }
+        .diario-encabezado p {
+            max-width: 540px;
+            margin: 0 auto;
+            color: var(--diario-texto);
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 2;
+        }
+        .diario-separador {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .diario-separador::before, .diario-separador::after {
+            content: "";
+            width: 38px;
+            height: 1px;
+            background: #d8c7ad;
+        }
+        .diario-separador span { width: 6px; height: 6px; background: var(--diario-dorado); border-radius: 50%; }
 
-        .img-recuadro-blog {
-            background-color: #fcfbfa;
-            width: 100%;
-            height: 200px;
-            margin-bottom: 15px;
+        /* CONTENEDOR Y TARJETAS */
+        .diario-contenedor {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: stretch;
+            gap: 27px;
+            width: min(90%, 1190px);
+            margin: 0 auto;
+        }
+        .tarjeta-blog {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
             overflow: hidden;
+            background: var(--diario-blanco);
+            border: 1px solid var(--diario-borde);
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(64, 51, 41, .025);
+            animation: diarioEntrada .7s ease both;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+        .tarjeta-blog:nth-child(2) { animation-delay: .1s; }
+        .tarjeta-blog:nth-child(3) { animation-delay: .2s; }
+        .tarjeta-blog:hover {
+            transform: translateY(-6px);
+            border-color: #d8c5a9;
+            box-shadow: var(--diario-sombra);
         }
 
+        /* IMÁGENES DE TAMAÑO UNIFORME */
+        .img-recuadro-blog {
+            position: relative;
+            width: 100%;
+            height: 255px;
+            flex: 0 0 255px;
+            overflow: hidden;
+            background: #f0e8dd;
+        }
+        .img-recuadro-blog::after {
+            content: "";
+            position: absolute;
+            inset: 45% 0 0;
+            background: linear-gradient(to bottom, transparent, rgba(45, 34, 25, .12));
+            pointer-events: none;
+        }
         .img-recuadro-blog img {
+            display: block;
             width: 100%;
             height: 100%;
-            display: block;
+            object-fit: cover;
+            object-position: center;
+            transition: transform .6s ease;
         }
+        .tarjeta-blog:hover .img-recuadro-blog img { transform: scale(1.055); }
 
-        .fecha-blog {
-            font-size: 11px;
-            color: #bc9c82;
-            font-weight: bold;
-            text-transform: uppercase;
+        /* CONTENIDO DE CADA ARTÍCULO */
+        .blog-contenido {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 24px 23px 23px;
+        }
+        .blog-categoria {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 5px 10px;
+            background: #f3ece1;
+            color: #8b7354;
+            border-radius: 30px;
+            font-size: 9px;
+            font-weight: 500;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
-
-        .tarjeta-blog h3 {
-            font-size: 18px;
-            color: #3d352a;
-            margin: 10px 0;
-            height: 50px;
-            overflow: hidden;
+        .fecha-blog {
+            display: block;
+            margin-bottom: 10px;
+            color: #a58b6e;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .8px;
+            text-transform: uppercase;
         }
-
+        .tarjeta-blog h2 {
+            margin: 0 0 14px;
+            color: var(--diario-cafe);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
         .resumen-blog {
-            font-size: 13px;
-            color: #7a7065;
-            line-height: 1.5;
-            height: 75px;
-            overflow: hidden;
-            margin-bottom: 5px;
+            margin: 0;
+            color: var(--diario-texto);
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 1.95;
+        }
+        .blog-pie {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 22px;
+        }
+        .blog-pie span:first-child {
+            color: var(--diario-cafe);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .blog-flecha {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            background: var(--diario-crema);
+            color: var(--diario-cafe);
+            border: 1px solid var(--diario-borde);
+            border-radius: 50%;
+            font-size: 17px;
+            transition: background .25s ease, color .25s ease;
+        }
+        .tarjeta-blog:hover .blog-flecha {
+            background: var(--diario-cafe);
+            color: white;
+        }
+
+        /* ANIMACIONES */
+        @keyframes diarioEntrada {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TABLET */
+        @media (max-width: 950px) {
+            .diario-contenedor { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+            .diario-encabezado { margin-top: 60px; }
+        }
+
+        /* CELULAR */
+        @media (max-width: 600px) {
+            .diario-encabezado { margin: 45px auto 32px; padding: 0 20px; }
+            .diario-encabezado h1 { font-size: 39px; }
+            .diario-encabezado p { font-size: 12px; }
+            .diario-etiqueta { font-size: 9px; letter-spacing: 2px; }
+            .diario-contenedor { grid-template-columns: minmax(0, 1fr); gap: 20px; width: 90%; }
+            .img-recuadro-blog { height: 235px; flex-basis: 235px; }
+            .blog-contenido { padding: 22px 20px; }
+            .tarjeta-blog h2 { font-size: 23px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .tarjeta-blog, .img-recuadro-blog img, .blog-flecha { transition: none; animation: none; }
         }
     </style>
 </head>
 <body>
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <div id="navbar-modulo"></div>
+    <script src="modulos/nav.js"></script>
 
-   <!-- MENÚ SUPERIOR -->
-    <header class="header">
-        <div class="logo">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="index.html">INICIO</a>
-            <a href="tienda.html">VER TODO</a>
-            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="test.html">TEST DE PIEL</a>
-            <a href="blog.html" style="font-weight: bold; border-bottom: 2px solid #bc9c82; padding-bottom: 4px;">DIARIO</a>
-            <a href="nosotros.html">NOSOTROS</a>
-        </nav>
-        <div class="header-iconos">
-            <span>👤</span>
-            <span id="contador-carrito">🛒 (0)</span>
-        </div>
-    </header>
+    <main class="diario-pagina">
+        <!-- ENCABEZADO DEL DIARIO -->
+        <header class="diario-encabezado">
+            <span class="diario-etiqueta">ÉCLAT VISAGE · JOURNAL</span>
+            <h1>El Diario <span>de Éclat</span></h1>
+            <p>Un espacio para descubrir rituales de belleza, bienestar y secretos para cuidar tu piel con intención.</p>
+            <div class="diario-separador" aria-hidden="true"><span></span></div>
+        </header>
 
-    <!-- TÍTULO PRINCIPAL DEL DIARIO -->
-    <div class="diario-encabezado">
-        <h2>El Diario de Éclat</h2>
-        <p>Espacio de bienestar, mitos de belleza y alta nutrición para tu piel.</p>
-    </div>
+        <!-- ARTÍCULOS -->
+        <section class="diario-contenedor" aria-label="Artículos de belleza y cuidado facial">
+            <article class="tarjeta-blog">
+                <div class="img-recuadro-blog">
+                    <img src=".img/diario1.jpg" alt="Rutina de cuidado facial con productos de skincare" loading="lazy">
+                </div>
+                <div class="blog-contenido">
+                    <span class="blog-categoria">Rutinas de belleza</span>
+                    <time class="fecha-blog" datetime="2026-06-02">Junio 2, 2026</time>
+                    <h2>¿Cómo aplicar tu menú de nutrición en el orden correcto?</h2>
+                    <p class="resumen-blog">Aplicar los productos en el orden adecuado ayuda a aprovechar mejor una rutina facial. Descubre por qué suele recomendarse comenzar con las texturas más ligeras y continuar con las más densas.</p>
+                    <div class="blog-pie"><span>El ritual diario</span>
+                </div>
+            </article>
 
-    <!-- SECCIÓN CON LAS TARJETAS DEL BLOG -->
-    <div class="diario-contenedor">
-        
-        <!-- Artículo 1 -->
-        <div class="tarjeta-blog">
-            <div class="img-recuadro-blog">
-                <img src=".img/diario1.jpg" alt="Rutina de skincare">
-            </div>
-            <span class="fecha-blog">Junio 2, 2026</span>
-            <h3>¿Cómo aplicar tu menú de nutrición en el orden correcto?</h3>
-            <p class="resumen-blog">Aplicar los productos al azar puede anular sus beneficios. Te enseñamos la regla de oro: ir desde el más ligero al más espeso para que la piel absorba todo.</p>
-        </div>
+            <article class="tarjeta-blog">
+                <div class="img-recuadro-blog">
+                    <img src=".img/diario2.jpg" alt="Vitamina C y elementos botánicos para el cuidado facial" loading="lazy">
+                </div>
+                <div class="blog-contenido">
+                    <span class="blog-categoria">Ingredientes</span>
+                    <time class="fecha-blog" datetime="2026-05-28">Mayo 28, 2026</time>
+                    <h2>El poder antioxidante de la vitamina C en mañanas opacas</h2>
+                    <p class="resumen-blog">Conoce cómo la vitamina C se utiliza en el cuidado facial por su acción antioxidante y cómo incorporarla a una rutina de mañana de manera consciente.</p>
+                    <div class="blog-pie"><span>El poder botánico</span>
+                </div>
+            </article>
 
-        <!-- Artículo 2 -->
-        <div class="tarjeta-blog">
-            <div class="img-recuadro-blog">
-                <img src=".img/diario2.jpg" alt="Vitamina C y plantas">
-            </div>
-            <span class="fecha-blog">Mayo 28, 2026</span>
-            <h3>El poder antioxidante de la Vitamina C en mañanas opacas</h3>
-            <p class="resumen-blog">¿Tu rostro se despierta cansado? Descubre cómo este ingrediente botánico actúa como un escudo protector y despierta tu brillo natural desde la primera aplicación.</p>
-        </div>
+            <article class="tarjeta-blog">
+                <div class="img-recuadro-blog">
+                    <img src=".img/diario3.jpg" alt="Piel hidratada y cuidado facial diario" loading="lazy">
+                </div>
+                <div class="blog-contenido">
+                    <span class="blog-categoria">Mitos de skincare</span>
+                    <time class="fecha-blog" datetime="2026-05-15">Mayo 15, 2026</time>
+                    <h2>Mito o realidad: ¿la piel grasa necesita crema hidratante?</h2>
+                    <p class="resumen-blog">La piel grasa también necesita hidratación. Aprende a distinguir el exceso de sebo de la hidratación y descubre por qué elegir una textura adecuada puede marcar la diferencia.</p>
+                    <div class="blog-pie"><span>Conoce tu piel</span>
+                </div>
+            </article>
+        </section>
+    </main>
 
-        <!-- Artículo 3 -->
-        <div class="tarjeta-blog">
-            <div class="img-recuadro-blog">
-                <img src=".img/diario3.jpg" alt="Piel hidratada">
-            </div>
-            <span class="fecha-blog">Mayo 15, 2026</span>
-            <h3>Mito o realidad: ¿La piel grasa necesita crema hidratante?</h3>
-            <p class="resumen-blog">Existe el gran error de pensar que si brilla no necesita agua. Te explicamos la diferencia entre el exceso de aceite y la falta de hidratación en las células cutáneas.</p>
-        </div>
+    <!-- FOOTER CENTRALIZADO -->
+    <div id="footer-modulo"></div>
+    <script src="modulos/footer.js"></script>
 
-    </div>
-
-    <!-- PIE DE PÁGINA (FOOTER) -->
-    <footer class="footer">
-      <div class="footer-contenedor">
-        <div class="footer-columna">
-          <h3 class="footer-logo">
-            eclat visage <span>✦</span>
-          </h3>
-          <p>
-            Skincare diseñado para resaltar la belleza natural
-            y mantener tu piel saludable y radiante.
-          </p>
-        </div>
-        <div class="footer-columna">
-          <h4>Síguenos en Instagram</h4>
-          <p>
-            <a href="#" target="_blank">
-              Instagram: @eclatvisage
-            </a>
-          </p>
-        </div>
-        <div class="footer-columna">
-          <h4>Contacto</h4>
-          <p>Correo: eclatvisage@gmail.com</p>
-          <p>Teléfono: 300 000 0000</p>
-        </div>
-        <div class="footer-columna">
-          <h4>Ubicación</h4>
-          <p>Calarcá, Quindío, Colombia</p>
-        </div>
-        <div class="footer-columna">
-          <h4>Métodos de pago</h4>
-          <p>Nequi</p>
-          <p>Bancolombia</p>
-          <p>Tarjetas débito y crédito</p>
-        </div>
-      </div>
-      <div class="copyright">
-        © 2026 Eclat Visage — Todos los derechos reservados.
-      </div>
-    </footer>
     <script src="carrito.js"></script>
 </body>
 </html>

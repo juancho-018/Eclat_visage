@@ -97,62 +97,11 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
     <link rel="stylesheet" href="../estilos.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #fdfbf7; border-bottom: 1px solid #e6dfd5; }
-        .nav { display: flex; align-items: center; gap: 15px; }
-        .nav a { text-decoration: none; color: #4a3b32; font-size: 13px; font-weight: 500; text-transform: uppercase; }
-        .nav a:hover { color: #b38b59; }
-        .dropdown { position: relative; display: none; user-select: none; }
-        body.es-admin .dropdown, .dropdown.admin-visible { display: inline-block !important; }
-        .dropdown-content { display: none; position: absolute; background-color: #fdfbf7; min-width: 170px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); z-index: 1000; border: 1px solid #e6dfd5; border-radius: 6px; }
-        .dropdown-content a { color: #4a3b32; padding: 10px 15px; text-decoration: none; display: block; font-size: 13px; }
-        .dropdown-content a:hover { background-color: #f4efe6; }
-        .dropdown.abierto .dropdown-content { display: block !important; }
-        .dropdown:not(.cerrado-forzado):hover .dropdown-content { display: block; }
-        .dropdown.cerrado-forzado .dropdown-content { display: none !important; }
-        .form-container { max-width: 420px; margin: 40px auto; background: #fdfbf7; padding: 35px 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e6dfd5; }
-        .form-container h2 { font-family: 'Playfair Display', serif; color: #4a3b32; text-align: center; margin-bottom: 20px; font-size: 24px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #5a4a42; font-weight: 500; font-size: 13px; }
-        .form-group input { width: 100%; padding: 11px; border: 1px solid #d8c5b2; border-radius: 6px; background: #fff; box-sizing: border-box; font-family: 'Poppins', sans-serif; font-size: 13px; }
-        .btn-enviar { background-color: #4a3b32; color: #fff; padding: 12px; border: none; border-radius: 20px; cursor: pointer; font-weight: 500; width: 100%; margin-top: 10px; font-size: 14px; transition: background 0.3s; }
-        .btn-enviar:hover { background-color: #5d4a3f; }
-        .alerta-error { background-color: #f8d7da; color: #842029; padding: 12px; border-radius: 6px; text-align: center; margin-bottom: 15px; font-size: 13px; border: 1px solid #f5c2c7; }
-        .alerta-info-carrito { background-color: #f3ede4; color: #4a3b32; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-size: 13px; border: 1px solid #d8c5b2; line-height: 1.5; }
-        .seccion-registro-prompt { margin-top: 25px; padding-top: 20px; border-top: 1px solid #eae2d5; text-align: center; font-size: 13px; color: #6e6456; }
-        .btn-ir-registro { display: inline-block; margin-top: 8px; color: #bc9c82; font-weight: 600; text-decoration: none; font-size: 14px; }
-        .btn-ir-registro:hover { text-decoration: underline; }
-    </style>
 </head>
 <body>
 
-    <header class="header">
-        <div class="logo" style="font-family: 'Playfair Display', serif; font-size: 20px; color: #4a3b32;">eclat visage<span>✦</span></div>
-        <nav class="nav">
-            <a href="../index.html">INICIO</a>
-            <a href="../tienda.html">VER TODO</a>
-            <a href="../nosotros.html">NOSOTROS</a>
-            <a href="contacto.php">CONTACTO</a>
-            <a href="registro_login.php" style="font-weight: 600; color: #b38b59;">LOGIN</a>
-            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">DOCUMENTOS</a>
-
-            <?php if (isset($_SESSION['rol']) && strtolower(trim($_SESSION['rol'])) === 'admin'): ?>
-            <div class="dropdown admin-visible">
-                <a href="#" class="dropbtn">CRUD ▾</a>
-                <div class="dropdown-content">
-                    <a href="clientes_crud.php">Tabla Clientes</a>
-                    <a href="proveedores_crud.php">Tabla Proveedores</a>
-                    <a href="productos_crud.php">Tabla Productos</a>
-                    <a href="categorias_crud.php">Tabla Categorías</a>
-                    <a href="inventario_crud.php">Tabla Inventario</a>
-                    <a href="facturas_crud.php">Tabla Facturas</a>
-                    <a href="empleados_crud.php">Tabla Empleados</a>
-                </div>
-            </div>
-            <?php endif; ?>
-        </nav>
-        <div class="header-iconos"><span>🛒 (0)</span></div>
-    </header>
+    <!-- MÓDULO NAV CENTRALIZADO -->
+    <?php include_once __DIR__ . '/../modulos/nav.php'; ?>
 
     <main>
         <div class="form-container">
@@ -160,7 +109,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
 
             <?php if ($mensaje_carrito): ?>
                 <div class="alerta-info-carrito">
-                    🛒 <strong>Acceso al Carrito:</strong><br>
+                    <strong>Acceso al Carrito:</strong><br>
                     Para abrir tu bolsa de compras y guardar tus productos, por favor inicia sesión.
                 </div>
             <?php endif; ?>
@@ -199,7 +148,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
             <div class="seccion-registro-prompt">
                 <p>¿No tienes un usuario aún?</p>
                 <a href="../registro.html<?php echo ($redirect === 'carrito') ? '?redirect=carrito' : ''; ?>" class="btn-ir-registro">
-                    ✦ Puedes registrarte gratis aquí ✦
+                    Puedes registrarte gratis aquí
                 </a>
             </div>
 
@@ -209,11 +158,8 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="copyright" style="text-align: center; padding: 20px; font-size: 12px; color: #8c7a6b;">
-            ©️ 2026 Eclat Visage — Todos los derechos reservados.
-        </div>
-    </footer>
+    <!-- FOOTER CENTRALIZADO -->
+    <?php include_once __DIR__ . '/../modulos/footer.php'; ?>
 
     <script src="../carrito.js"></script>
 </body>

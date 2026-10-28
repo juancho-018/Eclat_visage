@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Eclat Visage - Tienda</title>
     <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Estilos básicos con fuentes del sistema */
@@ -15,36 +16,6 @@
             padding: 0;
         }
 
-        /* BARRA DE NAVEGACIÓN BÁSICA CON FLOAT */
-        .header {
-            background-color: #ffffff;
-            padding: 20px;
-            border-bottom: 1px solid #eae2d5;
-            height: 30px; /* Para contener los elementos con float */
-        }
-
-        .logo {
-            float: left;
-            font-size: 20px;
-            font-weight: bold;
-            color: #3d352a;
-        }
-
-        .nav {
-            float: right;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #6e6456;
-            font-size: 13px;
-            margin-left: 20px;
-        }
-
-        .nav a.activo {
-            font-weight: bold;
-            color: #bc9c82;
-        }
 
         /* ENCABEZADO CENTRADO TRADICIONAL */
         .tienda-encabezado {
@@ -145,32 +116,10 @@
 </head>
 <body>
 
-    <!-- BARRA DE NAVEGACIÓN -->
-    <div class="header">
-        <div class="logo">ECLAT VISAGE</div>
-        <div class="nav">
-            <a href="index.html">INICIO</a>
-            <a href="tienda.html" class="activo">VER TODO</a>
-            <a href="mas-vendidos.html">MÁS VENDIDOS</a>
-            <a href="test.html">TEST DE PIEL</a>
-            <a href="blog.html">DIARIO</a>
-            <a href="nosotros.html">NOSOTROS</a>
-            <div class="dropdown">
-                <a href="#" class="dropbtn">CRUD ▾</a>
-                <div class="dropdown-content">
-                    <a href="CRUD/clientes_crud.php">Tabla Clientes</a>
-                    <a href="CRUD/proveedores_crud.php">Tabla Proveedores</a>
-                    <a href="CRUD/productos_crud.php">Tabla Productos</a>
-                    <a href="CRUD/categorias_crud.php">Tabla Categorías</a>
-                    <a href="CRUD/inventario_crud.php">Tabla Inventario</a>
-                    <a href="CRUD/facturas_crud.php">Tabla Facturas</a>
-                    <a href="CRUD/empleados_crud.php">Tabla Empleados</a>
-                </div>
-            </div>
-            <!-- Carrito con su ID para actualizar la cuenta -->
-            <a href="#" id="contador-carrito" style="font-weight: bold; color: #3d352a;">🛒 (0)</a>
-        </div>
-    </div>
+    <!-- MÓDULO NAV CENTRALIZADO -->
+    <div id="navbar-modulo"></div>
+    <script src="modulos/nav.js"></script>
+
 
     <div class="tienda-encabezado">
         <h2>Menú de Nutrición Facial</h2>
@@ -346,59 +295,16 @@
 
     <!-- BANNER DE INFORMACIÓN -->
     <div class="banner-valores">
-        <div class="columna-valor">🌿 Ingredientes Puros</div>
-        <div class="columna-valor" style="border-left: 1px solid #bc9c82; border-right: 1px solid #bc9c82;">🐇 Cruelty Free</div>
-        <div class="columna-valor">📦 Envíos Nacionales</div>
+        <div class="columna-valor">Ingredientes Puros</div>
+        <div class="columna-valor" style="border-left: 1px solid #bc9c82; border-right: 1px solid #bc9c82;">Cruelty Free</div>
+        <div class="columna-valor">Envíos Nacionales</div>
     </div>
 
     <!-- SCRIPT DE CARRITO ACTIVO ÉCLAT VISAGE -->
     <script src="carrito.js"></script>
 
-    <!-- PIE DE PÁGINA (FOOTER) -->
-<footer class="footer">
-  <div class="footer-contenedor">
-    <!-- NOMBRE / LOGO DE LA MARCA -->
-    <div class="footer-columna">
-      <h3 class="footer-logo">
-        eclat visage <span>✦</span>
-      </h3>
-      <p>
-        Skincare diseñado para resaltar la belleza natural
-        y mantener tu piel saludable y radiante.
-      </p>
-    </div>
-    <!-- INSTAGRAM -->
-    <div class="footer-columna">
-      <h4>Síguenos en Instagram</h4>
-      <p>
-        <a href="#" target="_blank">
-          Instagram: @eclatvisage
-        </a>
-      </p>
-    </div>
-    <!-- CONTACTO -->
-    <div class="footer-columna">
-      <h4>Contacto</h4>
-      <p>Correo: eclatvisage@gmail.com</p>
-      <p>Teléfono: 300 000 0000</p>
-    </div>
-    <!-- UBICACIÓN -->
-    <div class="footer-columna">
-      <h4>Ubicación</h4>
-      <p>Calarcá, Quindío, Colombia</p>
-    </div>
-    <!-- MÉTODOS DE PAGO -->
-    <div class="footer-columna">
-      <h4>Métodos de pago</h4>
-      <p>Nequi</p>
-      <p>Bancolombia</p>
-      <p>Tarjetas débito y crédito</p>
-    </div>
-  </div>
-  <!-- DERECHOS RESERVADOS -->
-  <div class="copyright">
-    © 2026 Eclat Visage — Todos los derechos reservados.
-  </div>
-</footer>
+    <!-- FOOTER CENTRALIZADO -->
+    <div id="footer-modulo"></div>
+    <script src="modulos/footer.js"></script>
 </body>
 </html>
